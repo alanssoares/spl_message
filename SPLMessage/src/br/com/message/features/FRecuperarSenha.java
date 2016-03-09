@@ -1,3 +1,4 @@
+//#if ${RecuperarSenha} == "T"
 /**
  * 
  */
@@ -79,3 +80,4 @@ public class FRecuperarSenha extends JFrame {
 		setVisible(true);
 	}
 }
+//#endif

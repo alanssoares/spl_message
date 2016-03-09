@@ -21,24 +21,35 @@ import javax.swing.border.LineBorder;
 import br.com.message.features.FCadastroUsuario;
 import br.com.message.features.FRecuperarSenha;
 import br.com.message.features.Login;
+import br.com.message.util.Constantes;
 
 /**
  * @author alsoares
  *
  */
-@SuppressWarnings("serial")
 public class LoginScreen extends JFrame {
 
+	/**
+	 * Version id 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	private JTextField tfEmail;
 	private JPasswordField pfPassword;
 	private JLabel lbEmail;
 	private JLabel lbPassword;
 	private JButton btnLogin;
-	private JButton btnNovo;
-	private JButton btnRecuperarSenha;
 	
-	public LoginScreen(String title) {
-		super(title);
+	//#if ${CadastrarUsuario} == "T"
+	private JButton btnNovo;
+	//#endif
+	
+	//#if ${RecuperarSenha} == "T"
+	private JButton btnRecuperarSenha;
+	//#endif
+	
+	public LoginScreen() {
+		super(Constantes.APPLICATION_NAME);
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -83,6 +94,7 @@ public class LoginScreen extends JFrame {
 	        }
 	    });
 	    
+	    //#if ${CadastrarUsuario} == "T"
 		btnNovo = new JButton("Novo Cadastro");
 		btnNovo.addActionListener(new ActionListener() {
 			@Override
@@ -90,7 +102,9 @@ public class LoginScreen extends JFrame {
 				new FCadastroUsuario();
 			}
 		});
+		//#endif
 		
+		//#if ${RecuperarSenha} == "T"
 		btnRecuperarSenha = new JButton("Recuperar Senha");
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			@Override
@@ -98,12 +112,17 @@ public class LoginScreen extends JFrame {
 				new FRecuperarSenha();
 			}
 		});
+		//#endif
 		
 	    JPanel bp = new JPanel();
 	    
 	    bp.add(btnLogin);
+	    //#if ${CadastrarUsuario} == "T"
 	    bp.add(btnNovo);
+	    //#endif
+	    //#if ${RecuperarSenha} == "T"
 	    bp.add(btnRecuperarSenha);
+	    //#endif
 	    
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(bp, BorderLayout.PAGE_END);
