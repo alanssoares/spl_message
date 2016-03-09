@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><project default="run">
+    <taskdef classpath="lib/javapp.jar" resource="javapp-defs.xml"/>                           
+        
+    <target name="clean"> 
+        <echo/>       
+        <echo message="Step 1 - folder '_e-Event_Advanced' is being cleaned!"/>
+        <delete dir="_e-Event_Advanced"/>                
+    </target>
+    
+    <target depends="clean" name="preprocess">   
+        <echo/>
+        <echo message="Step 2 - Source code is being created in the '_e-Event_Advanced' folder!"/>        
+        <javapp destdir="_e-Event_Advanced/src/spl" prefix="//#">
+            <fileset dir="src/rise" includes="**/*.java"/>
+        <!-- ADVANCED E-EVENT PRODUCT LINE  -->
+            <property name="Event" value="F"/> 
+            <property name="Bugs" value="T"/>
+            <property name="User" value="T"/>
+        </javapp>   
+        
+        <!-- É obrigatório para executar --> 
+        <copy todir="_e-Event_Advanced/src/images">	
+            <fileset dir="src/images" includes="**/*.png, **/*.gif, **/*.jpg"/>
+        </copy> 
+    	
+    	 <!-- É obrigatório para executar PAULO--> 
+    	<copy todir="_e-Event_Advanced">	
+    	   <fileset dir="" includes="**/*.properties"/>
+    	</copy>
+        
+        <!-- É obrigatório para executar --> 
+        <mkdir dir="_e-Event_Advanced/build/jar/src/images"/>           
+        <copy todir="_e-Event_Advanced/build/jar/src/images">
+            <fileset dir="src/images" includes="**/*.png, **/*.gif, **/*.jpg"/>
+        </copy>
+        
+        <!-- É obrigatório para executar --> 
+        <mkdir dir="_e-Event_Advanced/build/jar/lib"/>           
+        <copy todir="_e-Event_Advanced/build/jar/lib">
+            <fileset dir="lib" includes="**/*.jar"/>
+        </copy>
+    	
+    	<!-- É obrigatório para executar --> 
+    	<mkdir dir="_e-Event_Advanced/build/jar/properties"/>           
+    	<copy todir="_e-Event_Advanced/build/jar/properties">
+    	   <fileset dir="properties" includes="**/*.properties"/>
+    	</copy>
+    
+    </target>
+
+    <target depends="preprocess" name="compile">        
+        <echo/>
+        <echo message="Step 3 - Product is being compiled!"/>              
+        <mkdir dir="_e-Event_Advanced/build/classes"/>
+        <javac destdir="_e-Event_Advanced/build/classes" encoding="UTF-8" fork="yes" includeantruntime="true" srcdir="_e-Event_Advanced/src"> <!-- ATENÇÃO: compila arquivos da pasta _e-Event_Advanced. Para não ter problema com acento, definir UTF-8 aqui -->
+            <classpath>  
+                <fileset dir="lib" includes="**/*.jar"/> 
+            	<fileset dir="properties" includes="**/*.properties"/>
+            </classpath>  
+        </javac>  
+    </target>
+
+    <target depends="compile" name="jar">   
+        <echo/>         
+        <echo message="Step 4 - Jar is being created!"/>        
+        <jar basedir="_e-Event_Advanced/build/classes" destfile="_e-Event_Advanced/build/jar/e-Event_Advanced.jar">
+            <fileset dir="_e-Event_Advanced/src" includes="**/*.class, **/*.png, **/*.gif, **/*.jpg, **/*.properties"/>            
+        	<manifest>
+                <attribute name="Main-Class" value="br.com.webstore.views.WebStoreEventMainScreenP"/>
+                <attribute name="Class-Path" value="lib/swingx-all-1.6.4.jar lib/mysql-connector-java-5.1.38-bin.jar"/>                
+            </manifest>
+        </jar>           
+    </target>
+    
+    <target depends="jar" name="run">     
+        <echo/>                      
+        <echo message="Step 5 - Advanced Product Line is running!"/>        
+        <java fork="true" jar="_e-Event_Advanced/build/jar/e-Event_Advanced.jar"/>        
+    </target>  
+    
+</project>
