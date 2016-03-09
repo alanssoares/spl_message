@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="SPLMessageFM">
+				<and mandatory="true" name="Usuario">
+					<feature mandatory="true" name="CadastrarUsuario"/>
+					<feature mandatory="true" name="RecuperarSenha"/>
+					<feature mandatory="true" name="Logar"/>
+					<feature name="AlterarStatus"/>
+					<feature name="VisualizarStatus"/>
+				</and>
+				<and name="Ajuda">
+					<feature name="EnviarComentario"/>
+					<feature name="PoliticaPrivacidade"/>
+					<feature name="Sobre"/>
+				</and>
+				<and mandatory="true" name="Contatos">
+					<feature mandatory="true" name="AdicionarContato"/>
+					<feature mandatory="true" name="RemoverContato"/>
+					<feature name="BuscarContato"/>
+					<feature mandatory="true" name="VisualizarListaContatos"/>
+					<feature name="VisualizarStatusContato"/>
+					<feature name="VisualizarCartaoVisitaContato"/>
+				</and>
+				<and name="Grupo">
+					<feature mandatory="true" name="AdicionarGrupo"/>
+					<feature mandatory="true" name="RemoverGrupo"/>
+					<feature mandatory="true" name="AdicionarContatoGrupo"/>
+					<feature mandatory="true" name="RemoverContatoGrupo"/>
+					<feature name="AlterarGrupoContato"/>
+				</and>
+				<and mandatory="true" name="Mensagem">
+					<feature mandatory="true" name="EnviarMensagem"/>
+					<feature name="LimparHistorico"/>
+				</and>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>

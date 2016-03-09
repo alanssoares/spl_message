@@ -1,0 +1,29 @@
+# Lists all features from the model with manual (first digit) and automatic (second digit) selection
+# 0 = deselected, 1 = selected, 2 = undefined
+21SPLMessageFM
+21Usuario
+21CadastrarUsuario
+21RecuperarSenha
+21Logar
+22AlterarStatus
+22VisualizarStatus
+22Ajuda
+22EnviarComentario
+22PoliticaPrivacidade
+22Sobre
+21Contatos
+21AdicionarContato
+21RemoverContato
+22BuscarContato
+21VisualizarListaContatos
+22VisualizarStatusContato
+22VisualizarCartaoVisitaContato
+22Grupo
+22AdicionarGrupo
+22RemoverGrupo
+22AdicionarContatoGrupo
+22RemoverContatoGrupo
+22AlterarGrupoContato
+21Mensagem
+21EnviarMensagem
+22LimparHistorico

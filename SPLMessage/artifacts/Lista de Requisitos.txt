@@ -15,6 +15,7 @@
 - Enviar mensagem
 - Limpar histórico
 - Adicionar grupo
+- Remover grupo
 - Adicionar contato ao grupo
 - Remover contato do grupo
 - Altera grupo do contato
