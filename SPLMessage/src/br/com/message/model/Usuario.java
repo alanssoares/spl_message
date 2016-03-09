@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="usuario")
 @Table(name="usuario")
 public class Usuario {
 
