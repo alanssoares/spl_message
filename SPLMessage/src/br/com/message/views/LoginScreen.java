@@ -76,8 +76,7 @@ public class LoginScreen extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		boolean isLogged = Login.authenticate(getEmail(), getPassword());
 	    		if(isLogged){
-	    			MainMenuScreen menu = new MainMenuScreen();
-	    			menu.setVisible(true);
+	    			System.out.println("Usuário logado!");
 	    		} else {
 	    			System.out.println("Login ou senha inválido!");
 	    		}
