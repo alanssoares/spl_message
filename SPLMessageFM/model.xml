@@ -17,8 +17,16 @@
 				<and mandatory="true" name="Contatos">
 					<feature mandatory="true" name="AdicionarContato"/>
 					<feature mandatory="true" name="RemoverContato"/>
-					<feature name="BuscarContato"/>
-					<feature mandatory="true" name="VisualizarListaContatos"/>
+					<or name="BuscarContato">
+						<feature mandatory="true" name="PorNome"/>
+						<feature mandatory="true" name="PorEmail"/>
+					</or>
+					<and mandatory="true" name="VisualizarListaContatos">
+						<alt name="Ordenar">
+							<feature mandatory="true" name="PorGrupo"/>
+							<feature mandatory="true" name="PorStatus"/>
+						</alt>
+					</and>
 					<feature name="VisualizarStatusContato"/>
 					<feature name="VisualizarCartaoVisitaContato"/>
 				</and>
@@ -30,7 +38,13 @@
 					<feature name="AlterarGrupoContato"/>
 				</and>
 				<and mandatory="true" name="Mensagem">
-					<feature mandatory="true" name="EnviarMensagem"/>
+					<and mandatory="true" name="EnviarMensagem">
+						<feature name="InserirEmoction"/>
+						<alt name="AnexarArquivo">
+							<feature mandatory="true" name="Imagem"/>
+							<feature mandatory="true" name="Documento"/>
+						</alt>
+					</and>
 					<feature name="LimparHistorico"/>
 				</and>
 			</and>
