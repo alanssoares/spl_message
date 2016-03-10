@@ -13,4 +13,7 @@ public interface UsuarioDao {
 
 	Usuario authenticate(String email, String password);
 
+	Usuario inserir(Usuario usuario);
+	
+	Usuario recuperarSenha(Usuario usuario);
 }

@@ -19,6 +19,9 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.com.message.facade.UsuarioFacade;
+import br.com.message.facade.UsuarioFacadeImpl;
+import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 
 /**
@@ -36,6 +39,7 @@ public class FCadastroUsuario extends JFrame {
 	private JPasswordField pfPassword;
 	private JButton btnCadastrar;
 	private JButton btnCancelar;
+	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
 	
 	public FCadastroUsuario() {
 		super(Constantes.FEATURE_CADASTRO_USUARIO);
@@ -86,7 +90,11 @@ public class FCadastroUsuario extends JFrame {
 	    btnCadastrar = new JButton("Cadastrar");
 	    btnCadastrar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		//Efetuar cadastro
+	    		try {
+					usuarioFacade.inserir(getUsuario());
+				} catch (Exception exception) {
+					System.out.println(exception.getMessage());
+				}
 	        }
 	    });
 	    
@@ -106,6 +114,14 @@ public class FCadastroUsuario extends JFrame {
 	    
 		setSize(600, 400);
 		setVisible(true);
+	}
+	
+	public Usuario getUsuario(){
+		Usuario usuario = new Usuario();
+		usuario.setNome(getNome());
+		usuario.setEmail(getEmail());
+		usuario.setSenha(getPassword());
+		return usuario;
 	}
 	
 	public String getEmail(){

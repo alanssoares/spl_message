@@ -14,11 +14,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.com.message.facade.UsuarioFacade;
+import br.com.message.facade.UsuarioFacadeImpl;
+import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
+import br.com.message.util.Email;
+import br.com.message.util.SendEmail;
 
 /**
  * @author alsoares
@@ -31,6 +37,7 @@ public class FRecuperarSenha extends JFrame {
 	private JLabel lbEmail;
 	private JButton btnEnviar;
 	private JButton btnCancelar;
+	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
 	
 	public FRecuperarSenha() {
 		super(Constantes.FEATURE_RECUPERACAO_SENHA);
@@ -57,7 +64,21 @@ public class FRecuperarSenha extends JFrame {
 	    btnEnviar = new JButton("Enviar");
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		Usuario usuario = new Usuario();
+	    		usuario.setEmail(getEmail());
+	    		usuario = usuarioFacade.recuperarSenha(usuario);
+	    		if(usuario == null){
+	    			JOptionPane.showMessageDialog(null, "Email não cadastrado!");
+	    		} else {
+	    			SendEmail sendEmail = new SendEmail();
+	    			Email email = new Email();
+	    			email.setFrom("alansansoa@gmail.com");
+	    			email.setTo(usuario.getEmail());
+	    			email.setSubject("Recuperação de Senha");
+	    			email.setText("Sua senha é : " + usuario.getSenha());
+	    			sendEmail.send(email);
+	    			JOptionPane.showMessageDialog(null, "Senha enviada");
+	    		}
 	        }
 	    });
 	    
@@ -78,6 +99,10 @@ public class FRecuperarSenha extends JFrame {
 	    
 		setSize(600, 400);
 		setVisible(true);
+	}
+	
+	public String getEmail(){
+		return tfEmail.getText();
 	}
 }
 //#endif

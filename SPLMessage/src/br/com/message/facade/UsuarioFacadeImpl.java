@@ -3,8 +3,11 @@
  */
 package br.com.message.facade;
 
+import java.util.Date;
+
 import br.com.message.dao.UsuarioDao;
 import br.com.message.dao.UsuarioDaoImpl;
+import br.com.message.enums.EnumStatusUsuario;
 import br.com.message.model.Usuario;
 
 /**
@@ -18,5 +21,17 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 	@Override
 	public Usuario authenticate(String email, String password) {
 		return usuarioDao.authenticate(email, password);
+	}
+
+	@Override
+	public Usuario inserir(Usuario usuario) {
+		usuario.setIdStatus(EnumStatusUsuario.APARECER_AUSENTE.getId());
+		usuario.setDataInclusao(new Date());
+		return usuarioDao.inserir(usuario);
+	}
+
+	@Override
+	public Usuario recuperarSenha(Usuario usuario) {
+		return usuarioDao.recuperarSenha(usuario);
 	}
 }
