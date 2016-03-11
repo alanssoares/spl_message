@@ -92,7 +92,7 @@ public class FLoginScreen extends JFrame {
 		    		try {
 						boolean isLogged = authenticate(getEmail(), getPassword());
 						if(isLogged){
-							//Redirect to new view
+							new FMenuPrincipal();
 						} else {
 							JOptionPane.showMessageDialog(FLoginScreen.this, "Login ou senha inválido!");
 						}
@@ -138,7 +138,7 @@ public class FLoginScreen extends JFrame {
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(bp, BorderLayout.PAGE_END);
 	    
-		setSize(600, 400);
+		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
 		setVisible(true);
 	}
 	
