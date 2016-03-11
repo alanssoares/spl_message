@@ -64,11 +64,13 @@ public class FRecuperarSenha extends JFrame {
 	    btnEnviar = new JButton("Enviar");
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		
 	    		Usuario usuario = new Usuario();
 	    		usuario.setEmail(getEmail());
 	    		usuario = usuarioFacade.recuperarSenha(usuario);
+	    		
 	    		if(usuario == null){
-	    			JOptionPane.showMessageDialog(null, "Email não cadastrado!");
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Email não cadastrado!");
 	    		} else {
 	    			SendEmail sendEmail = new SendEmail();
 	    			Email email = new Email();
@@ -77,8 +79,10 @@ public class FRecuperarSenha extends JFrame {
 	    			email.setSubject("Recuperação de Senha");
 	    			email.setText("Sua senha é : " + usuario.getSenha());
 	    			sendEmail.send(email);
-	    			JOptionPane.showMessageDialog(null, "Senha enviada");
+	    			JOptionPane.showMessageDialog(null, "Senha enviada com sucesso");
 	    		}
+	    		
+	    		dispose();
 	        }
 	    });
 	    

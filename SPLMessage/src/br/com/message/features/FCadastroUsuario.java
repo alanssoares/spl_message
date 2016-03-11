@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -90,11 +91,18 @@ public class FCadastroUsuario extends JFrame {
 	    btnCadastrar = new JButton("Cadastrar");
 	    btnCadastrar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		try {
-					usuarioFacade.inserir(getUsuario());
-				} catch (Exception exception) {
-					System.out.println(exception.getMessage());
-				}
+	    		if(isFieldsValid()){
+		    		try {
+						usuarioFacade.inserir(getUsuario());
+						JOptionPane.showMessageDialog(FCadastroUsuario.this, "Cadastro realizado com sucesso");
+					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(FCadastroUsuario.this, "Ocorreu um erro ao realizar o cadastro");
+					} finally {
+						dispose();
+					}
+	    		} else {
+	    			JOptionPane.showMessageDialog(FCadastroUsuario.this, "Preencha os campos corretamente");
+	    		}
 	        }
 	    });
 	    
@@ -134,6 +142,14 @@ public class FCadastroUsuario extends JFrame {
 	
 	public String getNome(){
 		return tfNome.getText();
+	}
+	
+	public boolean isFieldsValid() {
+		String password = new String(pfPassword.getPassword());
+		if(tfEmail.getText().trim().isEmpty() || password.isEmpty() || tfNome.getText().trim().isEmpty()){
+			return false;
+		}
+		return true;
 	}
 }
 //#endif

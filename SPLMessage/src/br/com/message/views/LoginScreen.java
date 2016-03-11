@@ -13,6 +13,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
@@ -85,13 +86,21 @@ public class LoginScreen extends JFrame {
 	    btnLogin = new JButton("Entrar");
 	    btnLogin.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		boolean isLogged = Login.authenticate(getEmail(), getPassword());
-	    		if(isLogged){
-	    			System.out.println("Usuário logado!");
+	    		if(isFieldsValid()){
+		    		try {
+						boolean isLogged = Login.authenticate(getEmail(), getPassword());
+						if(isLogged){
+							//Redirect to new view
+						} else {
+							JOptionPane.showMessageDialog(LoginScreen.this, "Login ou senha inválido!");
+						}
+					} catch (Exception exception) {
+						JOptionPane.showMessageDialog(LoginScreen.this, "Ocorreu um erro ao realizar o login");
+					}
 	    		} else {
-	    			System.out.println("Login ou senha inválido!");
+	    			JOptionPane.showMessageDialog(LoginScreen.this, "Preencha os campos corretamente");
 	    		}
-	        }
+	    	}
 	    });
 	    
 	    //#if ${CadastrarUsuario} == "T"
@@ -137,5 +146,13 @@ public class LoginScreen extends JFrame {
 	
 	public String getPassword(){
 		return new String(pfPassword.getPassword());
+	}
+	
+	public boolean isFieldsValid() {
+		String password = new String(pfPassword.getPassword());
+		if(tfEmail.getText().trim().isEmpty() || password.isEmpty()){
+			return false;
+		}
+		return true;
 	}
 }
