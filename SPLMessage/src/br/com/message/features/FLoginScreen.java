@@ -1,7 +1,7 @@
 /**
  * 
  */
-package br.com.message.views;
+package br.com.message.features;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -19,21 +19,23 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
-import br.com.message.features.FCadastroUsuario;
-import br.com.message.features.FRecuperarSenha;
-import br.com.message.features.Login;
+import br.com.message.facade.UsuarioFacade;
+import br.com.message.facade.UsuarioFacadeImpl;
+import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 
 /**
  * @author alsoares
  *
  */
-public class LoginScreen extends JFrame {
+public class FLoginScreen extends JFrame {
 
 	/**
 	 * Version id 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
 	
 	private JTextField tfEmail;
 	private JPasswordField pfPassword;
@@ -49,7 +51,7 @@ public class LoginScreen extends JFrame {
 	private JButton btnRecuperarSenha;
 	//#endif
 	
-	public LoginScreen() {
+	public FLoginScreen() {
 		super(Constantes.APPLICATION_NAME);
 		
 		JPanel panel = new JPanel(new GridBagLayout());
@@ -88,17 +90,17 @@ public class LoginScreen extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
 		    		try {
-						boolean isLogged = Login.authenticate(getEmail(), getPassword());
+						boolean isLogged = authenticate(getEmail(), getPassword());
 						if(isLogged){
 							//Redirect to new view
 						} else {
-							JOptionPane.showMessageDialog(LoginScreen.this, "Login ou senha inválido!");
+							JOptionPane.showMessageDialog(FLoginScreen.this, "Login ou senha inválido!");
 						}
 					} catch (Exception exception) {
-						JOptionPane.showMessageDialog(LoginScreen.this, "Ocorreu um erro ao realizar o login");
+						JOptionPane.showMessageDialog(FLoginScreen.this, "Ocorreu um erro ao realizar o login");
 					}
 	    		} else {
-	    			JOptionPane.showMessageDialog(LoginScreen.this, "Preencha os campos corretamente");
+	    			JOptionPane.showMessageDialog(FLoginScreen.this, "Preencha os campos corretamente");
 	    		}
 	    	}
 	    });
@@ -154,5 +156,13 @@ public class LoginScreen extends JFrame {
 			return false;
 		}
 		return true;
+	}
+	
+	public boolean authenticate(String email, String password){
+		Usuario usuario = usuarioFacade.authenticate(email, password);
+		if(usuario != null){
+			return true;
+		}
+		return false;
 	}
 }

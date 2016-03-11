@@ -74,12 +74,14 @@ public class FRecuperarSenha extends JFrame {
 	    		} else {
 	    			SendEmail sendEmail = new SendEmail();
 	    			Email email = new Email();
-	    			email.setFrom("alansansoa@gmail.com");
 	    			email.setTo(usuario.getEmail());
 	    			email.setSubject("Recuperação de Senha");
 	    			email.setText("Sua senha é : " + usuario.getSenha());
-	    			sendEmail.send(email);
-	    			JOptionPane.showMessageDialog(null, "Senha enviada com sucesso");
+	    			if(sendEmail.send(email)){
+	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, "Senha enviada com sucesso");
+	    			} else {
+	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, "Ocorreu um erro ao enviar a senha");
+	    			}
 	    		}
 	    		
 	    		dispose();
