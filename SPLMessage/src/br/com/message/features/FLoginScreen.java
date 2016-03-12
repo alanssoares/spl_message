@@ -23,6 +23,7 @@ import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
+import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -90,8 +91,9 @@ public class FLoginScreen extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
 		    		try {
-						boolean isLogged = authenticate(getEmail(), getPassword());
-						if(isLogged){
+						Usuario usuario = authenticate(getEmail(), getPassword());
+						if(usuario != null){
+							DataStore.getInstance().setUsuario(usuario);
 							new FMenuPrincipal();
 						} else {
 							JOptionPane.showMessageDialog(FLoginScreen.this, "Login ou senha inválido!");
@@ -158,11 +160,7 @@ public class FLoginScreen extends JFrame {
 		return true;
 	}
 	
-	public boolean authenticate(String email, String password){
-		Usuario usuario = usuarioFacade.authenticate(email, password);
-		if(usuario != null){
-			return true;
-		}
-		return false;
+	public Usuario authenticate(String email, String password){
+		return usuarioFacade.authenticate(email, password);
 	}
 }

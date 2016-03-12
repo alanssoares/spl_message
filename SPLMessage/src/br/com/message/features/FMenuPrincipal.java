@@ -13,10 +13,14 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
+import br.com.message.enums.EnumStatusUsuario;
+import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
+import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -65,10 +69,22 @@ public class FMenuPrincipal extends JFrame {
         
         jMenu = new JMenuBar();
         
+        //#if ${Status} == "T"
         createMenuStatus();
+        //#endif
+        
+        //#if ${Grupo} == "T"
         createMenuGrupo();
+        //#endif
+        
+        //#if ${Contato} == "T"
         createMenuContato();
+        //#endif
+        
+        //#if ${Ajuda} == "T"
         createMenuAjuda();
+        //#endif
+        
         createMenuSair();
         
         setJMenuBar(jMenu);
@@ -114,116 +130,142 @@ public class FMenuPrincipal extends JFrame {
         jMenu.add(jMenuSair);
 	}
 
+	//#if ${Ajuda} == "T"
 	private void createMenuAjuda() {
         jMenuAjuda = new JMenu("Ajuda");
         
+        //#if ${EnviaComentario} == "T"
         btnEnviarComentario = new JMenuItem("Enviar Comentário");
-        btnPoliticaPrivacidade = new JMenuItem("Política de Privacidade");
-        btnSobre = new JMenuItem("Sobre");
-        
         btnEnviarComentario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
+        jMenuAjuda.add(btnEnviarComentario);
+        //#endif
         
+        //#if ${PoliticaPrivacidade} == "T"
+        btnPoliticaPrivacidade = new JMenuItem("Política de Privacidade");
         btnPoliticaPrivacidade.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
+        jMenuAjuda.add(btnPoliticaPrivacidade);
+        //#endif
         
+        //#if ${Sobre} == "T"
+        btnSobre = new JMenuItem("Sobre");
         btnSobre.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
-        
-        jMenuAjuda.add(btnEnviarComentario);
-        jMenuAjuda.add(btnPoliticaPrivacidade);
         jMenuAjuda.add(btnSobre);
+        //#endif
         
         jMenu.add(jMenuAjuda);
 	}
-
+	//#endif
+	
+	//#if ${Contato} == "T"
 	private void createMenuContato() {
         jMenuContato = new JMenu("Contato");
         
+        //#if ${AdicionarContato} == "T"
         btnAdicionarContato = new JMenuItem("Adicionar");
-        btnRemoverContato = new JMenuItem("Remover");
-        
         btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
+        jMenuContato.add(btnAdicionarContato);
+        //#endif
         
+        //#if ${RemoverContato} == "T"
+        btnRemoverContato = new JMenuItem("Remover");
         btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
-        
-        jMenuContato.add(btnAdicionarContato);
         jMenuContato.add(btnRemoverContato);
+        //#endif
         
         jMenu.add(jMenuContato);
 	}
-
+	//#endif
+	
+	//#if ${Grupo} == "T"
 	private void createMenuGrupo() {
         jMenuGrupo = new JMenu("Grupo");
         
+        //#if ${AdicionarGrupo} == "T"
         btnAdicionarGrupo = new JMenuItem("Adicionar");
-        btnRemoverGrupo = new JMenuItem("Remover");
-        
         btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
+        jMenuGrupo.add(btnAdicionarGrupo);
+        //#endif
         
+        //#if ${RemoverGrupo} == "T"
+        btnRemoverGrupo = new JMenuItem("Remover");
         btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
-        
-        jMenuGrupo.add(btnAdicionarGrupo);
         jMenuGrupo.add(btnRemoverGrupo);
+        //#endif
         
         jMenu.add(jMenuGrupo);
 	}
-
+	//#endif
+	
+	//#if ${Status} == "T"
 	private void createMenuStatus() {
         jMenuStatus = new JMenu("Status");
         
+        //#if ${VisualizarStatus} == "T"
         btnVisualizarStatus = new JMenuItem("Visualizar");
-        btnAlterarStatus = new JMenuItem("Alterar");
-        
         btnVisualizarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				showStatus();
 			}
 		});
+        jMenuStatus.add(btnVisualizarStatus);
+        //#endif
         
+        //#if ${AlterarStatus} == "T"
+        btnAlterarStatus = new JMenuItem("Alterar");
         btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Auto-generated method stub
 			}
 		});
-        
-        jMenuStatus.add(btnVisualizarStatus);
         jMenuStatus.add(btnAlterarStatus);
+        //#endif
         
         jMenu.add(jMenuStatus);
 	}
+	//#endif
+	
+	//#if ${VisualizarStatus} == "T"
+	private void showStatus() {
+		Usuario usuario = DataStore.getInstance().getUsuario();
+		String status = EnumStatusUsuario.getStatusById(usuario.getIdStatus()).getDescricao();
+		JOptionPane.showMessageDialog(FMenuPrincipal.this, "Status - " + status);
+	}
+	//#endif
 }

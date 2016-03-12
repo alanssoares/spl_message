@@ -1,2 +1,15 @@
 RecuperarSenha
 CadastrarUsuario
+Status
+VisualizarStatus
+AlterarStatus
+Grupo
+AdicionarGrupo
+RemoverGrupo
+Contato
+AdicionarContato
+RemoverContato
+Ajuda
+EnviaComentario
+PoliticaPrivacidade
+Sobre

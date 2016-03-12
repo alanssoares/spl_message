@@ -16,6 +16,19 @@
 			<fileset dir="src/br/com" includes="**/*.java" />
 			<property name="CadastrarUsuario" value="T" />
 			<property name="RecuperarSenha" value="T" />
+			<property name="Status" value="T" />
+			<property name="VisualizarStatus" value="T" />
+			<property name="AlterarStatus" value="T" />
+			<property name="Grupo" value="T" />
+			<property name="AdicionarGrupo" value="T" />
+			<property name="RemoverGrupo" value="T" />
+			<property name="Contato" value="T" />
+			<property name="AdicionarContato" value="T" />
+			<property name="RemoverContato" value="T" />
+			<property name="Ajuda" value="T" />
+			<property name="EnviaComentario" value="T" />
+			<property name="PoliticaPrivacidade" value="T" />
+			<property name="Sobre" value="T" />
 		</javapp>
 		
 		<echo message="Step 2.2 - Coping persistence file" />
