@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -26,13 +27,14 @@ import br.com.message.util.DataStore;
  * @author alsoares
  *
  */
-public class FMenuPrincipal extends JFrame {
+public class FMenuPrincipal extends JDialog {
 
 	/**
 	 * Version id
 	 */
 	private static final long serialVersionUID = 1L;	
-	                  
+	
+	private JMenuBar jMenu;
     private JMenuItem btnAdicionarContato;
     private JMenuItem btnAdicionarGrupo;
     private JMenuItem btnAlterarStatus;
@@ -42,18 +44,18 @@ public class FMenuPrincipal extends JFrame {
     private JMenuItem btnRemoverGrupo;
     private JMenuItem btnSobre;
     private JMenuItem btnVisualizarStatus;
-    private JButton btnBuscarContato;
-    private JLabel lbNomeContato;
-    private JMenuBar jMenu;
+    private JMenuItem btnSair;
     private JMenu jMenuAjuda;
     private JMenu jMenuContato;
     private JMenu jMenuGrupo;
-    private JMenu jMenuSair;
+    private JMenu jMenuInicio;
     private JMenu jMenuStatus;
+    private JButton btnBuscarContato;
+    private JLabel lbNomeContato;
     private JTextField tfNomeContato;
     
-	public FMenuPrincipal() {
-		super(Constantes.APPLICATION_NAME);
+	public FMenuPrincipal(JFrame parent) {
+		super(parent, Constantes.APPLICATION_NAME);
 		
 		initComponents();
 		
@@ -68,6 +70,8 @@ public class FMenuPrincipal extends JFrame {
         btnBuscarContato = new JButton("Buscar");
         
         jMenu = new JMenuBar();
+        
+        createMenuInicio();
         
         //#if ${Status} == "T"
         createMenuStatus();
@@ -84,8 +88,6 @@ public class FMenuPrincipal extends JFrame {
         //#if ${Ajuda} == "T"
         createMenuAjuda();
         //#endif
-        
-        createMenuSair();
         
         setJMenuBar(jMenu);
 
@@ -118,18 +120,23 @@ public class FMenuPrincipal extends JFrame {
 
         pack();
     }
-
-	private void createMenuSair() {
-        jMenuSair = new JMenu("Sair");
-        jMenuSair.addActionListener(new ActionListener() {
+    
+	private void createMenuInicio() {
+        jMenuInicio = new JMenu("Inicio");
+        
+        btnSair = new JMenuItem("Sair");
+        btnSair.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				getParent().setVisible(true);
+				dispose();
 			}
 		});
-        jMenu.add(jMenuSair);
+        jMenuInicio.add(btnSair);
+        
+        jMenu.add(jMenuInicio);
 	}
-
+	
 	//#if ${Ajuda} == "T"
 	private void createMenuAjuda() {
         jMenuAjuda = new JMenu("Ajuda");

@@ -9,6 +9,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -93,8 +95,16 @@ public class FLoginScreen extends JFrame {
 		    		try {
 						Usuario usuario = authenticate(getEmail(), getPassword());
 						if(usuario != null){
+							setVisible(false);
 							DataStore.getInstance().setUsuario(usuario);
-							new FMenuPrincipal();
+							FMenuPrincipal fMenuPrincipal = new FMenuPrincipal(FLoginScreen.this);
+							fMenuPrincipal.addWindowListener(new WindowAdapter() {
+								@Override
+								public void windowClosing(WindowEvent e) {
+									setVisible(true);
+								}
+							});
+							clearFields();
 						} else {
 							JOptionPane.showMessageDialog(FLoginScreen.this, "Login ou senha inválido!");
 						}
@@ -112,7 +122,15 @@ public class FLoginScreen extends JFrame {
 		btnNovo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FCadastroUsuario();
+				setVisible(false);
+				FCadastroUsuario fCadastroUsuario = new FCadastroUsuario();
+				fCadastroUsuario.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						setVisible(true);
+					}
+				});
+				clearFields();
 			}
 		});
 		//#endif
@@ -122,7 +140,15 @@ public class FLoginScreen extends JFrame {
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FRecuperarSenha();
+				setVisible(false);
+				FRecuperarSenha fRecuperarSenha = new FRecuperarSenha();
+				fRecuperarSenha.addWindowListener(new WindowAdapter() {
+					@Override
+					public void windowClosing(WindowEvent e) {
+						setVisible(true);
+					}
+				});
+				clearFields();
 			}
 		});
 		//#endif
@@ -158,6 +184,11 @@ public class FLoginScreen extends JFrame {
 			return false;
 		}
 		return true;
+	}
+	
+	public void clearFields(){
+		tfEmail.setText("");
+		pfPassword.setText("");
 	}
 	
 	public Usuario authenticate(String email, String password){
