@@ -3,6 +3,8 @@
  */
 package br.com.message.util;
 
+import br.com.message.enums.EnumStatusUsuario;
+import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 
 /**
@@ -39,5 +41,12 @@ public class DataStore {
 	 */
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+		this.usuario.setIdStatus(EnumStatusUsuario.DISPONIVEL.getId());
+		new UsuarioFacadeImpl().update(this.usuario);
+	}
+	
+	public void logout(){
+		this.usuario.setIdStatus(EnumStatusUsuario.APARECER_AUSENTE.getId());
+		new UsuarioFacadeImpl().update(this.usuario);
 	}
 }

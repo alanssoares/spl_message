@@ -16,4 +16,6 @@ public interface UsuarioFacade {
 	Usuario inserir(Usuario usuario);
 	
 	Usuario recuperarSenha(Usuario usuario);
+	
+	void update(Usuario usuario);
 }

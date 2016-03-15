@@ -13,7 +13,9 @@ public interface UsuarioDao {
 
 	Usuario authenticate(String email, String password);
 
-	Usuario inserir(Usuario usuario);
+	Usuario insertUser(Usuario usuario);
 	
-	Usuario recuperarSenha(Usuario usuario);
+	Usuario recoveryPassword(Usuario usuario);
+
+	void updateUser(Usuario usuario);
 }

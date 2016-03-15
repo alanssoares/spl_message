@@ -27,11 +27,16 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 	public Usuario inserir(Usuario usuario) {
 		usuario.setIdStatus(EnumStatusUsuario.APARECER_AUSENTE.getId());
 		usuario.setDataInclusao(new Date());
-		return usuarioDao.inserir(usuario);
+		return usuarioDao.insertUser(usuario);
 	}
 
 	@Override
 	public Usuario recuperarSenha(Usuario usuario) {
-		return usuarioDao.recuperarSenha(usuario);
+		return usuarioDao.recoveryPassword(usuario);
+	}
+
+	@Override
+	public void update(Usuario usuario) {
+		usuarioDao.updateUser(usuario);
 	}
 }

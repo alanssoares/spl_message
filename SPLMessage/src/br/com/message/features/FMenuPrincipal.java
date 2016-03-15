@@ -19,6 +19,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import br.com.message.enums.EnumStatusUsuario;
+import br.com.message.facade.UsuarioFacade;
+import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
@@ -53,6 +55,8 @@ public class FMenuPrincipal extends JDialog {
     private JButton btnBuscarContato;
     private JLabel lbNomeContato;
     private JTextField tfNomeContato;
+    
+    private UsuarioFacade userFacade = new UsuarioFacadeImpl();
     
 	public FMenuPrincipal(JFrame parent) {
 		super(parent, Constantes.APPLICATION_NAME);
@@ -258,7 +262,7 @@ public class FMenuPrincipal extends JDialog {
         btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				showAlterarStatus();
 			}
 		});
         jMenuStatus.add(btnAlterarStatus);
@@ -273,6 +277,36 @@ public class FMenuPrincipal extends JDialog {
 		Usuario usuario = DataStore.getInstance().getUsuario();
 		String status = EnumStatusUsuario.getStatusById(usuario.getIdStatus()).getDescricao();
 		JOptionPane.showMessageDialog(FMenuPrincipal.this, "Status - " + status);
+	}
+	//#endif
+	
+	//#if ${AlterarStatus} == "T"
+	/**
+	 * Método responsável por atualizar o status
+	 * do usuário de acordo com a seleção
+	 */
+	private void showAlterarStatus(){
+		Usuario user = DataStore.getInstance().getUsuario();
+		Object selected = null;
+		Object[] options = new Object[EnumStatusUsuario.values().length];
+		int i = 0;
+		
+		for(EnumStatusUsuario item : EnumStatusUsuario.values()){
+			options[i++] = item.getDescricao();
+			if(item.getId() == user.getIdStatus()){
+				selected = item.getDescricao();
+			}
+		}
+		
+		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Escolha o Status", "Alteração Status", 
+				JOptionPane.PLAIN_MESSAGE, null, options, selected);
+		
+		for(EnumStatusUsuario item : EnumStatusUsuario.values()){
+			if(item.getDescricao().equals(res)){
+				user.setIdStatus(item.getId());
+				userFacade.update(user);
+			}
+		}
 	}
 	//#endif
 }

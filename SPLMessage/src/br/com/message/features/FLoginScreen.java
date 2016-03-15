@@ -93,14 +93,15 @@ public class FLoginScreen extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
 		    		try {
-						Usuario usuario = authenticate(getEmail(), getPassword());
-						if(usuario != null){
+						Usuario user = authenticate(getEmail(), getPassword());
+						if(user != null){
 							setVisible(false);
-							DataStore.getInstance().setUsuario(usuario);
+							DataStore.getInstance().setUsuario(user);
 							FMenuPrincipal fMenuPrincipal = new FMenuPrincipal(FLoginScreen.this);
 							fMenuPrincipal.addWindowListener(new WindowAdapter() {
 								@Override
 								public void windowClosing(WindowEvent e) {
+									DataStore.getInstance().logout();
 									setVisible(true);
 								}
 							});

@@ -25,13 +25,13 @@ public class UsuarioDaoImpl extends GenericDao<Usuario, Integer> implements Usua
 	}
 
 	@Override
-	public Usuario inserir(Usuario usuario) {
+	public Usuario insertUser(Usuario usuario) {
 		return insert(usuario);
 	}
 
 	
 	@Override
-	public Usuario recuperarSenha(Usuario usuario) {
+	public Usuario recoveryPassword(Usuario usuario) {
 		List<Usuario> lista = this.entityManager.createQuery(
 				"FROM usuario u WHERE u.email = :email")
 				.setParameter("email", usuario.getEmail())
@@ -40,5 +40,10 @@ public class UsuarioDaoImpl extends GenericDao<Usuario, Integer> implements Usua
 			return null;
 		}
 		return lista.get(0);
+	}
+
+	@Override
+	public void updateUser(Usuario usuario) {
+		update(usuario);
 	}
 }
