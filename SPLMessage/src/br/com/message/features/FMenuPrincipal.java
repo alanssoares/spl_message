@@ -5,6 +5,7 @@ package br.com.message.features;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -19,8 +20,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
 import br.com.message.enums.EnumStatusUsuario;
+import br.com.message.facade.GrupoFacadeImpl;
 import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
+import br.com.message.model.Grupo;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
@@ -221,7 +224,7 @@ public class FMenuPrincipal extends JDialog {
         btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				showAdicionarGrupo();
 			}
 		});
         jMenuGrupo.add(btnAdicionarGrupo);
@@ -232,7 +235,7 @@ public class FMenuPrincipal extends JDialog {
         btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				showRemoverGrupo();
 			}
 		});
         jMenuGrupo.add(btnRemoverGrupo);
@@ -276,7 +279,7 @@ public class FMenuPrincipal extends JDialog {
 	private void showStatus() {
 		Usuario usuario = DataStore.getInstance().getUsuario();
 		String status = EnumStatusUsuario.getStatusById(usuario.getIdStatus()).getDescricao();
-		JOptionPane.showMessageDialog(FMenuPrincipal.this, "Status - " + status);
+		JOptionPane.showMessageDialog(FMenuPrincipal.this, status, "Status", JOptionPane.PLAIN_MESSAGE);
 	}
 	//#endif
 	
@@ -300,11 +303,47 @@ public class FMenuPrincipal extends JDialog {
 		
 		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Escolha o Status", "Alteração Status", 
 				JOptionPane.PLAIN_MESSAGE, null, options, selected);
-		
-		for(EnumStatusUsuario item : EnumStatusUsuario.values()){
-			if(item.getDescricao().equals(res)){
-				user.setIdStatus(item.getId());
-				userFacade.update(user);
+		if(res != null){
+			for(EnumStatusUsuario item : EnumStatusUsuario.values()){
+				if(item.getDescricao().equals(res)){
+					user.setIdStatus(item.getId());
+					userFacade.update(user);
+				}
+			}
+		}
+	}
+	//#endif
+	
+	//#if ${AdicionarGrupo} == "T"
+	/**
+	 * Método responsável por adicionar um novo grupo
+	 */
+	private void showAdicionarGrupo(){
+		Grupo grupo = new Grupo();
+		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Nome do grupo");
+		if(res != null){
+			grupo.setDescricao(res.toString());
+			new GrupoFacadeImpl().inserir(grupo);
+		}
+	}
+	//#endif
+	
+	//#if ${RemoverGrupo} == "T"
+	/**
+	 * Método responsável por remover um grupo. Quando um
+	 * grupo do usuário é removido, todos os seus contatos
+	 * são atualizados para um grupo default.
+	 */
+	private void showRemoverGrupo(){
+		GrupoFacadeImpl grupoFacade = new GrupoFacadeImpl();
+		List<Grupo> grupos = grupoFacade.listar();
+		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Escolha o Grupo", "Remoção de Grupo", 
+				JOptionPane.PLAIN_MESSAGE, null, grupos.toArray(), null);
+		if(res != null){
+			for(int i = 0; i < grupos.size(); i++){
+				if(grupos.get(i).getDescricao().equals(res.toString())){
+					grupoFacade.remover(grupos.get(i));		
+				}
 			}
 		}
 	}

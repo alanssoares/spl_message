@@ -19,7 +19,7 @@ public class GrupoDaoImpl extends GenericDao<Grupo, Integer> implements GrupoDao
 
 	@Override
 	public void inserir(Grupo grupo) {
-		inserir(grupo);
+		insert(grupo);
 	}
 
 	@Override
