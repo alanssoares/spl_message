@@ -13,3 +13,6 @@ Ajuda
 EnviaComentario
 PoliticaPrivacidade
 Sobre
+VisualizarCartaoVisita
+AdicionarContatoGrupo
+AlterarContato

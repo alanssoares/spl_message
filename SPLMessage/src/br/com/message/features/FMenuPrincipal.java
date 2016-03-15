@@ -5,7 +5,6 @@ package br.com.message.features;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -15,18 +14,10 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle;
 
-import br.com.message.enums.EnumStatusUsuario;
-import br.com.message.facade.GrupoFacadeImpl;
-import br.com.message.facade.UsuarioFacade;
-import br.com.message.facade.UsuarioFacadeImpl;
-import br.com.message.model.Grupo;
-import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
-import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -58,8 +49,6 @@ public class FMenuPrincipal extends JDialog {
     private JButton btnBuscarContato;
     private JLabel lbNomeContato;
     private JTextField tfNomeContato;
-    
-    private UsuarioFacade userFacade = new UsuarioFacadeImpl();
     
 	public FMenuPrincipal(JFrame parent) {
 		super(parent, Constantes.APPLICATION_NAME);
@@ -153,7 +142,7 @@ public class FMenuPrincipal extends JDialog {
         btnEnviarComentario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new FAjuda(FMenuPrincipal.this).comentario();
 			}
 		});
         jMenuAjuda.add(btnEnviarComentario);
@@ -164,7 +153,7 @@ public class FMenuPrincipal extends JDialog {
         btnPoliticaPrivacidade.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new FAjuda(FMenuPrincipal.this).politicaPrivacidade();
 			}
 		});
         jMenuAjuda.add(btnPoliticaPrivacidade);
@@ -175,7 +164,7 @@ public class FMenuPrincipal extends JDialog {
         btnSobre.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new FAjuda(FMenuPrincipal.this).sobre();
 			}
 		});
         jMenuAjuda.add(btnSobre);
@@ -194,7 +183,7 @@ public class FMenuPrincipal extends JDialog {
         btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new FContato(FMenuPrincipal.this).adicionarContato();
 			}
 		});
         jMenuContato.add(btnAdicionarContato);
@@ -205,7 +194,7 @@ public class FMenuPrincipal extends JDialog {
         btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				new FContato(FMenuPrincipal.this).removerContato();
 			}
 		});
         jMenuContato.add(btnRemoverContato);
@@ -224,7 +213,7 @@ public class FMenuPrincipal extends JDialog {
         btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showAdicionarGrupo();
+				new FGrupo(FMenuPrincipal.this).adicionarGrupo();
 			}
 		});
         jMenuGrupo.add(btnAdicionarGrupo);
@@ -235,7 +224,7 @@ public class FMenuPrincipal extends JDialog {
         btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showRemoverGrupo();
+				new FGrupo(FMenuPrincipal.this).removerGrupo();
 			}
 		});
         jMenuGrupo.add(btnRemoverGrupo);
@@ -254,7 +243,7 @@ public class FMenuPrincipal extends JDialog {
         btnVisualizarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showStatus();
+				new FStatus(FMenuPrincipal.this).mostrarStatus();
 			}
 		});
         jMenuStatus.add(btnVisualizarStatus);
@@ -265,87 +254,13 @@ public class FMenuPrincipal extends JDialog {
         btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				showAlterarStatus();
+				new FStatus(FMenuPrincipal.this).alterarStatus();
 			}
 		});
         jMenuStatus.add(btnAlterarStatus);
         //#endif
         
         jMenu.add(jMenuStatus);
-	}
-	//#endif
-	
-	//#if ${VisualizarStatus} == "T"
-	private void showStatus() {
-		Usuario usuario = DataStore.getInstance().getUsuario();
-		String status = EnumStatusUsuario.getStatusById(usuario.getIdStatus()).getDescricao();
-		JOptionPane.showMessageDialog(FMenuPrincipal.this, status, "Status", JOptionPane.PLAIN_MESSAGE);
-	}
-	//#endif
-	
-	//#if ${AlterarStatus} == "T"
-	/**
-	 * Método responsável por atualizar o status
-	 * do usuário de acordo com a seleção
-	 */
-	private void showAlterarStatus(){
-		Usuario user = DataStore.getInstance().getUsuario();
-		Object selected = null;
-		Object[] options = new Object[EnumStatusUsuario.values().length];
-		int i = 0;
-		
-		for(EnumStatusUsuario item : EnumStatusUsuario.values()){
-			options[i++] = item.getDescricao();
-			if(item.getId() == user.getIdStatus()){
-				selected = item.getDescricao();
-			}
-		}
-		
-		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Escolha o Status", "Alteração Status", 
-				JOptionPane.PLAIN_MESSAGE, null, options, selected);
-		if(res != null){
-			for(EnumStatusUsuario item : EnumStatusUsuario.values()){
-				if(item.getDescricao().equals(res)){
-					user.setIdStatus(item.getId());
-					userFacade.update(user);
-				}
-			}
-		}
-	}
-	//#endif
-	
-	//#if ${AdicionarGrupo} == "T"
-	/**
-	 * Método responsável por adicionar um novo grupo
-	 */
-	private void showAdicionarGrupo(){
-		Grupo grupo = new Grupo();
-		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Nome do grupo");
-		if(res != null){
-			grupo.setDescricao(res.toString());
-			new GrupoFacadeImpl().inserir(grupo);
-		}
-	}
-	//#endif
-	
-	//#if ${RemoverGrupo} == "T"
-	/**
-	 * Método responsável por remover um grupo. Quando um
-	 * grupo do usuário é removido, todos os seus contatos
-	 * são atualizados para um grupo default.
-	 */
-	private void showRemoverGrupo(){
-		GrupoFacadeImpl grupoFacade = new GrupoFacadeImpl();
-		List<Grupo> grupos = grupoFacade.listar();
-		Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Escolha o Grupo", "Remoção de Grupo", 
-				JOptionPane.PLAIN_MESSAGE, null, grupos.toArray(), null);
-		if(res != null){
-			for(int i = 0; i < grupos.size(); i++){
-				if(grupos.get(i).getDescricao().equals(res.toString())){
-					grupoFacade.remover(grupos.get(i));		
-				}
-			}
-		}
 	}
 	//#endif
 }
