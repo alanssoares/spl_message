@@ -11,6 +11,7 @@ import br.com.message.model.Contato;
  * @author alsoares
  *
  */
+@SuppressWarnings("unchecked")
 public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements ContatoDao {
 
 	public ContatoDaoImpl() {
@@ -29,6 +30,19 @@ public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements Cont
 
 	@Override
 	public void inserir(Contato contato) {
-		inserir(contato);
+		insert(contato);
+	}
+
+	@Override
+	public Contato buscar(Contato contato) {
+		List<Contato> lista = this.entityManager.createQuery(
+				"FROM contato c WHERE c.id_contato = :idContato AND c.id_usuario = :idUsuario")
+				.setParameter("idContato", contato.getIdContato())
+				.setParameter("idUsuario", contato.getIdUsuario())
+				.getResultList();
+		if(lista.isEmpty()){
+			return null;
+		}
+		return lista.get(0);
 	}
 }

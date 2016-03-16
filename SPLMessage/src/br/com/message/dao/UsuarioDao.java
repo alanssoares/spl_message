@@ -14,8 +14,8 @@ public interface UsuarioDao {
 	Usuario authenticate(String email, String password);
 
 	Usuario insertUser(Usuario usuario);
-	
-	Usuario recoveryPassword(Usuario usuario);
 
 	void updateUser(Usuario usuario);
+
+	Usuario findByEmail(String email);
 }

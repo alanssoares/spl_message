@@ -29,21 +29,20 @@ public class UsuarioDaoImpl extends GenericDao<Usuario, Integer> implements Usua
 		return insert(usuario);
 	}
 
-	
 	@Override
-	public Usuario recoveryPassword(Usuario usuario) {
+	public void updateUser(Usuario usuario) {
+		update(usuario);
+	}
+
+	@Override
+	public Usuario findByEmail(String email) {
 		List<Usuario> lista = this.entityManager.createQuery(
 				"FROM usuario u WHERE u.email = :email")
-				.setParameter("email", usuario.getEmail())
+				.setParameter("email", email)
 				.getResultList();
 		if(lista.isEmpty()){
 			return null;
 		}
 		return lista.get(0);
-	}
-
-	@Override
-	public void updateUser(Usuario usuario) {
-		update(usuario);
 	}
 }

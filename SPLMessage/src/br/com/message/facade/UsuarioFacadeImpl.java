@@ -31,12 +31,12 @@ public class UsuarioFacadeImpl implements UsuarioFacade {
 	}
 
 	@Override
-	public Usuario recuperarSenha(Usuario usuario) {
-		return usuarioDao.recoveryPassword(usuario);
-	}
-
-	@Override
 	public void update(Usuario usuario) {
 		usuarioDao.updateUser(usuario);
+	}
+	
+	@Override
+	public Usuario findByEmail(String email) {
+		return usuarioDao.findByEmail(email);
 	}
 }

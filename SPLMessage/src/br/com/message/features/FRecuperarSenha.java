@@ -67,7 +67,7 @@ public class FRecuperarSenha extends JFrame {
 	    		
 	    		Usuario usuario = new Usuario();
 	    		usuario.setEmail(getEmail());
-	    		usuario = usuarioFacade.recuperarSenha(usuario);
+	    		usuario = usuarioFacade.findByEmail(usuario.getEmail());
 	    		
 	    		if(usuario == null){
 	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Email não cadastrado!");

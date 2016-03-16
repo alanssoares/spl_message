@@ -31,7 +31,7 @@ public class FGrupo {
 	 */
 	public void adicionarGrupo() {
 		Grupo grupo = new Grupo();
-		Object res = JOptionPane.showInputDialog(this.parent, "Nome do grupo", "Adicionar Grupo", JOptionPane.PLAIN_MESSAGE);
+		Object res = JOptionPane.showInputDialog(this.parent, "Nome do Grupo", "Adicionar Grupo", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
 			grupo.setDescricao(res.toString());
 			new GrupoFacadeImpl().inserir(grupo);
@@ -48,7 +48,7 @@ public class FGrupo {
 	public void removerGrupo() {
 		GrupoFacadeImpl grupoFacade = new GrupoFacadeImpl();
 		List<Grupo> grupos = grupoFacade.listar();
-		Object res = JOptionPane.showInputDialog(this.parent, "Escolha o Grupo", "Remoção de Grupo", 
+		Object res = JOptionPane.showInputDialog(this.parent, "Escolha o Grupo", "Remover Grupo", 
 				JOptionPane.PLAIN_MESSAGE, null, grupos.toArray(), null);
 		if(res != null){
 			for(int i = 0; i < grupos.size(); i++){

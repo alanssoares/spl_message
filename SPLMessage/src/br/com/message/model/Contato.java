@@ -17,7 +17,7 @@ import javax.persistence.TemporalType;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="contato")
 @Table(name="contato")
 public class Contato {
 
@@ -100,13 +100,18 @@ public class Contato {
 	 * @return the dataInclusao
 	 */
 	public Date getDataInclusao() {
-		return dataInclusao;
+		if(dataInclusao != null){
+			return (Date) dataInclusao.clone();
+		}
+		return null;
 	}
 	/**
 	 * Setter the dataInclusao
 	 * @param dataInclusao the dataInclusao to set
 	 */
 	public void setDataInclusao(Date dataInclusao) {
-		this.dataInclusao = dataInclusao;
+		if(dataInclusao != null){
+			this.dataInclusao = (Date) dataInclusao.clone();
+		}
 	}
 }

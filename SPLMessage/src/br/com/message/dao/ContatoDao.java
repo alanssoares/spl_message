@@ -19,4 +19,6 @@ public interface ContatoDao {
 
 	void inserir(Contato contato);
 
+	Contato buscar(Contato contato);
+
 }

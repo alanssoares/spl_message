@@ -47,8 +47,8 @@ public class FMenuPrincipal extends JDialog {
     private JMenu jMenuInicio;
     private JMenu jMenuStatus;
     private JButton btnBuscarContato;
-    private JLabel lbNomeContato;
-    private JTextField tfNomeContato;
+    private JLabel lbEmailContato;
+    private JTextField tfEmailContato;
     
 	public FMenuPrincipal(JFrame parent) {
 		super(parent, Constantes.APPLICATION_NAME);
@@ -61,8 +61,8 @@ public class FMenuPrincipal extends JDialog {
 	
     private void initComponents() {
     	
-        tfNomeContato = new JTextField();
-        lbNomeContato = new JLabel("Nome");
+    	tfEmailContato = new JTextField();
+        lbEmailContato = new JLabel("Email");
         btnBuscarContato = new JButton("Buscar");
         
         jMenu = new JMenuBar();
@@ -95,9 +95,9 @@ public class FMenuPrincipal extends JDialog {
             layout.createParallelGroup(GroupLayout.Alignment.LEADING)
             .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(lbNomeContato)
+                .addComponent(lbEmailContato)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(tfNomeContato, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
+                .addComponent(tfEmailContato, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE)
                 .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscarContato, GroupLayout.PREFERRED_SIZE, 83, GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -108,8 +108,8 @@ public class FMenuPrincipal extends JDialog {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                    .addComponent(tfNomeContato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbNomeContato)
+                    .addComponent(tfEmailContato, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lbEmailContato)
                     .addComponent(btnBuscarContato))
                 .addContainerGap(345, Short.MAX_VALUE))
         );

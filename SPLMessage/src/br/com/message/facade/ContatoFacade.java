@@ -18,4 +18,6 @@ public interface ContatoFacade {
 	public void remover(Contato contato);
 	
 	public List<Contato> listar();
+
+	public Contato buscar(Contato contato);
 }
