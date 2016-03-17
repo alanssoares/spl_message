@@ -25,7 +25,7 @@ public class FGrupo {
 		this.parent = parent;
 	}
 	
-	//#if ${AdicionarGrupo} == "T"
+	//#if ${CadastrarGrupo} == "T"
 	/**
 	 * Responsável por adicionar um novo grupo
 	 */

@@ -208,7 +208,7 @@ public class FMenuPrincipal extends JDialog {
 	private void createMenuGrupo() {
         jMenuGrupo = new JMenu("Grupo");
         
-        //#if ${AdicionarGrupo} == "T"
+        //#if ${CadastrarGrupo} == "T"
         btnAdicionarGrupo = new JMenuItem("Adicionar");
         btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override

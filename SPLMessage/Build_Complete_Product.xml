@@ -20,11 +20,14 @@
 			<property name="VisualizarStatus" value="T" />
 			<property name="AlterarStatus" value="T" />
 			<property name="Grupo" value="T" />
+			<property name="CadastrarGrupo" value="T" />
 			<property name="AdicionarGrupo" value="T" />
 			<property name="RemoverGrupo" value="T" />
+			<property name="AlterarGrupo" value="T" />
 			<property name="Contato" value="T" />
 			<property name="AdicionarContato" value="T" />
 			<property name="RemoverContato" value="T" />
+			<property name="AlterarContato" value="T" />
 			<property name="Ajuda" value="T" />
 			<property name="EnviaComentario" value="T" />
 			<property name="PoliticaPrivacidade" value="T" />

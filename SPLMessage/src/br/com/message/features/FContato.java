@@ -84,11 +84,5 @@ public class FContato {
 		
 	}
 	//#endif
-	
-	//#if ${VisualizarCartaoVisita} == "T"
-	public void visualizarCartaoVisita(){
-		// TODO Auto-generated method stub
-	}
-	//#endif
 }
 //#endif
