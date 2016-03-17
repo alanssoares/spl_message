@@ -20,55 +20,41 @@ public class ContatoEmbbed implements Serializable {
 	 */
 	private static final long serialVersionUID = 8487285796253191963L;
 	
-	@Column(name="id_usuario", nullable=false)
-	private Integer idUsuario;
+	@Column(name="email_usuario", nullable=false)
+	private String emailUsuario;
 	
-	@Column(name="id_contato", nullable=false)
-	private Integer idContato;
-	
-	@Column(name="id_grupo", nullable=false)
-	private Integer idGrupo;
-	
+	@Column(name="email_contato", nullable=false)
+	private String emailContato;
+
 	/**
-	 * Return the idUsuario
-	 * @return the idUsuario
+	 * Return the emailUsuario
+	 * @return the emailUsuario
 	 */
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public String getEmailUsuario() {
+		return emailUsuario;
 	}
+
 	/**
-	 * Setter the idUsuario
-	 * @param idUsuario the idUsuario to set
+	 * Setter the emailUsuario
+	 * @param emailUsuario the emailUsuario to set
 	 */
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setEmailUsuario(String emailUsuario) {
+		this.emailUsuario = emailUsuario;
 	}
+
 	/**
-	 * Return the idContato
-	 * @return the idContato
+	 * Return the emailContato
+	 * @return the emailContato
 	 */
-	public Integer getIdContato() {
-		return idContato;
+	public String getEmailContato() {
+		return emailContato;
 	}
+
 	/**
-	 * Setter the idContato
-	 * @param idContato the idContato to set
+	 * Setter the emailContato
+	 * @param emailContato the emailContato to set
 	 */
-	public void setIdContato(Integer idContato) {
-		this.idContato = idContato;
-	}
-	/**
-	 * Return the idGrupo
-	 * @return the idGrupo
-	 */
-	public Integer getIdGrupo() {
-		return idGrupo;
-	}
-	/**
-	 * Setter the idGrupo
-	 * @param idGrupo the idGrupo to set
-	 */
-	public void setIdGrupo(Integer idGrupo) {
-		this.idGrupo = idGrupo;
+	public void setEmailContato(String emailContato) {
+		this.emailContato = emailContato;
 	}
 }

@@ -39,8 +39,8 @@ public class FContato {
 			Usuario c = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(c != null ){
 				Contato contato = new Contato();
-				contato.setIdUsuario(DataStore.getInstance().getUsuario().getId());
-				contato.setIdContato(c.getId());
+				contato.getChaveComposta().setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
+				contato.getChaveComposta().setEmailContato(c.getEmail());
 				contato = contatoFacade.buscar(contato);
 				if(contato != null){
 					this.contatoFacade.remover(contato);
@@ -65,8 +65,8 @@ public class FContato {
 			Usuario user = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(user != null){
 				Contato contato = new Contato();
-				contato.setIdUsuario(DataStore.getInstance().getUsuario().getId());
-				contato.setIdContato(user.getId());
+				contato.getChaveComposta().setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
+				contato.getChaveComposta().setEmailContato(user.getEmail());
 				this.contatoFacade.inserir(contato);
 				JOptionPane.showMessageDialog(this.parent, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			} else {

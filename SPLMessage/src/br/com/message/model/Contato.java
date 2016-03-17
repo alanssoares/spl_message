@@ -6,9 +6,8 @@ package br.com.message.model;
 import java.util.Date;
 
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -20,17 +19,9 @@ import javax.persistence.TemporalType;
 @Entity(name="contato")
 @Table(name="contato")
 public class Contato {
-
-	@Id
-	@GeneratedValue
-	@Column(name="id", nullable=false)
-	private Integer id;
 	
-	@Column(name="id_usuario", nullable=false)
-	private Integer idUsuario;
-	
-	@Column(name="id_contato", nullable=false)
-	private Integer idContato;
+	@EmbeddedId
+	private ContatoEmbbed chaveComposta;
 	
 	@Column(name="id_grupo", nullable=false)
 	private Integer idGrupo;
@@ -40,46 +31,18 @@ public class Contato {
 	private Date dataInclusao;
 	
 	/**
-	 * Return the id
-	 * @return the id
+	 * Return the chaveComposta
+	 * @return the chaveComposta
 	 */
-	public Integer getId() {
-		return id;
+	public ContatoEmbbed getChaveComposta() {
+		return chaveComposta;
 	}
 	/**
-	 * Setter the id
-	 * @param id the id to set
+	 * Setter the chaveComposta
+	 * @param chaveComposta the chaveComposta to set
 	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
-	/**
-	 * Return the idUsuario
-	 * @return the idUsuario
-	 */
-	public Integer getIdUsuario() {
-		return idUsuario;
-	}
-	/**
-	 * Setter the idUsuario
-	 * @param idUsuario the idUsuario to set
-	 */
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
-	}
-	/**
-	 * Return the idContato
-	 * @return the idContato
-	 */
-	public Integer getIdContato() {
-		return idContato;
-	}
-	/**
-	 * Setter the idContato
-	 * @param idContato the idContato to set
-	 */
-	public void setIdContato(Integer idContato) {
-		this.idContato = idContato;
+	public void setChaveComposta(ContatoEmbbed chaveComposta) {
+		this.chaveComposta = chaveComposta;
 	}
 	/**
 	 * Return the idGrupo

@@ -56,7 +56,7 @@ public class CarregarDadosBanco {
 	}
 	
 	@Test
-	void carregarRegistroPoliticaPrivacidade(){
+	public void carregarRegistroPoliticaPrivacidade(){
 		PoliticaPrivacidade politica = new PoliticaPrivacidade();
 		politica.setDescricao("Coletamos informações para fornecer serviços "
 				+ "melhores a todos os nossos usuários. O Message preza pela "
@@ -74,7 +74,7 @@ public class CarregarDadosBanco {
 	}
 	
 	@Test
-	void carregarRegistroSobreOMessage(){
+	public void carregarRegistroSobreOMessage(){
 		Sobre sobre = new Sobre();
 		sobre.setDescricao("Este protótipo não deve ser distribuído ou reproduzido. "
 				+ "Ele foi criado para ilustrar uma SPL na disciplina de Reuso de Software "

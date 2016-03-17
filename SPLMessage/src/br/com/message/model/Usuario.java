@@ -7,7 +7,6 @@ import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -20,17 +19,13 @@ import javax.persistence.TemporalType;
 @Entity(name="usuario")
 @Table(name="usuario")
 public class Usuario {
-
+	
 	@Id
-	@GeneratedValue
-	@Column(name="id", nullable=false)
-	private Integer id;
+	@Column(name="email", nullable=false)
+	private String email;
 	
 	@Column(name="nome", nullable=false)
 	private String nome;
-	
-	@Column(name="email", nullable=false)
-	private String email;
 	
 	@Column(name="senha", nullable=false)
 	private String senha;
@@ -42,20 +37,6 @@ public class Usuario {
 	@Column(name="data_inclusao", nullable=false)
 	private Date dataInclusao;
 	
-	/**
-	 * Return the id
-	 * @return the id
-	 */
-	public Integer getId() {
-		return id;
-	}
-	/**
-	 * Setter the id
-	 * @param id the id to set
-	 */
-	public void setId(Integer id) {
-		this.id = id;
-	}
 	/**
 	 * Return the nome
 	 * @return the nome

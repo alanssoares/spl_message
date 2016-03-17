@@ -25,7 +25,10 @@ public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements Cont
 
 	@Override
 	public void remover(Contato contato) {
-		remove(contato.getId());
+		this.entityManager.createQuery(
+				"DELETE *FROM contato c WHERE c.email_contato = :emailContato AND c.email_usuario = :emailUsuario")
+				.setParameter("emailContato", contato.getChaveComposta().getEmailContato())
+				.setParameter("emailUsuario", contato.getChaveComposta().getEmailUsuario());
 	}
 
 	@Override
@@ -36,9 +39,9 @@ public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements Cont
 	@Override
 	public Contato buscar(Contato contato) {
 		List<Contato> lista = this.entityManager.createQuery(
-				"FROM contato c WHERE c.id_contato = :idContato AND c.id_usuario = :idUsuario")
-				.setParameter("idContato", contato.getIdContato())
-				.setParameter("idUsuario", contato.getIdUsuario())
+				"FROM contato c WHERE c.email_contato = :emailContato AND c.email_usuario = :emailUsuario")
+				.setParameter("emailContato", contato.getChaveComposta().getEmailContato())
+				.setParameter("emailUsuario", contato.getChaveComposta().getEmailUsuario())
 				.getResultList();
 		if(lista.isEmpty()){
 			return null;

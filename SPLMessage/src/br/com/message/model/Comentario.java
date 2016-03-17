@@ -26,8 +26,8 @@ public class Comentario {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@Column(name="id_usuario", nullable=false)
-	private Integer idUsuario;
+	@Column(name="email_usuario", nullable=false)
+	private String emailUsuario;
 	
 	@Column(name="descricao", nullable=false)
 	private String	descricao;
@@ -51,18 +51,18 @@ public class Comentario {
 		this.id = id;
 	}
 	/**
-	 * Return the idUsuario
-	 * @return the idUsuario
+	 * Return the emailUsuario
+	 * @return the emailUsuario
 	 */
-	public Integer getIdUsuario() {
-		return idUsuario;
+	public String getEmailUsuario() {
+		return emailUsuario;
 	}
 	/**
-	 * Setter the idUsuario
-	 * @param idUsuario the idUsuario to set
+	 * Setter the emailUsuario
+	 * @param emailUsuario the emailUsuario to set
 	 */
-	public void setIdUsuario(Integer idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setEmailUsuario(String emailUsuario) {
+		this.emailUsuario = emailUsuario;
 	}
 	/**
 	 * Return the descricao
