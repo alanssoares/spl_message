@@ -124,13 +124,7 @@ public class FLoginScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FCadastroUsuario fCadastroUsuario = new FCadastroUsuario();
-				fCadastroUsuario.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent e) {
-						setVisible(true);
-					}
-				});
+				new FCadastroUsuario(FLoginScreen.this);
 				clearFields();
 			}
 		});
@@ -142,13 +136,7 @@ public class FLoginScreen extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				setVisible(false);
-				FRecuperarSenha fRecuperarSenha = new FRecuperarSenha();
-				fRecuperarSenha.addWindowListener(new WindowAdapter() {
-					@Override
-					public void windowClosing(WindowEvent e) {
-						setVisible(true);
-					}
-				});
+				new FRecuperarSenha(FLoginScreen.this);
 				clearFields();
 			}
 		});

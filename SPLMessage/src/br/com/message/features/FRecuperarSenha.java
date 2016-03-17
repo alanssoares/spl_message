@@ -6,6 +6,7 @@ package br.com.message.features;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -38,9 +39,11 @@ public class FRecuperarSenha extends JFrame {
 	private JButton btnEnviar;
 	private JButton btnCancelar;
 	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
+	private Container parent;
 	
-	public FRecuperarSenha() {
+	public FRecuperarSenha(Container parent) {
 		super(Constantes.FEATURE_RECUPERACAO_SENHA);
+		this.parent = parent;
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -84,14 +87,16 @@ public class FRecuperarSenha extends JFrame {
 	    			}
 	    		}
 	    		
-	    		dispose();
+	    		getParent().setVisible(true);
+				dispose();
 	        }
 	    });
 	    
 	    btnCancelar = new JButton("Cancelar");
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		dispose();
+	    		getParent().setVisible(true);
+				dispose();
 	        }
 	    });
 	    
@@ -109,6 +114,10 @@ public class FRecuperarSenha extends JFrame {
 	
 	public String getEmail(){
 		return tfEmail.getText();
+	}
+	
+	public Container getParent(){
+		return parent;
 	}
 }
 //#endif

@@ -6,6 +6,7 @@ package br.com.message.features;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
@@ -41,9 +42,11 @@ public class FCadastroUsuario extends JFrame {
 	private JButton btnCadastrar;
 	private JButton btnCancelar;
 	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
+	private Container parent;
 	
-	public FCadastroUsuario() {
+	public FCadastroUsuario(Container parent) {
 		super(Constantes.FEATURE_CADASTRO_USUARIO);
+		this.parent = parent;
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -98,6 +101,7 @@ public class FCadastroUsuario extends JFrame {
 					} catch (Exception exception) {
 						JOptionPane.showMessageDialog(FCadastroUsuario.this, "Ocorreu um erro ao realizar o cadastro");
 					} finally {
+						getParent().setVisible(true);
 						dispose();
 					}
 	    		} else {
@@ -109,6 +113,7 @@ public class FCadastroUsuario extends JFrame {
 	    btnCancelar = new JButton("Cancelar");
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
+	    		getParent().setVisible(true);
 	    		dispose();
 	        }
 	    });
@@ -150,6 +155,10 @@ public class FCadastroUsuario extends JFrame {
 			return false;
 		}
 		return true;
+	}
+	
+	public Container getParent(){
+		return parent;
 	}
 }
 //#endif
