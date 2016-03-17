@@ -2,25 +2,28 @@
 	<featureModel chosenLayoutAlgorithm="1">
 		<struct>
 			<and abstract="true" mandatory="true" name="SPLMessageFM">
-				<and mandatory="true" name="Usuario">
+				<and name="Login">
 					<feature mandatory="true" name="CadastrarUsuario"/>
 					<feature mandatory="true" name="RecuperarSenha"/>
 					<feature mandatory="true" name="Logar"/>
-					<feature name="AlterarStatus"/>
-					<feature name="VisualizarStatus"/>
 				</and>
 				<and name="Ajuda">
 					<feature name="EnviarComentario"/>
 					<feature name="PoliticaPrivacidade"/>
 					<feature name="Sobre"/>
 				</and>
-				<and mandatory="true" name="Contatos">
-					<feature mandatory="true" name="AdicionarContato"/>
+				<and mandatory="true" name="Contato">
+					<and mandatory="true" name="AdicionarContato">
+						<feature name="AdicionarGrupo"/>
+					</and>
+					<and name="AlterarContato">
+						<feature name="AlterarGrupo"/>
+					</and>
 					<feature mandatory="true" name="RemoverContato"/>
-					<or name="BuscarContato">
+					<alt name="BuscarContato">
 						<feature mandatory="true" name="PorNome"/>
 						<feature mandatory="true" name="PorEmail"/>
-					</or>
+					</alt>
 					<and mandatory="true" name="VisualizarListaContatos">
 						<alt name="Ordenar">
 							<feature mandatory="true" name="PorGrupo"/>
@@ -28,14 +31,10 @@
 						</alt>
 					</and>
 					<feature name="VisualizarStatusContato"/>
-					<feature name="VisualizarCartaoVisitaContato"/>
 				</and>
 				<and name="Grupo">
-					<feature mandatory="true" name="AdicionarGrupo"/>
+					<feature mandatory="true" name="CadastrarGrupo"/>
 					<feature mandatory="true" name="RemoverGrupo"/>
-					<feature mandatory="true" name="AdicionarContatoGrupo"/>
-					<feature mandatory="true" name="RemoverContatoGrupo"/>
-					<feature name="AlterarGrupoContato"/>
 				</and>
 				<and mandatory="true" name="Mensagem">
 					<and mandatory="true" name="EnviarMensagem">
@@ -45,7 +44,14 @@
 							<feature mandatory="true" name="Documento"/>
 						</alt>
 					</and>
-					<feature name="LimparHistorico"/>
+					<alt name="LimparHistorico">
+						<feature mandatory="true" name="PorPeriodo"/>
+						<feature mandatory="true" name="PorContato"/>
+					</alt>
+				</and>
+				<and name="Status">
+					<feature name="VisualizarStatus"/>
+					<feature name="AlterarStatus"/>
 				</and>
 			</and>
 		</struct>
