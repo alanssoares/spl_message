@@ -6,13 +6,6 @@ package br.com.message.features;
 
 import java.awt.Component;
 
-import javax.swing.JOptionPane;
-
-import br.com.message.facade.AjudaFacade;
-import br.com.message.facade.AjudaFacadeImpl;
-import br.com.message.model.PoliticaPrivacidade;
-import br.com.message.model.Sobre;
-
 /**
  * @author alsoares
  *
@@ -20,30 +13,20 @@ import br.com.message.model.Sobre;
 public class FAjuda {
 
 	private Component parent;
-	private AjudaFacade ajudaFacade;
 	
 	public FAjuda(Component parent) {
 		this.parent = parent;
-		this.ajudaFacade = new AjudaFacadeImpl();
 	}
 
 	//#if ${Sobre} == "T"
 	public void sobre() {
-		Sobre sobre = ajudaFacade.buscarSobre();
-		JOptionPane.showMessageDialog(this.parent, 
-			sobre.getDescricao(), 
-			"Sobre o SPLMessage",
-			JOptionPane.PLAIN_MESSAGE);
+		new FSobre(this.parent);
 	}
 	//#endif
 	
 	//#if ${PoliticaPrivacidade} == "T"
 	public void politicaPrivacidade() {
-		PoliticaPrivacidade politica = ajudaFacade.buscarPolitica();
-		JOptionPane.showMessageDialog(this.parent, 
-				politica.getDescricao(), 
-				"Política de Privacidade",
-				JOptionPane.PLAIN_MESSAGE);
+		new FPoliticaPrivacidade(this.parent);
 	}
 	//#endif
 	
