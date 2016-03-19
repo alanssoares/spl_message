@@ -69,6 +69,8 @@ create table mensagem (
 create table comentario (
 	id INTEGER NOT NULL AUTO_INCREMENT,
 	email_usuario VARCHAR(255) NOT NULL,
+	assunto VARCHAR(255) NOT NULL,
+	tipo INTEGER NOT NULL,
 	descricao VARCHAR(255) NOT NULL,
 	data_inclusao DATETIME NOT NULL,
 	PRIMARY KEY(id),

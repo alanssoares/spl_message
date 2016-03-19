@@ -5,6 +5,7 @@ package br.com.message.util;
 
 
 
+
 /**
  * @author alsoares
  *
@@ -18,4 +19,5 @@ public class Constantes {
 	public static final String BASIC = "Basic";
 	public static final int WIDTH_APPLICATION = 600;
 	public static final int HEIGHT_APPLICATION = 400;
+	public static final String FEATURE_SEND_COMMENT = "Enviar Comentário";
 }

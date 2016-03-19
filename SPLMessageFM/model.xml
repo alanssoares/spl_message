@@ -4,7 +4,10 @@
 			<and abstract="true" mandatory="true" name="SPLMessageFM">
 				<and name="Login">
 					<feature mandatory="true" name="CadastrarUsuario"/>
-					<feature mandatory="true" name="RecuperarSenha"/>
+					<or mandatory="true" name="RecuperarSenha">
+						<feature mandatory="true" name="EnviarPorEmail"/>
+						<feature mandatory="true" name="MostrarNaTela"/>
+					</or>
 					<feature mandatory="true" name="Logar"/>
 				</and>
 				<and name="Ajuda">
@@ -20,15 +23,15 @@
 						<feature name="AlterarGrupo"/>
 					</and>
 					<feature mandatory="true" name="RemoverContato"/>
-					<alt name="BuscarContato">
+					<or name="BuscarContato">
 						<feature mandatory="true" name="PorNome"/>
 						<feature mandatory="true" name="PorEmail"/>
-					</alt>
+					</or>
 					<and mandatory="true" name="VisualizarListaContatos">
-						<alt name="Ordenar">
+						<or name="Ordenar">
 							<feature mandatory="true" name="PorGrupo"/>
 							<feature mandatory="true" name="PorStatus"/>
-						</alt>
+						</or>
 					</and>
 					<feature name="VisualizarStatusContato"/>
 				</and>
