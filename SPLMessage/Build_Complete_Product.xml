@@ -16,6 +16,8 @@
 			<fileset dir="src/br/com" includes="**/*.java" />
 			<property name="CadastrarUsuario" value="T" />
 			<property name="RecuperarSenha" value="T" />
+			<property name="EnviarSenhaEmail" value="T" />
+			<property name="VisualizarSenhaTela" value="T" />
 			<property name="Status" value="T" />
 			<property name="VisualizarStatus" value="T" />
 			<property name="AlterarStatus" value="T" />

@@ -36,7 +36,15 @@ public class FRecuperarSenha extends JFrame {
 
 	private JTextField tfEmail;
 	private JLabel lbEmail;
+	
+	//#if ${EnviarSenhaEmail} == "T"
 	private JButton btnEnviar;
+	//#endif
+	
+	//#if ${VisualizarSenhaTela} == "T"
+	private JButton btnVisualizarTela;
+	//#endif
+	
 	private JButton btnCancelar;
 	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
 	private Container parent;
@@ -64,7 +72,8 @@ public class FRecuperarSenha extends JFrame {
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
 		
-	    btnEnviar = new JButton("Enviar");
+		//#if ${EnviarSenhaEmail} == "T"
+	    btnEnviar = new JButton("Enviar Email");
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		
@@ -91,6 +100,24 @@ public class FRecuperarSenha extends JFrame {
 				dispose();
 	        }
 	    });
+	    //#endif
+	    
+	    //#if ${VisualizarSenhaTela} == "T"
+	    btnVisualizarTela = new JButton("Visualizar na Tela");
+	    btnVisualizarTela.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+	    		Usuario usuario = new Usuario();
+	    		usuario.setEmail(getEmail());
+	    		usuario = usuarioFacade.findByEmail(usuario.getEmail());
+	    		if(usuario == null){
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Email não cadastrado!");
+	    		} else {
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Sua senha é : " + usuario.getSenha());
+	    		}
+			}
+		});
+	    //#endif
 	    
 	    btnCancelar = new JButton("Cancelar");
 	    btnCancelar.addActionListener(new ActionListener() {
@@ -102,7 +129,14 @@ public class FRecuperarSenha extends JFrame {
 	    
 	    JPanel bp = new JPanel();
 	    
+	    //#if ${EnviarSenhaEmail} == "T"
 	    bp.add(btnEnviar);
+	    //#endif
+	    
+	    //#if ${VisualizarSenhaTela} == "T"
+	    bp.add(btnVisualizarTela);
+	    //#endif
+	    
 	    bp.add(btnCancelar);
 	    
 	    getContentPane().add(panel, BorderLayout.CENTER);
