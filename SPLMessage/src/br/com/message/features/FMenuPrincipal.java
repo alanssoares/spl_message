@@ -69,19 +69,19 @@ public class FMenuPrincipal extends JDialog {
         
         createMenuInicio();
         
-        //#if ${Status} == "T"
+        //#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
         createMenuStatus();
         //#endif
         
-        //#if ${Grupo} == "T"
+        //#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
         createMenuGrupo();
         //#endif
         
-        //#if ${Contato} == "T"
+        //#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
         createMenuContato();
         //#endif
         
-        //#if ${Ajuda} == "T"
+        //#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
         createMenuAjuda();
         //#endif
         
