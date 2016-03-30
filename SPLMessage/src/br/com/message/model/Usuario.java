@@ -12,6 +12,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.message.enums.EnumStatusUsuario;
+
 /**
  * @author alsoares
  *
@@ -111,5 +113,10 @@ public class Usuario {
 		if(dataInclusao != null){
 			this.dataInclusao = (Date) dataInclusao.clone();
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Email: " + email + " Status: " + EnumStatusUsuario.getStatusById(idStatus).getDescricao();
 	}
 }

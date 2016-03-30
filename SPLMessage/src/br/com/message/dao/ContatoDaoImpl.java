@@ -3,32 +3,37 @@
  */
 package br.com.message.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import br.com.message.model.Contato;
+import br.com.message.model.ContatoPK;
 
 /**
  * @author alsoares
  *
  */
-@SuppressWarnings("unchecked")
-public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements ContatoDao {
+public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements ContatoDao {
 
 	public ContatoDaoImpl() {
 		super(Contato.class);
 	}
 
 	@Override
-	public List<Contato> listar() {
-		return getList();
+	public List<Contato> listar(String email) {
+		List<Contato> result = getList();
+		List<Contato> contatos = new ArrayList<Contato>();
+		for(Contato c : result){
+			if(email.equals(c.getEmailUsuario())){
+				contatos.add(c);
+			}
+		}
+		return contatos;
 	}
 
 	@Override
 	public void remover(Contato contato) {
-		this.entityManager.createQuery(
-				"DELETE *FROM contato c WHERE c.email_contato = :emailContato AND c.email_usuario = :emailUsuario")
-				.setParameter("emailContato", contato.getChaveComposta().getEmailContato())
-				.setParameter("emailUsuario", contato.getChaveComposta().getEmailUsuario());
+		remove(contato.getContatoPK());
 	}
 
 	@Override
@@ -38,14 +43,6 @@ public class ContatoDaoImpl extends GenericDao<Contato, Integer> implements Cont
 
 	@Override
 	public Contato buscar(Contato contato) {
-		List<Contato> lista = this.entityManager.createQuery(
-				"FROM contato c WHERE c.email_contato = :emailContato AND c.email_usuario = :emailUsuario")
-				.setParameter("emailContato", contato.getChaveComposta().getEmailContato())
-				.setParameter("emailUsuario", contato.getChaveComposta().getEmailUsuario())
-				.getResultList();
-		if(lista.isEmpty()){
-			return null;
-		}
-		return lista.get(0);
+		return find(contato.getContatoPK());
 	}
 }

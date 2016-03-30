@@ -11,6 +11,7 @@ import javax.persistence.Persistence;
 import org.junit.Before;
 import org.junit.Test;
 
+import br.com.message.model.Grupo;
 import br.com.message.model.PoliticaPrivacidade;
 import br.com.message.model.Sobre;
 import br.com.message.model.Status;
@@ -24,10 +25,34 @@ public class CarregarDadosBanco {
 
 	private EntityManager em;
 	
+	private String POLITICA_PRIVACIDADE = "Coletamos informações para fornecer serviços "
+			+ "melhores a todos os nossos usuários. O Message preza pela "
+			+ "segurança e confiabilidade dos dados pessoais dos usuários "
+			+ "do site. Para os usuários do Message pressupõe a aceitação "
+			+ "deste Acordo de Privacidade. A equipe do Message "
+			+ "reserva-se ao direito de modificar esta política sem aviso "
+			+ "prévio. Assim, nossa recomendação é que você crie o hábito "
+			+ "de consultar este acordo com regularidade para estar consciente "
+			+ "das suas atualizações.";
+	
+	private String SOBRE = "Este protótipo não deve ser distribuído ou reproduzido. "
+			+ "Ele foi criado para ilustrar uma SPL na disciplina de Reuso de Software "
+			+ "da Universidade Federal da Bahia. É puramente acadêmico.";
+	
 	@Before
 	public void iniciaConexaoBanco(){
 		EntityManagerFactory factory = Persistence.createEntityManagerFactory(Constantes.NAME_DB);
 		this.em = factory.createEntityManager();
+	}
+
+	@Test
+	public void carregGrupoDefaultNoBanco(){
+		Grupo grupo = new Grupo();
+		grupo.setDescricao("Todos");
+		EntityTransaction transaction = this.em.getTransaction();
+		transaction.begin();
+		this.em.persist(grupo);
+		transaction.commit();
 	}
 	
 	@Test
@@ -58,15 +83,7 @@ public class CarregarDadosBanco {
 	@Test
 	public void carregarRegistroPoliticaPrivacidade(){
 		PoliticaPrivacidade politica = new PoliticaPrivacidade();
-		politica.setDescricao("Coletamos informações para fornecer serviços "
-				+ "melhores a todos os nossos usuários. O Message preza pela "
-				+ "segurança e confiabilidade dos dados pessoais dos usuários "
-				+ "do site. Para os usuários do Message pressupõe a aceitação "
-				+ "deste Acordo de Privacidade. A equipe do Message "
-				+ "reserva-se ao direito de modificar esta política sem aviso "
-				+ "prévio. Assim, nossa recomendação é que você crie o hábito "
-				+ "de consultar este acordo com regularidade para estar consciente "
-				+ "das suas atualizações.");
+		politica.setDescricao(POLITICA_PRIVACIDADE);
 		EntityTransaction transaction = this.em.getTransaction();
 		transaction.begin();
 		this.em.persist(politica);
@@ -76,9 +93,7 @@ public class CarregarDadosBanco {
 	@Test
 	public void carregarRegistroSobreOMessage(){
 		Sobre sobre = new Sobre();
-		sobre.setDescricao("Este protótipo não deve ser distribuído ou reproduzido. "
-				+ "Ele foi criado para ilustrar uma SPL na disciplina de Reuso de Software "
-				+ "da Universidade Federal da Bahia. É puramente acadêmico.");
+		sobre.setDescricao(SOBRE);
 		EntityTransaction transaction = this.em.getTransaction();
 		transaction.begin();
 		this.em.persist(sobre);

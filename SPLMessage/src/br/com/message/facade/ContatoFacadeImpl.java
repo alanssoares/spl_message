@@ -9,6 +9,7 @@ import java.util.List;
 import br.com.message.dao.ContatoDao;
 import br.com.message.dao.ContatoDaoImpl;
 import br.com.message.model.Contato;
+import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -16,13 +17,14 @@ import br.com.message.model.Contato;
  */
 public class ContatoFacadeImpl implements ContatoFacade {
 
-	private static final Integer ID_GRUPO_DEFAULT = 0;
+	private static final Integer ID_GRUPO_DEFAULT = 1;
 	
 	private ContatoDao contatoDao = new ContatoDaoImpl();
 
 	@Override
 	public void inserir(Contato contato) {
 		contato.setIdGrupo(ID_GRUPO_DEFAULT);
+		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		contato.setDataInclusao(new Date());
 		this.contatoDao.inserir(contato);
 	}
@@ -33,12 +35,13 @@ public class ContatoFacadeImpl implements ContatoFacade {
 	}
 
 	@Override
-	public List<Contato> listar() {
-		return this.contatoDao.listar();
+	public List<Contato> listar(String email) {
+		return this.contatoDao.listar(email);
 	}
 
 	@Override
 	public Contato buscar(Contato contato) {
+		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		return this.contatoDao.buscar(contato);
 	}
 }

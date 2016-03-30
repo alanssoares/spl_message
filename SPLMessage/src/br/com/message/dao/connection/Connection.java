@@ -3,7 +3,7 @@
  */
 package br.com.message.dao.connection;
 
-import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
 import br.com.message.util.Constantes;
@@ -14,13 +14,13 @@ import br.com.message.util.Constantes;
  */
 public class Connection {
 
-	private static EntityManager entityManager;
+	private static EntityManagerFactory entityManagerFactory;
 	
-	public static EntityManager getEntityManager(){
-		if(entityManager == null){
-			entityManager = Persistence.createEntityManagerFactory(Constantes.NAME_DB).createEntityManager();			 
+	public static EntityManagerFactory getEntityManager(){
+		if(entityManagerFactory == null){
+			entityManagerFactory = Persistence.createEntityManagerFactory(Constantes.NAME_DB);			 
 		}
-		return entityManager;
+		return entityManagerFactory;
 	}
 	
 }

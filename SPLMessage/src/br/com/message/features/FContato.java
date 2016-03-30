@@ -13,7 +13,6 @@ import br.com.message.facade.ContatoFacadeImpl;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Contato;
 import br.com.message.model.Usuario;
-import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -39,8 +38,7 @@ public class FContato {
 			Usuario c = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(c != null ){
 				Contato contato = new Contato();
-				contato.getChaveComposta().setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
-				contato.getChaveComposta().setEmailContato(c.getEmail());
+				contato.setEmailContato(c.getEmail());
 				contato = contatoFacade.buscar(contato);
 				if(contato != null){
 					this.contatoFacade.remover(contato);
@@ -65,8 +63,7 @@ public class FContato {
 			Usuario user = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(user != null){
 				Contato contato = new Contato();
-				contato.getChaveComposta().setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
-				contato.getChaveComposta().setEmailContato(user.getEmail());
+				contato.setEmailContato(user.getEmail());
 				this.contatoFacade.inserir(contato);
 				JOptionPane.showMessageDialog(this.parent, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			} else {

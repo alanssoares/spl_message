@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 public class Contato {
 	
 	@EmbeddedId
-	private ContatoEmbbed chaveComposta;
+	private ContatoPK contatoPK;
 	
 	@Column(name="id_grupo", nullable=false)
 	private Integer idGrupo;
@@ -30,19 +30,23 @@ public class Contato {
 	@Column(name="data_inclusao", nullable=false)
 	private Date dataInclusao;
 	
+	public Contato() {
+		this.contatoPK = new ContatoPK();
+	}
+	
 	/**
-	 * Return the chaveComposta
-	 * @return the chaveComposta
+	 * Return the contatoPK
+	 * @return the contatoPK
 	 */
-	public ContatoEmbbed getChaveComposta() {
-		return chaveComposta;
+	public ContatoPK getContatoPK() {
+		return contatoPK;
 	}
 	/**
-	 * Setter the chaveComposta
-	 * @param chaveComposta the chaveComposta to set
+	 * Setter the contatoPK
+	 * @param contatoPK the contatoPK to set
 	 */
-	public void setChaveComposta(ContatoEmbbed chaveComposta) {
-		this.chaveComposta = chaveComposta;
+	public void setContatoPK(ContatoPK contatoPK) {
+		this.contatoPK = contatoPK;
 	}
 	/**
 	 * Return the idGrupo
@@ -76,5 +80,33 @@ public class Contato {
 		if(dataInclusao != null){
 			this.dataInclusao = (Date) dataInclusao.clone();
 		}
+	}
+	/**
+	 * Especifica o email do contato
+	 * @param emailContato
+	 */
+	public void setEmailContato(String emailContato){
+		this.contatoPK.setEmailContato(emailContato);
+	}
+	/**
+	 * Retorna emailContato
+	 * @return String
+	 */
+	public String setEmailContato(){
+		return this.contatoPK.getEmailContato();
+	}
+	/**
+	 * Especifica emailUsuario
+	 * @param emailUsuario
+	 */
+	public void setEmailUsuario(String emailUsuario){
+		this.contatoPK.setEmailUsuario(emailUsuario);
+	}
+	/**
+	 * Retorna emailUsuario
+	 * @return String
+	 */
+	public String getEmailUsuario(){
+		return this.contatoPK.getEmailUsuario();
 	}
 }

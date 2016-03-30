@@ -23,7 +23,7 @@ public abstract class GenericDao<T, I> {
 	private Class<T> persistedClass;
 
 	protected GenericDao() {
-		this.entityManager = Connection.getEntityManager();
+		this.entityManager = Connection.getEntityManager().createEntityManager();
 	}
 
 	protected GenericDao(Class<T> persistedClass) {
