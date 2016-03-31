@@ -6,11 +6,13 @@ package br.com.message.dao;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import br.com.message.dao.connection.Connection;
+import br.com.message.util.Constantes;
 
 /**
  * @author webstore
@@ -18,12 +20,12 @@ import br.com.message.dao.connection.Connection;
  */
 public abstract class GenericDao<T, I> {
 	
-	protected EntityManager entityManager;
-
+	private EntityManagerFactory entityFactory;
+	
 	private Class<T> persistedClass;
 
 	protected GenericDao() {
-		this.entityManager = Connection.getEntityManager().createEntityManager();
+		this.entityFactory = Persistence.createEntityManagerFactory(Constantes.NAME_DB);
 	}
 
 	protected GenericDao(Class<T> persistedClass) {
@@ -32,41 +34,54 @@ public abstract class GenericDao<T, I> {
 	}
 
 	public T insert(T entity) {
-		EntityTransaction t = entityManager.getTransaction();
+		EntityManager em = getEntityManager();
+		EntityTransaction t = em.getTransaction();
 		t.begin();
-		entityManager.persist(entity);
-		entityManager.flush();
+		em.persist(entity);
+		em.flush();
 		t.commit();
+		em.close();
 		return entity;
 	}
 
 	public T update(T entity) {
-		EntityTransaction t = entityManager.getTransaction();
+		EntityManager em = getEntityManager();
+		EntityTransaction t = em.getTransaction();
 		t.begin();
-		entityManager.merge(entity);
-		entityManager.flush();
+		em.merge(entity);
+		em.flush();
 		t.commit();
+		em.close();
 		return entity;
 	}
 
 	public void remove(I id) {
 		T entity = find(id);
-		EntityTransaction tx = entityManager.getTransaction();
+		EntityManager em = getEntityManager();
+		EntityTransaction tx = em.getTransaction();
 		tx.begin();
-		T mergedEntity = entityManager.merge(entity);
-		entityManager.remove(mergedEntity);
-		entityManager.flush();
+		T mergedEntity = em.merge(entity);
+		em.remove(mergedEntity);
+		em.flush();
 		tx.commit();
+		em.close();
 	}
 
 	public List<T> getList() {
-		CriteriaBuilder builder = entityManager.getCriteriaBuilder();
+		EntityManager em = getEntityManager();
+		CriteriaBuilder builder = em.getCriteriaBuilder();
 		CriteriaQuery<T> query = builder.createQuery(persistedClass);
 		query.from(persistedClass);
-		return entityManager.createQuery(query).getResultList();
+		List<T> t = em.createQuery(query).getResultList();
+		em.close();
+		return t;
 	}
 
 	public T find(I id) {
-		return entityManager.find(persistedClass, id);
+		return getEntityManager().find(persistedClass, id);
+	}
+	
+	public EntityManager getEntityManager(){
+		return entityFactory.createEntityManager();
 	}
 }

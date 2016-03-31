@@ -32,10 +32,11 @@ public class FContato {
 	/**
 	 * Método responsável por remover um contato
 	 */
-	public void removerContato() {
+	public Usuario removerContato() {
+		Usuario c = null;
 		Object res = JOptionPane.showInputDialog(this.parent, "Email do Contato", "Remover Contato", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
-			Usuario c = new UsuarioFacadeImpl().findByEmail(res.toString());
+			c = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(c != null ){
 				Contato contato = new Contato();
 				contato.setEmailContato(c.getEmail());
@@ -50,17 +51,20 @@ public class FContato {
 				JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
+		return c;
 	}
 	//#endif
 	
 	//#if ${AdicionarContato} == "T"
 	/**
 	 * Método responsável por adicionar um novo contato
+	 * @return Usuario
 	 */
-	public void adicionarContato() {
+	public Usuario adicionarContato() {
+		Usuario user = null;
 		Object res = JOptionPane.showInputDialog(this.parent, "Email do Contato", "Adicionar Contato", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
-			Usuario user = new UsuarioFacadeImpl().findByEmail(res.toString());
+			user = new UsuarioFacadeImpl().findByEmail(res.toString());
 			if(user != null){
 				Contato contato = new Contato();
 				contato.setEmailContato(user.getEmail());
@@ -70,6 +74,7 @@ public class FContato {
 				JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
+		return user;
 	}
 	//#endif
 	

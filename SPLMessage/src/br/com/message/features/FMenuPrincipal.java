@@ -5,6 +5,7 @@ package br.com.message.features;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Enumeration;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -60,14 +61,18 @@ public class FMenuPrincipal extends JDialog {
 	//private JTextField tfEmailContato;
 	private JList<Usuario> jListConcatcs;
 	private DefaultListModel<Usuario> dfListContact;
-	private ContatoFacade contatoFacade;
-	private UsuarioFacade usuarioFacade;
 
 	private JScrollPane jScrollPaneContact;
 
+	private UsuarioFacade userFacade;
+	private ContatoFacade contactFacade;
+	
 	public FMenuPrincipal(JFrame parent) {
 		super(parent, Constantes.APPLICATION_NAME);
 
+		userFacade = new UsuarioFacadeImpl();
+		contactFacade = new ContatoFacadeImpl();
+		
 		initComponents();
 
 		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
@@ -75,9 +80,6 @@ public class FMenuPrincipal extends JDialog {
 	}
 
 	private void initComponents() {
-
-		contatoFacade = new ContatoFacadeImpl();
-		usuarioFacade = new UsuarioFacadeImpl();
 		//tfEmailContato = new JTextField();
 		//lbEmailContato = new JLabel("Email");
 		//btnBuscarContato = new JButton("Buscar");
@@ -207,7 +209,10 @@ public class FMenuPrincipal extends JDialog {
 		btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FContato(FMenuPrincipal.this).adicionarContato();
+				Usuario contato = new FContato(FMenuPrincipal.this).adicionarContato();
+				if(contato != null){
+					dfListContact.addElement(contato);
+				}
 				updateContacts();
 			}
 		});
@@ -219,7 +224,10 @@ public class FMenuPrincipal extends JDialog {
 		btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new FContato(FMenuPrincipal.this).removerContato();
+				Usuario contato = new FContato(FMenuPrincipal.this).removerContato();
+				if(contato != null){
+					dfListContact.removeElementAt(getContact(contato));
+				}
 				updateContacts();
 			}
 		});
@@ -295,11 +303,11 @@ public class FMenuPrincipal extends JDialog {
 	private void createThreadUpdateContacts() {
 		Timer timer = new Timer();
 		
-		List<Contato> contacts = contatoFacade.listar(DataStore.getInstance().getUsuario().getEmail());
+		List<Contato> contacts = new ContatoFacadeImpl().listar(DataStore.getInstance().getUsuario().getEmail());
 		dfListContact = new DefaultListModel<Usuario>();
 		
 		for (Contato c : contacts) {
-			Usuario contato = usuarioFacade.findByEmail(c.getContatoPK().getEmailContato());
+			Usuario contato = new UsuarioFacadeImpl().findByEmail(c.getContatoPK().getEmailContato());
 			dfListContact.addElement(contato);
 		}
 		
@@ -311,26 +319,42 @@ public class FMenuPrincipal extends JDialog {
 		
 		getContentPane().add(jScrollPaneContact);
 		
-		//Atualiza a cada 10 segundos
+		//Atualiza a cada 5 segundos
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				updateContacts();
 			}
-		}, 0, 1000 * 10);
+		}, 0, 1000 * 5);
 	}
 
+	/**
+	 * Método responsável por atualizar a lista de contatos
+	 */
 	private void updateContacts() {
-		List<Contato> contacts = contatoFacade.listar(DataStore.getInstance().getUsuario().getEmail());
+		List<Contato> contacts = contactFacade.listar(DataStore.getInstance().getUsuario().getEmail());
 		for (Contato c : contacts) {
-			Usuario contato = usuarioFacade.findByEmail(c.getContatoPK().getEmailContato());
-			int index = dfListContact.indexOf(contato);
-			if(index == -1){
-				dfListContact.addElement(contato);	
-			} else {
-				dfListContact.get(index).setIdStatus(contato.getIdStatus());
+			Usuario contato = userFacade.findByEmail(c.getContatoPK().getEmailContato());
+			int index = getContact(contato);
+			if(index >= 0){
+				dfListContact.set(index, contato);
 			}
 		}
-		System.out.println("Contatos atualizaodos");
+	}
+	
+	/**
+	 * Obtém o indice do contato para atualizar o status
+	 * @param u
+	 * @return
+	 */
+	private Integer getContact(Usuario u){
+		Enumeration<Usuario> contacts = dfListContact.elements();
+		while(contacts.hasMoreElements()){
+			Usuario c = contacts.nextElement();
+			if(c.getEmail().equals(u.getEmail())){
+				return dfListContact.indexOf(c);
+			}
+		}
+		return -1;
 	}
 }

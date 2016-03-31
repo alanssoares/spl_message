@@ -2,6 +2,8 @@ package br.com.message.dao;
 
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import br.com.message.model.Usuario;
 
 @SuppressWarnings("unchecked")
@@ -13,11 +15,13 @@ public class UsuarioDaoImpl extends GenericDao<Usuario, Integer> implements Usua
 	
 	@Override
 	public Usuario authenticate(String email, String password) {
-		List<Usuario> lista = this.entityManager.createQuery(
+		EntityManager em = getEntityManager();
+		List<Usuario> lista = em.createQuery(
 				"FROM usuario u WHERE u.email = :email AND u.senha = :password")
 				.setParameter("email", email)
 				.setParameter("password", password)
 				.getResultList();
+		em.close();
 		if(lista.isEmpty()){
 			return null;
 		}
@@ -36,10 +40,12 @@ public class UsuarioDaoImpl extends GenericDao<Usuario, Integer> implements Usua
 
 	@Override
 	public Usuario findByEmail(String email) {
-		List<Usuario> lista = this.entityManager.createQuery(
+		EntityManager em = getEntityManager();
+		List<Usuario> lista = em.createQuery(
 				"FROM usuario u WHERE u.email = :email")
 				.setParameter("email", email)
 				.getResultList();
+		em.close();
 		if(lista.isEmpty()){
 			return null;
 		}
