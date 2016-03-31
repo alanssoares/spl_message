@@ -1,3 +1,4 @@
+//#if ${EnviaComentario} == "T"
 /**
  * 
  */
@@ -32,3 +33,4 @@ public class ComentarioFacadeImpl implements ComentarioFacade {
 	}
 	
 }
+//#endif

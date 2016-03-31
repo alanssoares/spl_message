@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T"
+//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T" 
 /**
  * 
  */

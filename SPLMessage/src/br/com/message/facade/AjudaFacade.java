@@ -1,3 +1,4 @@
+//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T"
 /**
  * 
  */
@@ -12,7 +13,12 @@ import br.com.message.model.Sobre;
  */
 public interface AjudaFacade {
 
+	//#if ${Sobre} == "T"
 	public Sobre buscarSobre();
+	//#endif
 	
+	//#if ${PoliticaPrivacidade} == "T"
 	public PoliticaPrivacidade buscarPolitica();
+	//#endif
 }
+//#endif

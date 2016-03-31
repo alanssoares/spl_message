@@ -41,21 +41,47 @@ public class FMenuPrincipal extends JDialog {
 	private static final long serialVersionUID = 1L;
 
 	private JMenuBar jMenu;
+	//if ${AdicionarContato} == "T"
 	private JMenuItem btnAdicionarContato;
+	//#endif
+	//if ${AdicionarGrupo} == "T"
 	private JMenuItem btnAdicionarGrupo;
+	//#endif
+	//if ${AlterarStatus} == "T"
 	private JMenuItem btnAlterarStatus;
+	//#endif
+	//if ${EnviaComentario} == "T"
 	private JMenuItem btnEnviarComentario;
+	//#endif
+	//if ${PoliticaPrivacidade} == "T"
 	private JMenuItem btnPoliticaPrivacidade;
+	//#endif
+	//if ${RemoverContato} == "T"
 	private JMenuItem btnRemoverContato;
+	//#endif
+	//if ${RemoverGrupo} == "T"
 	private JMenuItem btnRemoverGrupo;
+	//#endif
+	//if ${Sobre} == "T"
 	private JMenuItem btnSobre;
+	//#endif
+	//if ${VisualizarStatus} == "T"
 	private JMenuItem btnVisualizarStatus;
+	//#endif
 	private JMenuItem btnSair;
+	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 	private JMenu jMenuAjuda;
+	//#endif
+	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
 	private JMenu jMenuContato;
+	//#endif
+	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
 	private JMenu jMenuGrupo;
-	private JMenu jMenuInicio;
+	//#endif
+	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
 	private JMenu jMenuStatus;
+	//#endif
+	private JMenu jMenuInicio;
 	//private JButton btnBuscarContato;
 	//private JLabel lbEmailContato;
 	//private JTextField tfEmailContato;
@@ -88,25 +114,21 @@ public class FMenuPrincipal extends JDialog {
 
 		createMenuInicio();
 
-		// #if ${Status} == "T" or ${VisualizarStatus} == "T" or
-		// ${AlterarStatus} == "T"
+		//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
 		createMenuStatus();
-		// #endif
+		//#endif
 
-		// #if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} ==
-		// "T"
+		//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
 		createMenuGrupo();
-		// #endif
+		//#endif
 
-		// #if ${Contato} == "T" or ${AdicionarContato} == "T" or
-		// ${RemoverContato} == "T"
+		//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
 		createMenuContato();
-		// #endif
+		//#endif
 
-		// #if ${Ajuda} == "T" or ${EnviaComentario} == "T" or
-		// ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
+		//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 		createMenuAjuda();
-		// #endif
+		//#endif
 
 		createThreadUpdateContacts();
 
@@ -158,11 +180,11 @@ public class FMenuPrincipal extends JDialog {
 		jMenu.add(jMenuInicio);
 	}
 
-	// #if ${Ajuda} == "T"
+	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 	private void createMenuAjuda() {
 		jMenuAjuda = new JMenu("Ajuda");
 
-		// #if ${EnviaComentario} == "T"
+		//#if ${EnviaComentario} == "T"
 		btnEnviarComentario = new JMenuItem("Enviar Comentário");
 		btnEnviarComentario.addActionListener(new ActionListener() {
 			@Override
@@ -171,9 +193,9 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuAjuda.add(btnEnviarComentario);
-		// #endif
+		//#endif
 
-		// #if ${PoliticaPrivacidade} == "T"
+		//#if ${PoliticaPrivacidade} == "T"
 		btnPoliticaPrivacidade = new JMenuItem("Política de Privacidade");
 		btnPoliticaPrivacidade.addActionListener(new ActionListener() {
 			@Override
@@ -182,9 +204,9 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuAjuda.add(btnPoliticaPrivacidade);
-		// #endif
+		//#endif
 
-		// #if ${Sobre} == "T"
+		//#if ${Sobre} == "T"
 		btnSobre = new JMenuItem("Sobre");
 		btnSobre.addActionListener(new ActionListener() {
 			@Override
@@ -193,18 +215,18 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuAjuda.add(btnSobre);
-		// #endif
+		//#endif
 
 		jMenu.add(jMenuAjuda);
 	}
 
-	// #endif
+	//#endif
 
-	// #if ${Contato} == "T"
+	//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
 	private void createMenuContato() {
 		jMenuContato = new JMenu("Contato");
 
-		// #if ${AdicionarContato} == "T"
+		//#if ${AdicionarContato} == "T"
 		btnAdicionarContato = new JMenuItem("Adicionar");
 		btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
@@ -217,9 +239,9 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuContato.add(btnAdicionarContato);
-		// #endif
+		//#endif
 
-		// #if ${RemoverContato} == "T"
+		//#if ${RemoverContato} == "T"
 		btnRemoverContato = new JMenuItem("Remover");
 		btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
@@ -232,18 +254,18 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuContato.add(btnRemoverContato);
-		// #endif
+		//#endif
 
 		jMenu.add(jMenuContato);
 	}
 
-	// #endif
+	//#endif
 
-	// #if ${Grupo} == "T"
+	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
 	private void createMenuGrupo() {
 		jMenuGrupo = new JMenu("Grupo");
 
-		// #if ${CadastrarGrupo} == "T"
+		//#if ${CadastrarGrupo} == "T"
 		btnAdicionarGrupo = new JMenuItem("Adicionar");
 		btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -252,9 +274,9 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuGrupo.add(btnAdicionarGrupo);
-		// #endif
+		//#endif
 
-		// #if ${RemoverGrupo} == "T"
+		//#if ${RemoverGrupo} == "T"
 		btnRemoverGrupo = new JMenuItem("Remover");
 		btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -263,18 +285,18 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuGrupo.add(btnRemoverGrupo);
-		// #endif
+		//#endif
 
 		jMenu.add(jMenuGrupo);
 	}
 
-	// #endif
+	//#endif
 
-	// #if ${Status} == "T"
+	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
 	private void createMenuStatus() {
 		jMenuStatus = new JMenu("Status");
 
-		// #if ${VisualizarStatus} == "T"
+		//#if ${VisualizarStatus} == "T"
 		btnVisualizarStatus = new JMenuItem("Visualizar");
 		btnVisualizarStatus.addActionListener(new ActionListener() {
 			@Override
@@ -283,9 +305,9 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuStatus.add(btnVisualizarStatus);
-		// #endif
+		//#endif
 
-		// #if ${AlterarStatus} == "T"
+		//#if ${AlterarStatus} == "T"
 		btnAlterarStatus = new JMenuItem("Alterar");
 		btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
@@ -294,11 +316,11 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuStatus.add(btnAlterarStatus);
-		// #endif
+		//#endif
 
 		jMenu.add(jMenuStatus);
 	}
-	// #endif
+	//#endif
 
 	private void createThreadUpdateContacts() {
 		Timer timer = new Timer();

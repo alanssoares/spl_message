@@ -1,3 +1,4 @@
+//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
 /**
  * 
  */
@@ -21,6 +22,7 @@ public class ContatoFacadeImpl implements ContatoFacade {
 	
 	private ContatoDao contatoDao = new ContatoDaoImpl();
 
+	//#if ${AdicionarContato} == "T"
 	@Override
 	public void inserir(Contato contato) {
 		contato.setIdGrupo(ID_GRUPO_DEFAULT);
@@ -28,12 +30,15 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		contato.setDataInclusao(new Date());
 		this.contatoDao.inserir(contato);
 	}
-
+	//#endif
+	
+	//#if ${RemoverContato} == "T"
 	@Override
 	public void remover(Contato contato) {
 		this.contatoDao.remover(contato);
 	}
-
+	//#endif
+	
 	@Override
 	public List<Contato> listar(String email) {
 		return this.contatoDao.listar(email);
@@ -44,3 +49,4 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		return this.contatoDao.buscar(contato);
 	}
 }
+//#endif

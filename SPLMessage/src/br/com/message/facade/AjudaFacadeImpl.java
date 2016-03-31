@@ -1,3 +1,4 @@
+//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T"
 /**
  * 
  */
@@ -15,17 +16,27 @@ import br.com.message.model.Sobre;
  *
  */
 public class AjudaFacadeImpl implements AjudaFacade {
-
-	private SobreDao sobreDao = new SobreDaoImpl();
-	private PoliticaPrivacidadeDao politicaPrivacidadeDao = new PoliticaPrivacidadeDaoImpl();
 	
+	//#if ${PoliticaPrivacidade} == "T"
+	private PoliticaPrivacidadeDao politicaPrivacidadeDao = new PoliticaPrivacidadeDaoImpl();
+	//#endif
+	
+	//#if ${Sobre} == "T"
+	private SobreDao sobreDao = new SobreDaoImpl();
+	//#endif
+	
+	//#if ${Sobre} == "T"
 	@Override
 	public Sobre buscarSobre() {
 		return this.sobreDao.buscar();
 	}
+	//#endif
 	
+	//#if ${PoliticaPrivacidade} == "T"
 	@Override
 	public PoliticaPrivacidade buscarPolitica() {
 		return this.politicaPrivacidadeDao.buscar();
 	}
+	//#endif
 }
+//#endif

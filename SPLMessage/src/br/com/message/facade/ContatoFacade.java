@@ -1,3 +1,4 @@
+//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
 /**
  * 
  */
@@ -13,17 +14,21 @@ import br.com.message.model.Contato;
  */
 public interface ContatoFacade {
 
+	//#if ${AdicionarContato} == "T"
 	/**
 	 * Método responsável por inserir um contato
 	 * @param contato a ser inserido
 	 */
 	public void inserir(Contato contato);
+	//#endif
 	
+	//#if ${RemoverContato} == "T"
 	/**
 	 * Método responsável por remover um contato
 	 * @param contato a ser removido
 	 */
 	public void remover(Contato contato);
+	//#endif
 	
 	/**
 	 * Método responsável por listar todos os contatos do usuário 
@@ -39,3 +44,4 @@ public interface ContatoFacade {
 	 */
 	public Contato buscar(Contato contato);
 }
+//#endif

@@ -1,4 +1,4 @@
-//#if ${Contato} == "T"
+//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T" 
 /**
  * 
  */

@@ -1,3 +1,4 @@
+//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T" 
 /**
  * 
  */
@@ -68,3 +69,4 @@ public class FStatus {
 	}
 	//#endif
 }
+//#endif

@@ -1,3 +1,4 @@
+//#if ${EnviaComentario} == "T"
 /**
  * 
  */
@@ -25,3 +26,4 @@ public interface ComentarioFacade {
 	 */
 	public List<Comentario> listar();
 }
+//#endif
