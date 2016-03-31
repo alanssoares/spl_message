@@ -13,6 +13,7 @@ import br.com.message.facade.ContatoFacadeImpl;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Contato;
 import br.com.message.model.Usuario;
+import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -37,18 +38,22 @@ public class FContato {
 		Object res = JOptionPane.showInputDialog(this.parent, "Email do Contato", "Remover Contato", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
 			c = new UsuarioFacadeImpl().findByEmail(res.toString());
-			if(c != null ){
-				Contato contato = new Contato();
-				contato.setEmailContato(c.getEmail());
-				contato = contatoFacade.buscar(contato);
+			if(c == null){
+				JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+				return null;
+			} else if(c.getEmail().equals(DataStore.getInstance().getUsuario().getEmail())){
+				JOptionPane.showMessageDialog(this.parent, "Este contato não é válido", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+				return null;
+			} else {
+				Contato contato = new Contato(DataStore.getInstance().getUsuario().getEmail(), c.getEmail());
+				contato = this.contatoFacade.buscar(contato);
 				if(contato != null){
 					this.contatoFacade.remover(contato);
 					JOptionPane.showMessageDialog(this.parent, "Contato removido com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);	
 				} else {
 					JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					return null;
 				}
-			} else {
-				JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 		return c;
@@ -65,13 +70,21 @@ public class FContato {
 		Object res = JOptionPane.showInputDialog(this.parent, "Email do Contato", "Adicionar Contato", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
 			user = new UsuarioFacadeImpl().findByEmail(res.toString());
-			if(user != null){
-				Contato contato = new Contato();
-				contato.setEmailContato(user.getEmail());
-				this.contatoFacade.inserir(contato);
-				JOptionPane.showMessageDialog(this.parent, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-			} else {
+			if(user == null){
 				JOptionPane.showMessageDialog(this.parent, "Não foi possível localizar o contato", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+				return null;
+			} else if(user.getEmail().equals(DataStore.getInstance().getUsuario().getEmail())){
+				JOptionPane.showMessageDialog(this.parent, "Este contato não é válido", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+				return null;
+			} else {
+				Contato contato = new Contato(DataStore.getInstance().getUsuario().getEmail(), user.getEmail());
+				if(contatoFacade.buscar(contato) != null){
+					JOptionPane.showMessageDialog(this.parent, "Contato já está cadastrado", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					return null;
+				} else {
+					this.contatoFacade.inserir(contato);
+					JOptionPane.showMessageDialog(this.parent, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);	
+				}
 			}
 		}
 		return user;

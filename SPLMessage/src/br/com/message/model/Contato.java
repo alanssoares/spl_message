@@ -34,6 +34,10 @@ public class Contato {
 		this.contatoPK = new ContatoPK();
 	}
 	
+	public Contato(String emailUsuario, String emailContato) {
+		this.contatoPK = new ContatoPK(emailUsuario, emailContato);
+	}
+
 	/**
 	 * Return the contatoPK
 	 * @return the contatoPK

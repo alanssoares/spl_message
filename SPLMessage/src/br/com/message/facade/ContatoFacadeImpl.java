@@ -41,7 +41,6 @@ public class ContatoFacadeImpl implements ContatoFacade {
 
 	@Override
 	public Contato buscar(Contato contato) {
-		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		return this.contatoDao.buscar(contato);
 	}
 }
