@@ -50,6 +50,9 @@ public class FMenuPrincipal extends JDialog {
 	//if ${AlterarStatus} == "T"
 	private JMenuItem btnAlterarStatus;
 	//#endif
+	//if ${AlterarContato} == "T"
+	private JMenuItem btnAlterarContato;
+	//#endif
 	//if ${EnviaComentario} == "T"
 	private JMenuItem btnEnviarComentario;
 	//#endif
@@ -72,7 +75,7 @@ public class FMenuPrincipal extends JDialog {
 	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 	private JMenu jMenuAjuda;
 	//#endif
-	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
+	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T" or ${AlterarContato} == "T"
 	private JMenu jMenuContato;
 	//#endif
 	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
@@ -231,16 +234,25 @@ public class FMenuPrincipal extends JDialog {
 		btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Usuario contato = new FContato(FMenuPrincipal.this).adicionarContato();
-				if(contato != null){
-					dfListContact.addElement(contato);
-				}
+				new FContato(FMenuPrincipal.this).createFrameAdicionarAlterar(Constantes.FEATURE_ADICIONAR_CONTATO);
 				updateContacts();
 			}
 		});
 		jMenuContato.add(btnAdicionarContato);
 		//#endif
 
+		//#if ${AlterarContato} == "T"
+		btnAlterarContato = new JMenuItem("Alterar");
+		btnAlterarContato.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FContato(FMenuPrincipal.this).createFrameAdicionarAlterar(Constantes.FEATURE_ALTERAR_CONTATO);
+				updateContacts();
+			}
+		});
+		jMenuContato.add(btnAlterarContato);
+		//#endif
+		
 		//#if ${RemoverContato} == "T"
 		btnRemoverContato = new JMenuItem("Remover");
 		btnRemoverContato.addActionListener(new ActionListener() {
@@ -360,6 +372,8 @@ public class FMenuPrincipal extends JDialog {
 			int index = getContact(contato);
 			if(index >= 0){
 				dfListContact.set(index, contato);
+			} else if(contato != null){
+				dfListContact.addElement(contato);
 			}
 		}
 	}

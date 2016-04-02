@@ -7,6 +7,7 @@ package br.com.message.facade;
 import java.util.List;
 
 import br.com.message.model.Contato;
+import br.com.message.model.Usuario;
 
 /**
  * @author alsoares
@@ -26,8 +27,17 @@ public interface ContatoFacade {
 	/**
 	 * Método responsável por remover um contato
 	 * @param contato a ser removido
+	 * @return Usuario
 	 */
-	public void remover(Contato contato);
+	public Usuario remover(Contato contato);
+	//#endif
+	
+	//#if ${AlterarContato} == "T"
+	/**
+	 * Método responsável por alterar um contato
+	 * @param contato a ser alterado
+	 */
+	public void update(Contato contato);
 	//#endif
 	
 	/**

@@ -45,4 +45,9 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 	public Contato buscar(Contato contato) {
 		return find(contato.getContatoPK());
 	}
+
+	@Override
+	public void alterar(Contato contato) {
+		update(contato);
+	}
 }

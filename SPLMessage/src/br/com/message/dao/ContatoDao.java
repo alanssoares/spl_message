@@ -38,4 +38,10 @@ public interface ContatoDao {
 	 * @return Contato
 	 */
 	Contato buscar(Contato contato);
+
+	/**
+	 * Método responsável por atualizar os dados do contato
+	 * @param contato a ser atualizado
+	 */
+	void alterar(Contato contato);
 }
