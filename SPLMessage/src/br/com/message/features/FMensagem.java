@@ -11,10 +11,12 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import br.com.message.enums.EnumEmoction;
 import br.com.message.enums.EnumStatusUsuario;
 import br.com.message.facade.MensagemFacade;
 import br.com.message.facade.MensagemFacadeImpl;
@@ -98,7 +100,7 @@ public class FMensagem extends JFrame {
 	    btnEmoction.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				showEmoctions();
 			}
 		});
 	    
@@ -148,6 +150,23 @@ public class FMensagem extends JFrame {
 		List<Mensagem> mensagens = mensagemFacade.listar(c);
 		for(Mensagem m : mensagens){
 			addMessageToHistory(m.getDescricao());
+		}
+	}
+	
+	/**
+	 * Load all emoctions to user selects
+	 */
+	public void showEmoctions(){
+		Object selected = null;
+		Object[] options = new Object[EnumEmoction.values().length];
+		int i = 0;
+		for(EnumEmoction item : EnumEmoction.values()){
+			options[i++] = item.getEmoction();
+		}
+		Object res = JOptionPane.showInputDialog(this, "Escolha o Emoction", "Emoctions", 
+				JOptionPane.PLAIN_MESSAGE, null, options, selected);
+		if(res != null){
+			tfMensagem.setText(tfMensagem.getText() + res.toString());
 		}
 	}
 }
