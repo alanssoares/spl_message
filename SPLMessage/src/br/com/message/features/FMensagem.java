@@ -5,6 +5,9 @@ package br.com.message.features;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -40,8 +43,12 @@ public class FMensagem extends JFrame {
 	private JLabel lbStatus;
 	private JTextField tfMensagem;
 	private JButton btnEnviar;
+	//if ${Emoction} == "T"
 	private JButton btnEmoction;
+	//#endif
+	//if ${Anexar} == "T"
 	private JButton btnAnexar;
+	//#endif
 	private Usuario contato;
 	private JTextArea chatHistory;
 	private MensagemFacade mensagemFacade;
@@ -57,7 +64,6 @@ public class FMensagem extends JFrame {
 	}
 
 	private void initComponents() {
-		String pathImages = getClass().getResource("/").getPath().replace("bin/", "imgs/");
 		panel = new JPanel();
 		
 		//Create panel
@@ -87,13 +93,15 @@ public class FMensagem extends JFrame {
 	    	public void actionPerformed(ActionEvent e) {
 	    		try {
 					mensagemFacade.inserir(getMessage());
-					addMessageToHistory(tfMensagem.getText());
+					addMessageToHistory(tfMensagem.getText(), DataStore.getInstance().getUsuario().getNome());
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
 	    	}
 	    });
 	    
+	    //if ${Emoction} == "T"
+	    String pathImages = getClass().getResource("/").getPath().replace("bin/", "imgs/");
 	    btnEmoction = new JButton(new ImageIcon(pathImages + Constantes.IMG_EMOCTION));
 	    btnEmoction.setBounds(445, 375, 30, 28);
 	    panel.add(btnEmoction);
@@ -103,7 +111,9 @@ public class FMensagem extends JFrame {
 				showEmoctions();
 			}
 		});
+	    //#endif
 	    
+	    //if ${Anexar} == "T"
 	    btnAnexar = new JButton("Anexar");
 	    btnAnexar.setBounds(20, 420, 80, 30);
 	    panel.add(btnAnexar);
@@ -113,6 +123,7 @@ public class FMensagem extends JFrame {
 				// TODO Auto-generated method stub
 			}
 		});
+	    //#endif
 	    
 	    //Carrega as mensagens anteriores
 	    loadChatHistory();
@@ -135,8 +146,8 @@ public class FMensagem extends JFrame {
 	/**
 	 * Add new message to history
 	 */
-	public void addMessageToHistory(String message){
-		String newMessage = contato.getNome() + ": ";
+	public void addMessageToHistory(String message, String name){
+		String newMessage = name + ": ";
 		newMessage += message + "\n";
 		chatHistory.setText(chatHistory.getText() + newMessage);
 		tfMensagem.setText("");
@@ -146,13 +157,29 @@ public class FMensagem extends JFrame {
 	 * Load previous messages
 	 */
 	public void loadChatHistory(){
-		Contato c = new Contato(DataStore.getInstance().getUsuario().getEmail(), contato.getEmail());
-		List<Mensagem> mensagens = mensagemFacade.listar(c);
-		for(Mensagem m : mensagens){
-			addMessageToHistory(m.getDescricao());
+		final Usuario user = DataStore.getInstance().getUsuario();
+		Contato cSend = new Contato(user.getEmail(), contato.getEmail());
+		Contato cRecv = new Contato(contato.getEmail(), user.getEmail());
+		List<Mensagem> allMessages = new ArrayList<Mensagem>(); 
+		allMessages.addAll(mensagemFacade.listar(cSend));
+		allMessages.addAll(mensagemFacade.listar(cRecv));
+		
+		Collections.sort(allMessages, new Comparator<Mensagem>() {
+			public int compare(Mensagem o1, Mensagem o2) {
+			      return o1.getDataInclusao().compareTo(o2.getDataInclusao());
+			  }
+		});
+		
+		for(Mensagem m : allMessages){
+			if(m.getEmailUsuario().equals(cSend.getEmailUsuario())){
+				addMessageToHistory(m.getDescricao(), user.getNome());
+			} else {
+				addMessageToHistory(m.getDescricao(), contato.getNome());
+			}
 		}
 	}
 	
+	//if ${Emoction} == "T"
 	/**
 	 * Load all emoctions to user selects
 	 */
@@ -169,4 +196,5 @@ public class FMensagem extends JFrame {
 			tfMensagem.setText(tfMensagem.getText() + res.toString());
 		}
 	}
+	//#endif
 }
