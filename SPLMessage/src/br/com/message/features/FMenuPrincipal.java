@@ -5,6 +5,8 @@ package br.com.message.features;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Timer;
@@ -267,7 +269,7 @@ public class FMenuPrincipal extends JDialog {
 		});
 		jMenuContato.add(btnRemoverContato);
 		//#endif
-
+		
 		jMenu.add(jMenuContato);
 	}
 
@@ -334,6 +336,9 @@ public class FMenuPrincipal extends JDialog {
 	}
 	//#endif
 
+	/**
+	 * Cria a lista de contatos do usuário
+	 */
 	private void createThreadUpdateContacts() {
 		Timer timer = new Timer();
 		
@@ -350,6 +355,14 @@ public class FMenuPrincipal extends JDialog {
 		jListConcatcs.setSelectedIndex(0);
 		jListConcatcs.setVisibleRowCount(contacts.size());
 		jScrollPaneContact = new JScrollPane(jListConcatcs);
+		
+		jListConcatcs.addMouseListener(new MouseAdapter() {
+		    public void mouseClicked(MouseEvent e) {
+		        if (e.getClickCount() == 2) {
+		        	new FMensagem(jListConcatcs.getSelectedValue());
+		        }
+		   }
+		});
 		
 		getContentPane().add(jScrollPaneContact);
 		

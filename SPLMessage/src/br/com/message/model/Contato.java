@@ -113,4 +113,12 @@ public class Contato {
 	public String getEmailUsuario(){
 		return this.contatoPK.getEmailUsuario();
 	}
+
+	/**
+	 * Return emailContato
+	 * @return
+	 */
+	public String getEmailContato() {
+		return this.contatoPK.getEmailContato();
+	}
 }

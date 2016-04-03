@@ -3,12 +3,14 @@
  */
 package br.com.message.facade;
 
+import java.util.Date;
 import java.util.List;
 
 import br.com.message.dao.MensagemDao;
 import br.com.message.dao.MensagemDaoImpl;
 import br.com.message.model.Contato;
 import br.com.message.model.Mensagem;
+import br.com.message.util.DataStore;
 
 /**
  * @author alsoares
@@ -20,6 +22,8 @@ public class MensagemFacadeImpl implements MensagemFacade {
 
 	@Override
 	public void inserir(Mensagem mensagem) {
+		mensagem.setDataInclusao(new Date());
+		mensagem.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		this.mensagemDao.inserir(mensagem);
 	}
 
