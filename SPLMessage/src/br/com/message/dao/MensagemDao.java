@@ -16,7 +16,7 @@ public interface MensagemDao {
 
 	void inserir(Mensagem mensagem);
 
-	void limparHistorico(Contato contato);
+	void removeMensagem(Mensagem mensagem);
 
 	Mensagem buscar(Mensagem mensagem);
 

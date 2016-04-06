@@ -6,6 +6,9 @@ package br.com.message.dao;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+import javax.persistence.EntityTransaction;
+
 import br.com.message.model.Contato;
 import br.com.message.model.Mensagem;
 import br.com.message.model.MensagemPK;
@@ -26,11 +29,6 @@ public class MensagemDaoImpl extends GenericDao<Mensagem, MensagemPK> implements
 	}
 
 	@Override
-	public void limparHistorico(Contato contato) {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public Mensagem buscar(Mensagem mensagem) {
 		return find(mensagem.getMensagemPK());
 	}
@@ -45,5 +43,15 @@ public class MensagemDaoImpl extends GenericDao<Mensagem, MensagemPK> implements
 			}
 		}
 		return listReturn;
+	}
+
+	@Override
+	public void removeMensagem(Mensagem mensagem) {
+		EntityManager em = getEntityManager();
+		EntityTransaction transaction = em.getTransaction();
+		transaction.begin();
+		em.remove(em.contains(mensagem) ? mensagem : em.merge(mensagem));
+		transaction.commit();
+		em.close();
 	}
 }

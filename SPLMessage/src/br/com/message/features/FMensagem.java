@@ -49,6 +49,9 @@ public class FMensagem extends JFrame {
 	//if ${Anexar} == "T"
 	private JButton btnAnexar;
 	//#endif
+	//if ${LimparHistorico} == "T"
+	private JButton btnLimparHistorico;
+	//#endif
 	private Usuario contato;
 	private JTextArea chatHistory;
 	private MensagemFacade mensagemFacade;
@@ -125,6 +128,26 @@ public class FMensagem extends JFrame {
 		});
 	    //#endif
 	    
+	    //if ${LimparHistorico} == "T"
+	    btnLimparHistorico = new JButton("Limpar");
+	    btnLimparHistorico.setBounds(105, 420, 80, 30);
+	    panel.add(btnLimparHistorico);
+	    btnLimparHistorico.addActionListener(new  ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				final Usuario user = DataStore.getInstance().getUsuario();
+				Contato c = new Contato(user.getEmail(), contato.getEmail());
+				try {
+					mensagemFacade.limparHistorico(c);
+					chatHistory.setText("");
+					JOptionPane.showMessageDialog(FMensagem.this, "Histórico excluído com sucesso!");
+				} catch (Exception ex) {
+					JOptionPane.showMessageDialog(FMensagem.this, "Erro ao tentar limpar o histórico!");
+				}
+			}
+		});
+	    //#endif
+	    
 	    //Carrega as mensagens anteriores
 	    loadChatHistory();
 	    
@@ -158,11 +181,9 @@ public class FMensagem extends JFrame {
 	 */
 	public void loadChatHistory(){
 		final Usuario user = DataStore.getInstance().getUsuario();
-		Contato cSend = new Contato(user.getEmail(), contato.getEmail());
-		Contato cRecv = new Contato(contato.getEmail(), user.getEmail());
+		Contato c = new Contato(user.getEmail(), contato.getEmail());
 		List<Mensagem> allMessages = new ArrayList<Mensagem>(); 
-		allMessages.addAll(mensagemFacade.listar(cSend));
-		allMessages.addAll(mensagemFacade.listar(cRecv));
+		allMessages.addAll(mensagemFacade.listar(c));
 		
 		Collections.sort(allMessages, new Comparator<Mensagem>() {
 			public int compare(Mensagem o1, Mensagem o2) {
@@ -171,7 +192,7 @@ public class FMensagem extends JFrame {
 		});
 		
 		for(Mensagem m : allMessages){
-			if(m.getEmailUsuario().equals(cSend.getEmailUsuario())){
+			if(Constantes.MSG_ENVIADA.equals(m.getEnviada())){
 				addMessageToHistory(m.getDescricao(), user.getNome());
 			} else {
 				addMessageToHistory(m.getDescricao(), contato.getNome());

@@ -372,7 +372,7 @@ public class FMenuPrincipal extends JDialog {
 			public void run() {
 				updateContacts();
 			}
-		}, 0, 1000 * 5);
+		}, 0, 1000 * 10);
 	}
 
 	/**

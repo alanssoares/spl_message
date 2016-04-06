@@ -43,6 +43,12 @@ public class Mensagem implements Serializable {
 	@Column(name="data_inclusao", nullable=false)
 	private Date dataInclusao;
 	
+	@Column(name="enviada", nullable=false)
+	private Integer	enviada;
+	
+	@Column(name="lida", nullable=false)
+	private Integer	lida;
+	
 	public Mensagem() {
 		mensagemPK = new MensagemPK();
 	}
@@ -135,5 +141,37 @@ public class Mensagem implements Serializable {
 	 */
 	public String getEmailContato() {
 		return this.mensagemPK.getEmailContato();
+	}
+
+	/**
+	 * Return the enviada
+	 * @return the enviada
+	 */
+	public Integer getEnviada() {
+		return enviada;
+	}
+
+	/**
+	 * Setter the enviada
+	 * @param enviada the enviada to set
+	 */
+	public void setEnviada(Integer enviada) {
+		this.enviada = enviada;
+	}
+
+	/**
+	 * Return the lida
+	 * @return the lida
+	 */
+	public Integer getLida() {
+		return lida;
+	}
+
+	/**
+	 * Setter the lida
+	 * @param lida the lida to set
+	 */
+	public void setLida(Integer lida) {
+		this.lida = lida;
 	}
 }
