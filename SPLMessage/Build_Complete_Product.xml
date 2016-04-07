@@ -37,6 +37,7 @@
 			<property name="Sobre" value="T" />
 			<property name="Emoction" value="T"></property>
 			<property name="Anexar" value="T"></property>
+			<property name="PesquisaContato" value="T"></property>
 		</javapp>
 		
 		<echo message="Step 2.2 - Coping persistence file" />

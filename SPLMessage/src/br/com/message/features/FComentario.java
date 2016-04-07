@@ -100,12 +100,17 @@ public class FComentario extends JFrame {
 	    btnEnviar = new JButton("Enviar");
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
-	    		Comentario comentario = getComentario();
-				ajudaFacade.inserirComentario(comentario);
-				JOptionPane.showMessageDialog(FComentario.this, 
-						"Comentário enviado com sucesso", 
-						"Mensagem Confirmação", JOptionPane.PLAIN_MESSAGE);
-				clearFields();
+	    		if(isFieldsValid()){
+		    		Comentario comentario = getComentario();
+					ajudaFacade.inserirComentario(comentario);
+					JOptionPane.showMessageDialog(FComentario.this, 
+							"Comentário enviado com sucesso", 
+							"Mensagem Confirmação", JOptionPane.PLAIN_MESSAGE);
+					clearFields();
+	    		} else {
+					JOptionPane.showMessageDialog(FComentario.this, Constantes.MSG_PREENCHIMENTO_CAMPOS, 
+							Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+	    		}
 	    	}
 	    });
 	    
@@ -125,11 +130,12 @@ public class FComentario extends JFrame {
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(bp, BorderLayout.PAGE_END);
 	    
-		setSize(600, 400);
+		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
+		setLocationRelativeTo(this.parent);
 		setVisible(true);
 	}
 	
-	public Comentario getComentario() {
+	private Comentario getComentario() {
 		Comentario comentario = new Comentario();
 		comentario.setAssunto(tfAssunto.getText());
 		comentario.setDescricao(tfMensagem.getText());
@@ -138,9 +144,19 @@ public class FComentario extends JFrame {
 	}
 	
 	/**
+	 * Método responsável por validar os campos
+	 */
+	private boolean isFieldsValid(){
+		if(tfAssunto.getText().isEmpty() || tfMensagem.getText().isEmpty()){
+			return false;
+		}
+		return true;
+	}
+	
+	/**
 	 * Limpa todos os campos da tela 
 	 */
-	public void clearFields(){
+	private void clearFields(){
 		tfAssunto.setText("");
 		tfMensagem.setText("");
 		cTipoComentario.setSelectedIndex(0);
@@ -149,7 +165,7 @@ public class FComentario extends JFrame {
 	/**
 	 * Retorna o parent
 	 */
-	public Component getParentFrame(){
+	private Component getParentFrame(){
 		return parent;
 	}
 }

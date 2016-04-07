@@ -163,6 +163,7 @@ public class FContato {
 	    frameNewContact.getContentPane().add(bp, BorderLayout.PAGE_END);
 	    
 	    frameNewContact.setSize(350, 200);
+	    frameNewContact.setLocationRelativeTo(this.parent);
 	    frameNewContact.setVisible(true);
 	}
 	

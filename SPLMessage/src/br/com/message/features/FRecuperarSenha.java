@@ -142,7 +142,8 @@ public class FRecuperarSenha extends JFrame {
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(bp, BorderLayout.PAGE_END);
 	    
-		setSize(600, 400);
+		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
+		setLocationRelativeTo(this.parent);
 		setVisible(true);
 	}
 	

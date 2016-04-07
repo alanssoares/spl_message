@@ -93,10 +93,12 @@ public class FMenuPrincipal extends JDialog {
 	//#endif
 	private JMenu jMenuInicio;
 
+	//#if ${PesquisaContato} == "T"
 	private JPanel buscaPanel;
 	private JButton btnBuscarContato;
 	private JLabel lbEmailContato;
 	private JTextField tfEmailContato;
+	//#endif
 	
 	private JList<Usuario> jListConcatcs;
 	private DefaultListModel<Usuario> dfListContact;
@@ -120,8 +122,9 @@ public class FMenuPrincipal extends JDialog {
 
 	private void initComponents() {
 		
+		//#if ${PesquisaContato} == "T"
 		buscaPanel = new JPanel();
-		buscaPanel.setBounds(0, 0, 400, 100);
+		buscaPanel.setBounds(0, 0, 200, 100);
 		
 		lbEmailContato = new JLabel("Email");
 		lbEmailContato.setBounds(0, 20, 80, 20);
@@ -140,8 +143,8 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		buscaPanel.add(btnBuscarContato);
-		
 		getContentPane().add(buscaPanel, BorderLayout.PAGE_START);
+		//#endif
 		
 		jMenu = new JMenuBar();
 
