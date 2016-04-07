@@ -5,8 +5,8 @@ package br.com.message.model;
 
 import java.io.Serializable;
 
-import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.JoinColumn;
 
 /**
  * @author alsoares
@@ -20,10 +20,10 @@ public class ContatoPK implements Serializable {
 	 */
 	private static final long serialVersionUID = 8487285796253191963L;
 	
-	@Column(name="email_usuario", nullable=false)
+	@JoinColumn(name="email_usuario", referencedColumnName="email", table="usuario", nullable=false)
 	private String emailUsuario;
 	
-	@Column(name="email_contato", nullable=false)
+	@JoinColumn(name="email_contato", referencedColumnName="email", table="usuario", nullable=false)
 	private String emailContato;
 
 	public ContatoPK() {

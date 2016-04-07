@@ -9,6 +9,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -17,7 +18,7 @@ import javax.persistence.TemporalType;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="comentario")
 @Table(name="comentario")
 public class Comentario {
 
@@ -26,16 +27,16 @@ public class Comentario {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@Column(name="assunto", nullable=false)
+	@Column(name="assunto", nullable=false, length=255)
 	private String assunto;
 	
 	@Column(name="tipo", nullable=false)
 	private Integer tipo;
 	
-	@Column(name="email_usuario", nullable=false)
+	@JoinColumn(name="email_usuario", referencedColumnName="email", table="usuario", nullable=false)
 	private String emailUsuario;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao", nullable=false, length=1000)
 	private String	descricao;
 	
 	@Temporal(TemporalType.DATE)

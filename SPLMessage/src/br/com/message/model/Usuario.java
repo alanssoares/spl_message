@@ -8,6 +8,7 @@ import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -23,16 +24,16 @@ import br.com.message.enums.EnumStatusUsuario;
 public class Usuario {
 	
 	@Id
-	@Column(name="email", nullable=false)
+	@Column(name="email", nullable=false, length=255)
 	private String email;
 	
-	@Column(name="nome", nullable=false)
+	@Column(name="nome", nullable=false, length=255)
 	private String nome;
 	
-	@Column(name="senha", nullable=false)
+	@Column(name="senha", nullable=false, length=25)
 	private String senha;
 	
-	@Column(name="id_status", nullable=false)
+	@JoinColumn(name="id_status", referencedColumnName="id", table="status_usuario", nullable=false)
 	private Integer idStatus;
 	
 	@Temporal(TemporalType.DATE)

@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="grupo")
 @Table(name="grupo")
 public class Grupo {
 
@@ -22,7 +22,7 @@ public class Grupo {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao", nullable=false, length=255)
 	private String descricao;
 	
 	/**

@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="politica_privacidade")
 @Table(name="politica_privacidade")
 public class PoliticaPrivacidade {
 
@@ -22,7 +22,7 @@ public class PoliticaPrivacidade {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao", nullable=false, length=2500)
 	private String descricao;
 	
 	/**

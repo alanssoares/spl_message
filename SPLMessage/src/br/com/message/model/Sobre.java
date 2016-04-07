@@ -13,7 +13,7 @@ import javax.persistence.Table;
  * @author alsoares
  *
  */
-@Entity
+@Entity(name="sobre")
 @Table(name="sobre")
 public class Sobre {
 
@@ -22,7 +22,7 @@ public class Sobre {
 	@Column(name="id", nullable=false)
 	private Integer id;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao", nullable=false, length=2500)
 	private String descricao;
 	
 	/**

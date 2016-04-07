@@ -36,7 +36,7 @@ public class Mensagem implements Serializable {
 	@EmbeddedId
 	private MensagemPK mensagemPK;
 	
-	@Column(name="descricao", nullable=false)
+	@Column(name="descricao", nullable=false, length=1000)
 	private String	descricao;
 	
 	@Temporal(TemporalType.DATE)
@@ -44,10 +44,10 @@ public class Mensagem implements Serializable {
 	private Date dataInclusao;
 	
 	@Column(name="enviada", nullable=false)
-	private Integer	enviada;
+	private Integer enviada;
 	
 	@Column(name="lida", nullable=false)
-	private Integer	lida;
+	private Integer lida;
 	
 	public Mensagem() {
 		mensagemPK = new MensagemPK();
