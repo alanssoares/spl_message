@@ -32,6 +32,7 @@
 			<property name="AlterarContato" value="T" />
 			<property name="Ajuda" value="T" />
 			<property name="EnviaComentario" value="T" />
+			<property name="ListaComentarios" value="T" />
 			<property name="PoliticaPrivacidade" value="T" />
 			<property name="Sobre" value="T" />
 			<property name="Emoction" value="T"></property>

@@ -1,3 +1,4 @@
+//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
 /**
  * 
  */
@@ -19,6 +20,32 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 		super(Contato.class);
 	}
 
+	//#if ${RemoverContato} == "T"
+	@Override
+	public void remover(Contato contato) {
+		remove(contato.getContatoPK());
+	}
+	//#endif
+	
+	//#if ${AdicionarContato} == "T"
+	@Override
+	public void inserir(Contato contato) {
+		insert(contato);
+	}
+	//#endif
+	
+	//#if ${AlterarContato} == "T"
+	@Override
+	public void alterar(Contato contato) {
+		update(contato);
+	}
+	//#endif
+	
+	@Override
+	public Contato buscar(Contato contato) {
+		return find(contato.getContatoPK());
+	}
+	
 	@Override
 	public List<Contato> listar(String email) {
 		List<Contato> result = getList();
@@ -30,24 +57,5 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 		}
 		return contatos;
 	}
-
-	@Override
-	public void remover(Contato contato) {
-		remove(contato.getContatoPK());
-	}
-
-	@Override
-	public void inserir(Contato contato) {
-		insert(contato);
-	}
-
-	@Override
-	public Contato buscar(Contato contato) {
-		return find(contato.getContatoPK());
-	}
-
-	@Override
-	public void alterar(Contato contato) {
-		update(contato);
-	}
 }
+//#endif

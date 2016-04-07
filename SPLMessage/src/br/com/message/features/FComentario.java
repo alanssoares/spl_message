@@ -21,7 +21,8 @@ import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
 import br.com.message.enums.EnumTipoComentario;
-import br.com.message.facade.ComentarioFacadeImpl;
+import br.com.message.facade.AjudaFacade;
+import br.com.message.facade.AjudaFacadeImpl;
 import br.com.message.model.Comentario;
 import br.com.message.util.Constantes;
 
@@ -44,10 +45,13 @@ public class FComentario extends JFrame {
 	private JButton btnCancelar;
 	private Component parent;
 	private JComboBox<String> cTipoComentario;
+	private AjudaFacade ajudaFacade;
 	
 	public FComentario(Component parent) {
 		super(Constantes.FEATURE_SEND_COMMENT);
 		this.parent = parent;
+		
+		ajudaFacade = new AjudaFacadeImpl();
 		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
@@ -97,7 +101,7 @@ public class FComentario extends JFrame {
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		Comentario comentario = getComentario();
-				new ComentarioFacadeImpl().inserir(comentario);
+				ajudaFacade.inserirComentario(comentario);
 				JOptionPane.showMessageDialog(FComentario.this, 
 						"Comentário enviado com sucesso", 
 						"Mensagem Confirmação", JOptionPane.PLAIN_MESSAGE);

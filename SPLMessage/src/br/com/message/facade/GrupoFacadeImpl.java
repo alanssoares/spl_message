@@ -20,8 +20,11 @@ public class GrupoFacadeImpl implements GrupoFacade {
 
 	//#if ${CadastrarGrupo} == "T"
 	@Override
-	public void inserir(Grupo grupo) {
-		this.grupoDao.inserir(grupo);
+	public Grupo inserir(Grupo grupo) {
+		if(buscar(grupo.getDescricao()) != null){
+			return null;
+		}
+		return grupoDao.inserir(grupo);
 	}
 	//#endif
 	
@@ -40,6 +43,11 @@ public class GrupoFacadeImpl implements GrupoFacade {
 	@Override
 	public List<Grupo> listar() {
 		return this.grupoDao.listar();
+	}
+
+	@Override
+	public Grupo buscar(String descricao) {
+		return this.grupoDao.buscar(descricao);
 	}
 }
 //#endif

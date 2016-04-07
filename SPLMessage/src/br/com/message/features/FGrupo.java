@@ -9,8 +9,10 @@ import java.util.List;
 
 import javax.swing.JOptionPane;
 
+import br.com.message.facade.GrupoFacade;
 import br.com.message.facade.GrupoFacadeImpl;
 import br.com.message.model.Grupo;
+import br.com.message.util.Constantes;
 
 /**
  * Feature grupo
@@ -20,9 +22,11 @@ import br.com.message.model.Grupo;
 public class FGrupo {
 
 	private Component parent;
+	private GrupoFacade grupoFacade;
 	
 	public FGrupo(Component parent) {
 		this.parent = parent;
+		this.grupoFacade = new GrupoFacadeImpl();
 	}
 	
 	//#if ${CadastrarGrupo} == "T"
@@ -30,11 +34,16 @@ public class FGrupo {
 	 * Responsável por adicionar um novo grupo
 	 */
 	public void adicionarGrupo() {
-		Grupo grupo = new Grupo();
+		Grupo novoGrupo = new Grupo();
 		Object res = JOptionPane.showInputDialog(this.parent, "Nome do Grupo", "Adicionar Grupo", JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
-			grupo.setDescricao(res.toString());
-			new GrupoFacadeImpl().inserir(grupo);
+			novoGrupo.setDescricao(res.toString());
+			Grupo grupo = grupoFacade.inserir(novoGrupo);
+			if(grupo != null){
+				JOptionPane.showMessageDialog(this.parent, "Grupo cadastrado com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(this.parent, "Este grupo já está cadastrado", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+			}
 		}
 	}
 	//#endif
