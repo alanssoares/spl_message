@@ -1,3 +1,4 @@
+//#if ${PoliticaPrivacidade} == "T"
 /**
  * 
  */
@@ -24,3 +25,4 @@ public class PoliticaPrivacidadeDaoImpl extends GenericDao<PoliticaPrivacidade, 
 		return lista.get(lista.size() - 1);
 	}
 }
+//#endif

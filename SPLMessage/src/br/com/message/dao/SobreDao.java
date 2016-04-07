@@ -1,3 +1,4 @@
+//#if ${Sobre} == "T"
 /**
  * 
  */
@@ -11,6 +12,11 @@ import br.com.message.model.Sobre;
  */
 public interface SobreDao {
 
+	/**
+	 * Método responsável por buscar a descrição do aplicativo
+	 * @return Sobre
+	 */
 	Sobre buscar();
-
+	
 }
+//#endif

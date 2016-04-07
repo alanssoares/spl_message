@@ -1,3 +1,4 @@
+//#if ${PoliticaPrivacidade} == "T"
 /**
  * 
  */
@@ -11,6 +12,11 @@ import br.com.message.model.PoliticaPrivacidade;
  */
 public interface PoliticaPrivacidadeDao {
 
+	/**
+	 * Método responsável por buscar a política de privacidade
+	 * @return PoliticaPrivacidade
+	 */
 	PoliticaPrivacidade buscar();
 
 }
+//#endif

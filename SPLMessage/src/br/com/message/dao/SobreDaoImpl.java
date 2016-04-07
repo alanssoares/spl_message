@@ -1,3 +1,4 @@
+//#if ${Sobre} == "T"
 /**
  * 
  */
@@ -24,3 +25,4 @@ public class SobreDaoImpl extends GenericDao<Sobre, Integer> implements SobreDao
 		return lista.get(lista.size() - 1);
 	}
 }
+//#endif
