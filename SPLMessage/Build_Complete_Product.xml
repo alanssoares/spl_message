@@ -2,71 +2,112 @@
 <project default="run">
 	<taskdef classpath="libs/javapp.jar" resource="javapp-defs.xml" />
 
+	<property name="folderProducts" value="products"></property>
+	<property name="productName" value="${folderProducts}/SPLMessageProductA" />
+	<property name="build" value="${productName}/build" />
+	<property name="libs" value="${build}/jar/libs" />
+	<property name="imgs" value="${build}/jar/imgs" />
+	<property name="resources" value="${build}/jar/resources" />
+	<property name="classes" value="${build}/classes" />
+	<property name="metaInf" value="META-INF" />
+	<property name="classPath" value="
+		libs/antlr-2.7.7.jar
+		libs/classmate-1.3.0.jar
+		libs/dom4j-1.6.1.jar
+		libs/geronimo-jta_1.1_spec-1.1.1.jar
+		libs/hibernate-commons-annotations-5.0.1.Final.jar
+		libs/hibernate-core-5.1.0.Final.jar
+		libs/hibernate-entitymanager-5.1.0.Final.jar
+		libs/hibernate-jpa-2.1-api-1.0.0.Final.jar
+		libs/jandex-2.0.0.Final.jar
+		libs/java-mail-1.4.4.jar
+		libs/javapp.jar
+		libs/javassist-3.20.0-GA.jar
+		libs/javax.inject-1.jar
+		libs/jboss-logging-3.3.0.Final.jar
+		libs/junit-4.10.jar
+		libs/mysql-connector-java-5.1.38-bin.jar
+		libs/slf4j-log4j12-1.6.1.jar
+		libs/slf4j.api-1.6.1.jar
+		libs/swingx-all-1.6.4.jar">
+	</property>
+	
 	<target name="clean">
 		<echo />
-		<echo message="Step 1 - folder 'SPLMessageProduct_Advanced' is being cleaned!" />
-		<delete dir="SPLMessageProduct_Advanced" />
+		<echo message="Step 1 - folder '${productName}' is being cleaned!" />
+		<delete dir="${folderProducts}/${productName}" includeemptydirs="true" verbose="true">
+			<!--
+		      <fileset dir="${productName}">
+		        <include name="*.class"/>
+		        <include name="*.jar"/>
+		      	<include name="*.java"/>
+		      	<include name="*.xml"/>
+		      </fileset>
+		      -->
+		</delete>
+		<echo message="Step 2 - folder '${productName}' is being created!" />
+		<mkdir dir="${productName}/src/${metaInf}" />
+		<mkdir dir="${libs}" />
+		<mkdir dir="${imgs}" />
+		<mkdir dir="${resources}" />
+		<mkdir dir="${classes}/${metaInf}"/>
 	</target>
-
+	
 	<target depends="clean" name="preprocess">
 		<echo />
-		<echo message="Step 2 - Source code is being created in the 'SPLMessageProduct_Advanced' folder!" />
-		<echo message="Step 2.1 - Using javapp to read files with idef" />
-		<javapp destdir="SPLMessageProduct_Advanced/src/br/com" prefix="//#">
+		<echo message="Step 3 - Source code is being created using javapp in the '${productName}' folder!" />
+		<javapp destdir="${productName}/src/br/com" prefix="//#">
 			<fileset dir="src/br/com" includes="**/*.java" />
-			<property name="CadastrarUsuario" value="T" />
-			<property name="RecuperarSenha" value="T" />
-			<property name="EnviarSenhaEmail" value="T" />
-			<property name="VisualizarSenhaTela" value="T" />
-			<property name="Status" value="T" />
-			<property name="VisualizarStatus" value="T" />
-			<property name="AlterarStatus" value="T" />
-			<property name="Grupo" value="T" />
-			<property name="CadastrarGrupo" value="T" />
-			<property name="AdicionarGrupo" value="T" />
-			<property name="RemoverGrupo" value="T" />
-			<property name="AlterarGrupo" value="T" />
-			<property name="Contato" value="T" />
 			<property name="AdicionarContato" value="T" />
-			<property name="RemoverContato" value="T" />
+			<property name="AdicionarGrupo" value="T" />
+			<property name="Anexar" value="T"></property>
 			<property name="AlterarContato" value="T" />
 			<property name="Ajuda" value="T" />
-			<property name="EnviaComentario" value="T" />
-			<property name="ListaComentarios" value="T" />
-			<property name="PoliticaPrivacidade" value="T" />
-			<property name="Sobre" value="T" />
+			<property name="AlterarGrupo" value="T" />
+			<property name="AlterarStatus" value="T" />
+			<property name="CadastrarGrupo" value="T" />
+			<property name="CadastrarUsuario" value="T" />
+			<property name="Contato" value="T" />
 			<property name="Emoction" value="T"></property>
-			<property name="Anexar" value="T"></property>
+			<property name="EnviaComentario" value="T" />
+			<property name="EnviarSenhaEmail" value="T" />
+			<property name="Grupo" value="T" />
+			<property name="LimparHistorico" value="T"></property>
+			<property name="ListaComentarios" value="T" />
 			<property name="PesquisaContato" value="T"></property>
+			<property name="PoliticaPrivacidade" value="T" />
+			<property name="RecuperarSenha" value="T" />
+			<property name="RemoverContato" value="T" />
+			<property name="RemoverGrupo" value="T" />
+			<property name="Sobre" value="T"/>
+			<property name="Status" value="T" />
+			<property name="VisualizarSenhaTela" value="T" />
+			<property name="VisualizarStatus" value="T" />
 		</javapp>
 		
-		<echo message="Step 2.2 - Coping persistence file" />
-		<mkdir dir="SPLMessageProduct_Advanced/src/META-INF" />
-		<copy todir="SPLMessageProduct_Advanced/src/META-INF">
-			<fileset dir="src/META-INF" includes="persistence.xml" />
+		<echo message="Step 3.1 - Coping persistence file" />
+		<copy todir="${productName}/src/${metaInf}">
+			<fileset dir="src/${metaInf}" includes="persistence.xml" />
 		</copy>
 		
-		<echo message="Step 2.3 - Creating folder libs and coping them" />
-		<mkdir dir="SPLMessageProduct_Advanced/build/jar/libs" />
-		<copy todir="SPLMessageProduct_Advanced/build/jar/libs">
+		<echo message="Step 3.2 - Creating folder libs and coping them" />
+		<copy todir="${libs}">
 			<fileset dir="libs" includes="**/*.jar" />
 		</copy>
 
-		<echo message="Step 2.4 - Creating folder resources and coping them" />
-		<mkdir dir="SPLMessageProduct_Advanced/build/jar/resources" />
-		<copy todir="SPLMessageProduct_Advanced/build/jar/resources">
+		<echo message="Step 3.3 - Creating folder resources and coping them" />
+		<copy todir="${resources}">
 			<fileset dir="resources" includes="**/*.properties" />
 		</copy>
 	</target>
 
 	<target depends="preprocess" name="compile">
 		<echo />
-		<echo message="Step 3 - Product is being compiled!" />
-		<mkdir dir="SPLMessageProduct_Advanced/build/classes/META-INF"/>
-		<copy todir="SPLMessageProduct_Advanced/build/classes/META-INF">
-			<fileset dir="src/META-INF" includes="persistence.xml" />
+		<echo message="Step 4 - Product is being compiled!" />
+		<copy todir="${classes}/${metaInf}">
+			<fileset dir="src/${metaInf}" includes="persistence.xml" />
 		</copy>
-		<javac destdir="SPLMessageProduct_Advanced/build/classes" encoding="UTF-8" fork="yes" includeantruntime="true" srcdir="SPLMessageProduct_Advanced/src">
+		<javac destdir="${classes}" encoding="UTF-8" fork="yes" includeantruntime="true" srcdir="${build}/src">
 			<classpath>
 				<fileset dir="libs" includes="**/*.jar" />
 			</classpath>
@@ -75,31 +116,12 @@
 
 	<target depends="compile" name="jar">
 		<echo />
-		<echo message="Step 4 - Jar is being created!" />
-		<jar basedir="SPLMessageProduct_Advanced/build/classes" destfile="SPLMessageProduct_Advanced/build/jar/SPL-MessageProduct_Advanced.jar">
-			<fileset dir="SPLMessageProduct_Advanced/src" includes="**/*.class, **/*.properties" />
+		<echo message="Step 5 - Jar is being created!" />
+		<jar basedir="${productName}/${classes}" destfile="${productName}/jar/SPL-${productName}.jar">
+			<fileset dir="${productName}/src" includes="**/*.class, **/*.jpg **/*.properties" />
 			<manifest>
 				<attribute name="Main-Class" value="br.com.message.views.MainScreen" />
-				<attribute name="Class-Path" value="
-					libs/antlr-2.7.7.jar
-					libs/classmate-1.3.0.jar
-					libs/dom4j-1.6.1.jar
-					libs/geronimo-jta_1.1_spec-1.1.1.jar
-					libs/hibernate-commons-annotations-5.0.1.Final.jar
-					libs/hibernate-core-5.1.0.Final.jar
-					libs/hibernate-entitymanager-5.1.0.Final.jar
-					libs/hibernate-jpa-2.1-api-1.0.0.Final.jar
-					libs/jandex-2.0.0.Final.jar
-					libs/java-mail-1.4.4.jar
-					libs/javapp.jar
-					libs/javassist-3.20.0-GA.jar
-					libs/javax.inject-1.jar
-					libs/jboss-logging-3.3.0.Final.jar
-					libs/junit-4.10.jar
-					libs/mysql-connector-java-5.1.38-bin.jar
-					libs/slf4j-log4j12-1.6.1.jar
-					libs/slf4j.api-1.6.1.jar
-					libs/swingx-all-1.6.4.jar"/>
+				<attribute name="Class-Path" value="${classPath}"/>
 			</manifest>
 		</jar>
 	</target>
@@ -107,7 +129,7 @@
 	<target depends="jar" name="run">
 		<echo />
 		<echo message="Step 5 - Advanced Product Line is running!" />
-		<java fork="true" jar="SPLMessageProduct_Advanced/build/jar/SPL-MessageProduct_Advanced.jar" />
+		<java fork="true" jar="${productName}/build/jar/SPL-${productName}.jar" />
 	</target>
 
 </project>

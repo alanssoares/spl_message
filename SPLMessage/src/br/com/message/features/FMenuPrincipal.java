@@ -100,6 +100,7 @@ public class FMenuPrincipal extends JDialog {
 	private JTextField tfEmailContato;
 	//#endif
 	
+	private List<Contato> contacts;
 	private JList<Usuario> jListConcatcs;
 	private DefaultListModel<Usuario> dfListContact;
 
@@ -347,7 +348,7 @@ public class FMenuPrincipal extends JDialog {
 	private void createThreadUpdateContacts() {
 		Timer timer = new Timer();
 		
-		List<Contato> contacts = new ContatoFacadeImpl().listar(DataStore.getInstance().getUsuario().getEmail());
+		contacts = new ContatoFacadeImpl().listar(DataStore.getInstance().getUsuario().getEmail());
 		dfListContact = new DefaultListModel<Usuario>();
 		
 		for (Contato c : contacts) {
@@ -376,6 +377,7 @@ public class FMenuPrincipal extends JDialog {
 			@Override
 			public void run() {
 				updateContacts();
+				updateStatus();
 			}
 		}, 0, 1000 * 10);
 	}
@@ -384,13 +386,20 @@ public class FMenuPrincipal extends JDialog {
 	 * Método responsável por atualizar a lista de contatos
 	 */
 	private void updateContacts() {
-		List<Contato> contacts = contactFacade.listar(DataStore.getInstance().getUsuario().getEmail());
+		contacts = contactFacade.listar(DataStore.getInstance().getUsuario().getEmail());
+	}
+	
+	/**
+	 * Método responsável por atualizar o status
+	 * dos contatos
+	 */
+	private void updateStatus(){
 		for (Contato c : contacts) {
 			Usuario contato = userFacade.findByEmail(c.getContatoPK().getEmailContato());
 			int index = getContact(contato);
 			if(index >= 0){
 				dfListContact.set(index, contato);
-			} else if(contato != null){
+			} else {
 				dfListContact.addElement(contato);
 			}
 		}

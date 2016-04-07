@@ -43,15 +43,19 @@ public class FMensagem extends JFrame {
 	private JLabel lbStatus;
 	private JTextField tfMensagem;
 	private JButton btnEnviar;
+	
 	//if ${Emoction} == "T"
 	private JButton btnEmoction;
 	//#endif
+	
 	//if ${Anexar} == "T"
 	private JButton btnAnexar;
 	//#endif
+	
 	//if ${LimparHistorico} == "T"
 	private JButton btnLimparHistorico;
 	//#endif
+	
 	private Usuario contato;
 	private JTextArea chatHistory;
 	private MensagemFacade mensagemFacade;
