@@ -30,8 +30,10 @@ create table sobre (
 
 create table grupo (
 	id INTEGER NOT NULL AUTO_INCREMENT,
+	email_usuario VARCHAR(255) NOT NULL,
 	descricao VARCHAR(255) NOT NULL,
-	PRIMARY KEY(id)
+	PRIMARY KEY(id),
+	FOREIGN KEY(email_usuario) REFERENCES usuario(email),
 );
 
 create table usuario (

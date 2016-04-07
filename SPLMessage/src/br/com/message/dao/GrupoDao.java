@@ -47,7 +47,8 @@ public interface GrupoDao {
 	
 	/**
 	 * Método responsável por listar todos os grupos
-	 * @return
+	 * @param email do usuário
+	 * @return List<Grupo>
 	 */
-	List<Grupo> listar();
+	List<Grupo> listar(String email);
 }

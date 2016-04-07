@@ -4,6 +4,7 @@
  */
 package br.com.message.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -14,6 +15,7 @@ import br.com.message.model.Grupo;
  * @author alsoares
  *
  */
+@SuppressWarnings("unchecked")
 public class GrupoDaoImpl extends GenericDao<Grupo, Integer> implements GrupoDao {
 
 	public GrupoDaoImpl() {
@@ -38,13 +40,19 @@ public class GrupoDaoImpl extends GenericDao<Grupo, Integer> implements GrupoDao
 	public Grupo buscar(Grupo grupo) {
 		return find(grupo.getId());
 	}
-
+	
 	@Override
-	public List<Grupo> listar() {
-		return getList();
+	public List<Grupo> listar(String email) {
+		List<Grupo> list = getList();
+		List<Grupo> grupos = new ArrayList<Grupo>();
+		for(Grupo g : list){
+			if(g.getEmailUsuario().equals(email)){
+				grupos.add(g);
+			}
+		}
+		return grupos;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public Grupo buscar(String descricao) {
 		EntityManager em = getEntityManager();

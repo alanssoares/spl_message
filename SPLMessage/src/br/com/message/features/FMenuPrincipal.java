@@ -3,6 +3,7 @@
  */
 package br.com.message.features;
 
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -13,13 +14,17 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import javax.swing.DefaultListModel;
+import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
 import br.com.message.facade.ContatoFacade;
@@ -87,9 +92,12 @@ public class FMenuPrincipal extends JDialog {
 	private JMenu jMenuStatus;
 	//#endif
 	private JMenu jMenuInicio;
-	//private JButton btnBuscarContato;
-	//private JLabel lbEmailContato;
-	//private JTextField tfEmailContato;
+
+	private JPanel buscaPanel;
+	private JButton btnBuscarContato;
+	private JLabel lbEmailContato;
+	private JTextField tfEmailContato;
+	
 	private JList<Usuario> jListConcatcs;
 	private DefaultListModel<Usuario> dfListContact;
 
@@ -111,10 +119,30 @@ public class FMenuPrincipal extends JDialog {
 	}
 
 	private void initComponents() {
-		//tfEmailContato = new JTextField();
-		//lbEmailContato = new JLabel("Email");
-		//btnBuscarContato = new JButton("Buscar");
-
+		
+		buscaPanel = new JPanel();
+		buscaPanel.setBounds(0, 0, 400, 100);
+		
+		lbEmailContato = new JLabel("Email");
+		lbEmailContato.setBounds(0, 20, 80, 20);
+		buscaPanel.add(lbEmailContato);
+		
+		tfEmailContato = new JTextField(20);
+		tfEmailContato.setBounds(85, 20, 100, 20);
+		buscaPanel.add(tfEmailContato);
+		
+		btnBuscarContato = new JButton("Buscar");
+		btnBuscarContato.setBounds(190, 20, 80, 20);
+		btnBuscarContato.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+			}
+		});
+		buscaPanel.add(btnBuscarContato);
+		
+		getContentPane().add(buscaPanel, BorderLayout.PAGE_START);
+		
 		jMenu = new JMenuBar();
 
 		createMenuInicio();
@@ -134,37 +162,11 @@ public class FMenuPrincipal extends JDialog {
 		//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 		createMenuAjuda();
 		//#endif
-
+		
 		createThreadUpdateContacts();
 
 		setJMenuBar(jMenu);
-
-		/*
-		 * GroupLayout layout = new GroupLayout(getContentPane());
-		 * 
-		 * getContentPane().setLayout(layout);
-		 * 
-		 * layout.setHorizontalGroup(
-		 * layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		 * .addGroup(GroupLayout.Alignment.TRAILING,
-		 * layout.createSequentialGroup() .addContainerGap()
-		 * .addComponent(lbEmailContato)
-		 * .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-		 * .addComponent(tfEmailContato, GroupLayout.DEFAULT_SIZE, 460,
-		 * Short.MAX_VALUE)
-		 * .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-		 * .addComponent(btnBuscarContato, GroupLayout.PREFERRED_SIZE, 83,
-		 * GroupLayout.PREFERRED_SIZE) .addContainerGap()) );
-		 * 
-		 * layout.setVerticalGroup(
-		 * layout.createParallelGroup(GroupLayout.Alignment.LEADING)
-		 * .addGroup(layout.createSequentialGroup() .addContainerGap()
-		 * .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-		 * .addComponent(tfEmailContato, GroupLayout.PREFERRED_SIZE,
-		 * GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-		 * .addComponent(lbEmailContato) .addComponent(btnBuscarContato))
-		 * .addContainerGap(345, Short.MAX_VALUE)) );
-		 */
+		
 		pack();
 	}
 
