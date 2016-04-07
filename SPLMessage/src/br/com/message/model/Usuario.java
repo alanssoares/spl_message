@@ -33,7 +33,8 @@ public class Usuario {
 	@Column(name="senha", nullable=false, length=25)
 	private String senha;
 	
-	@JoinColumn(name="id_status", referencedColumnName="id", table="status_usuario", nullable=false)
+	@Column(name="id_status", nullable=false)
+	@JoinColumn(name="id_status", referencedColumnName="id", table="status_usuario")
 	private Integer idStatus;
 	
 	@Temporal(TemporalType.DATE)

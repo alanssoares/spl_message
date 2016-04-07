@@ -24,7 +24,8 @@ public class Contato {
 	@EmbeddedId
 	private ContatoPK contatoPK;
 	
-	@JoinColumn(name="id_grupo", referencedColumnName="id", table="grupo", nullable=false)
+	@Column(name="id_grupo", nullable=false)
+	@JoinColumn(name="id_grupo", referencedColumnName="id", table="grupo")
 	private Integer idGrupo;
 	
 	@Temporal(TemporalType.DATE)

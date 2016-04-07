@@ -33,7 +33,8 @@ public class Comentario {
 	@Column(name="tipo", nullable=false)
 	private Integer tipo;
 	
-	@JoinColumn(name="email_usuario", referencedColumnName="email", table="usuario", nullable=false)
+	@Column(name="email_usuario", nullable=false)
+	@JoinColumn(name="email_usuario", referencedColumnName="email", table="usuario")
 	private String emailUsuario;
 	
 	@Column(name="descricao", nullable=false, length=1000)
