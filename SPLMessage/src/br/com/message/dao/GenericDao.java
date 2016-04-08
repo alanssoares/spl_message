@@ -8,11 +8,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 
-import br.com.message.util.Constantes;
+import br.com.message.util.SingletonEntityFactory;
 
 /**
  * @author webstore
@@ -25,7 +24,7 @@ public abstract class GenericDao<T, I> {
 	private Class<T> persistedClass;
 
 	protected GenericDao() {
-		this.entityFactory = Persistence.createEntityManagerFactory(Constantes.NAME_DB);
+		this.entityFactory = SingletonEntityFactory.getInstance().getEntityManagerFactory();
 	}
 
 	protected GenericDao(Class<T> persistedClass) {

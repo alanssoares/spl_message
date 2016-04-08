@@ -25,7 +25,7 @@ public class Constantes {
 	public static final int WIDTH_APPLICATION = 400;
 	public static final int HEIGHT_APPLICATION = 400;
 	public static final String IMG_CONTACT = "contact_default.png";
-	public static final String IMG_EMOCTION = "emoction.jpg";
+	public static final String IMG_EMOCTION = "imgs/emoction.jpg";
 	public static final Integer MSG_RECEBIDA = 0;
 	public static final Integer MSG_ENVIADA = 1;
 	public static final Integer MSG_NAO_LIDA = 0;

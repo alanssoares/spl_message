@@ -71,9 +71,8 @@ public class FMensagem extends JFrame {
 	}
 
 	private void initComponents() {
-		panel = new JPanel();
-		
 		//Create panel
+		panel = new JPanel();
 		panel.setLayout(null);
 		this.add(panel);
 		
@@ -108,8 +107,7 @@ public class FMensagem extends JFrame {
 	    });
 	    
 	    //#if ${Emoction} == "T"
-	    String pathImages = getClass().getResource("/").getPath().replace("bin/", "imgs/");
-	    btnEmoction = new JButton(new ImageIcon(pathImages + Constantes.IMG_EMOCTION));
+	    btnEmoction = new JButton(new ImageIcon(Constantes.IMG_EMOCTION));
 	    btnEmoction.setBounds(445, 375, 30, 28);
 	    panel.add(btnEmoction);
 	    btnEmoction.addActionListener(new ActionListener() {
@@ -209,14 +207,13 @@ public class FMensagem extends JFrame {
 	 * Load all emoctions to user selects
 	 */
 	public void showEmoctions(){
-		Object selected = null;
-		Object[] options = new Object[EnumEmoction.values().length];
 		int i = 0;
+		Object[] options = new Object[EnumEmoction.values().length];
 		for(EnumEmoction item : EnumEmoction.values()){
 			options[i++] = item.getEmoction();
 		}
 		Object res = JOptionPane.showInputDialog(this, "Escolha o Emoction", "Emoctions", 
-				JOptionPane.PLAIN_MESSAGE, null, options, selected);
+				JOptionPane.PLAIN_MESSAGE, null, options, null);
 		if(res != null){
 			tfMensagem.setText(tfMensagem.getText() + res.toString());
 		}
