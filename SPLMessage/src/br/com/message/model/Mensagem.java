@@ -174,4 +174,41 @@ public class Mensagem implements Serializable {
 	public void setLida(Integer lida) {
 		this.lida = lida;
 	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode()
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((id == null) ? 0 : id.hashCode());
+		result = prime * result + ((mensagemPK == null) ? 0 : mensagemPK.hashCode());
+		return result;
+	}
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Mensagem other = (Mensagem) obj;
+		if (id == null) {
+			if (other.id != null)
+				return false;
+		} else if (!id.equals(other.id))
+			return false;
+		if (mensagemPK == null) {
+			if (other.mensagemPK != null)
+				return false;
+		} else if (!mensagemPK.equals(other.mensagemPK))
+			return false;
+		return true;
+	}
 }

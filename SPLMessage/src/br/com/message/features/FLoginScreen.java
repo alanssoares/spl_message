@@ -58,6 +58,7 @@ public class FLoginScreen extends JFrame {
 		super(Constantes.APPLICATION_NAME);
 		
 		JPanel panel = new JPanel(new GridBagLayout());
+		JPanel borderPanel = new JPanel();
 		GridBagConstraints cs = new GridBagConstraints();
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
@@ -117,6 +118,7 @@ public class FLoginScreen extends JFrame {
 	    		}
 	    	}
 	    });
+	    borderPanel.add(btnLogin);
 	    
 	    //#if ${CadastrarUsuario} == "T"
 		btnNovo = new JButton("Novo Cadastro");
@@ -128,6 +130,7 @@ public class FLoginScreen extends JFrame {
 				clearFields();
 			}
 		});
+		borderPanel.add(btnNovo);
 		//#endif
 		
 		//#if ${RecuperarSenha} == "T"
@@ -140,20 +143,11 @@ public class FLoginScreen extends JFrame {
 				clearFields();
 			}
 		});
+		borderPanel.add(btnRecuperarSenha);
 		//#endif
-		
-	    JPanel bp = new JPanel();
-	    
-	    bp.add(btnLogin);
-	    //#if ${CadastrarUsuario} == "T"
-	    bp.add(btnNovo);
-	    //#endif
-	    //#if ${RecuperarSenha} == "T"
-	    bp.add(btnRecuperarSenha);
-	    //#endif
 	    
 	    getContentPane().add(panel, BorderLayout.CENTER);
-	    getContentPane().add(bp, BorderLayout.PAGE_END);
+	    getContentPane().add(borderPanel, BorderLayout.PAGE_END);
 	    
 		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
 		setVisible(true);

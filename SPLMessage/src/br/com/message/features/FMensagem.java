@@ -44,15 +44,15 @@ public class FMensagem extends JFrame {
 	private JTextField tfMensagem;
 	private JButton btnEnviar;
 	
-	//if ${Emoction} == "T"
+	//#if ${Emoction} == "T"
 	private JButton btnEmoction;
 	//#endif
 	
-	//if ${Anexar} == "T"
+	//#if ${Anexar} == "T"
 	private JButton btnAnexar;
 	//#endif
 	
-	//if ${LimparHistorico} == "T"
+	//#if ${LimparHistorico} == "T"
 	private JButton btnLimparHistorico;
 	//#endif
 	
@@ -107,7 +107,7 @@ public class FMensagem extends JFrame {
 	    	}
 	    });
 	    
-	    //if ${Emoction} == "T"
+	    //#if ${Emoction} == "T"
 	    String pathImages = getClass().getResource("/").getPath().replace("bin/", "imgs/");
 	    btnEmoction = new JButton(new ImageIcon(pathImages + Constantes.IMG_EMOCTION));
 	    btnEmoction.setBounds(445, 375, 30, 28);
@@ -120,7 +120,7 @@ public class FMensagem extends JFrame {
 		});
 	    //#endif
 	    
-	    //if ${Anexar} == "T"
+	    //#if ${Anexar} == "T"
 	    btnAnexar = new JButton("Anexar");
 	    btnAnexar.setBounds(20, 420, 80, 30);
 	    panel.add(btnAnexar);
@@ -132,7 +132,7 @@ public class FMensagem extends JFrame {
 		});
 	    //#endif
 	    
-	    //if ${LimparHistorico} == "T"
+	    //#if ${LimparHistorico} == "T"
 	    btnLimparHistorico = new JButton("Limpar");
 	    btnLimparHistorico.setBounds(105, 420, 80, 30);
 	    panel.add(btnLimparHistorico);
@@ -204,7 +204,7 @@ public class FMensagem extends JFrame {
 		}
 	}
 	
-	//if ${Emoction} == "T"
+	//#if ${Emoction} == "T"
 	/**
 	 * Load all emoctions to user selects
 	 */

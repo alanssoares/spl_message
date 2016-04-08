@@ -54,6 +54,7 @@ public class FRecuperarSenha extends JFrame {
 		this.parent = parent;
 		
 		JPanel panel = new JPanel(new GridBagLayout());
+		JPanel borderPanel = new JPanel();
 		GridBagConstraints cs = new GridBagConstraints();
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
@@ -100,6 +101,7 @@ public class FRecuperarSenha extends JFrame {
 				dispose();
 	        }
 	    });
+	    borderPanel.add(btnEnviar);
 	    //#endif
 	    
 	    //#if ${VisualizarSenhaTela} == "T"
@@ -117,6 +119,7 @@ public class FRecuperarSenha extends JFrame {
 	    		}
 			}
 		});
+	    borderPanel.add(btnVisualizarTela);
 	    //#endif
 	    
 	    btnCancelar = new JButton("Cancelar");
@@ -126,21 +129,10 @@ public class FRecuperarSenha extends JFrame {
 				dispose();
 	        }
 	    });
-	    
-	    JPanel bp = new JPanel();
-	    
-	    //#if ${EnviarSenhaEmail} == "T"
-	    bp.add(btnEnviar);
-	    //#endif
-	    
-	    //#if ${VisualizarSenhaTela} == "T"
-	    bp.add(btnVisualizarTela);
-	    //#endif
-	    
-	    bp.add(btnCancelar);
+	    borderPanel.add(btnCancelar);
 	    
 	    getContentPane().add(panel, BorderLayout.CENTER);
-	    getContentPane().add(bp, BorderLayout.PAGE_END);
+	    getContentPane().add(borderPanel, BorderLayout.PAGE_END);
 	    
 		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
 		setLocationRelativeTo(this.parent);

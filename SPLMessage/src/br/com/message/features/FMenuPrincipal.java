@@ -47,67 +47,78 @@ public class FMenuPrincipal extends JDialog {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	private JMenu jMenuInicio;
 	private JMenuBar jMenu;
-	//if ${AdicionarContato} == "T"
+	private JMenuItem btnSair;
+	private List<Contato> contacts;
+	private JList<Usuario> jListConcatcs;
+	private DefaultListModel<Usuario> dfListContact;
+	private JScrollPane jScrollPaneContact;
+	private UsuarioFacade userFacade;
+	private ContatoFacade contactFacade;
+	
+	//#if ${AdicionarContato} == "T"
 	private JMenuItem btnAdicionarContato;
 	//#endif
-	//if ${AdicionarGrupo} == "T"
+	
+	//#if ${AdicionarGrupo} == "T"
 	private JMenuItem btnAdicionarGrupo;
 	//#endif
-	//if ${AlterarStatus} == "T"
+	
+	//#if ${AlterarStatus} == "T"
 	private JMenuItem btnAlterarStatus;
 	//#endif
-	//if ${AlterarContato} == "T"
+	
+	//#if ${AlterarContato} == "T"
 	private JMenuItem btnAlterarContato;
 	//#endif
-	//if ${EnviaComentario} == "T"
+	
+	//#if ${EnviaComentario} == "T"
 	private JMenuItem btnEnviarComentario;
 	//#endif
-	//if ${PoliticaPrivacidade} == "T"
+	
+	//#if ${PoliticaPrivacidade} == "T"
 	private JMenuItem btnPoliticaPrivacidade;
 	//#endif
-	//if ${RemoverContato} == "T"
+	
+	//#if ${RemoverContato} == "T"
 	private JMenuItem btnRemoverContato;
 	//#endif
-	//if ${RemoverGrupo} == "T"
+	
+	//#if ${RemoverGrupo} == "T"
 	private JMenuItem btnRemoverGrupo;
 	//#endif
-	//if ${Sobre} == "T"
+	
+	//#if ${Sobre} == "T"
 	private JMenuItem btnSobre;
 	//#endif
-	//if ${VisualizarStatus} == "T"
+	
+	//#if ${VisualizarStatus} == "T"
 	private JMenuItem btnVisualizarStatus;
 	//#endif
-	private JMenuItem btnSair;
+	
 	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 	private JMenu jMenuAjuda;
 	//#endif
+	
 	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T" or ${AlterarContato} == "T"
 	private JMenu jMenuContato;
 	//#endif
+	
 	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
 	private JMenu jMenuGrupo;
 	//#endif
+	
 	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
 	private JMenu jMenuStatus;
 	//#endif
-	private JMenu jMenuInicio;
-
+	
 	//#if ${PesquisaContato} == "T"
 	private JPanel buscaPanel;
 	private JButton btnBuscarContato;
 	private JLabel lbEmailContato;
 	private JTextField tfEmailContato;
 	//#endif
-	
-	private List<Contato> contacts;
-	private JList<Usuario> jListConcatcs;
-	private DefaultListModel<Usuario> dfListContact;
-
-	private JScrollPane jScrollPaneContact;
-
-	private UsuarioFacade userFacade;
-	private ContatoFacade contactFacade;
 	
 	public FMenuPrincipal(JFrame parent) {
 		super(parent, Constantes.APPLICATION_NAME);
@@ -230,10 +241,9 @@ public class FMenuPrincipal extends JDialog {
 
 		jMenu.add(jMenuAjuda);
 	}
-
 	//#endif
 
-	//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
+	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
 	private void createMenuContato() {
 		jMenuContato = new JMenu("Contato");
 
@@ -278,7 +288,6 @@ public class FMenuPrincipal extends JDialog {
 		
 		jMenu.add(jMenuContato);
 	}
-
 	//#endif
 
 	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
@@ -309,7 +318,6 @@ public class FMenuPrincipal extends JDialog {
 
 		jMenu.add(jMenuGrupo);
 	}
-
 	//#endif
 
 	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"

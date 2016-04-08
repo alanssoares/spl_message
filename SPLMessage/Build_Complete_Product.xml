@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <project default="run">
 	<taskdef classpath="libs/javapp.jar" resource="javapp-defs.xml" />
-
-	<property name="folderProducts" value="products"></property>
-	<property name="productName" value="${folderProducts}/SPLMessageProductA" />
-	<property name="build" value="${productName}/build" />
+	
+	<property name="product" value="SPLMessageProductA"></property>
+	<property name="dirProduct" value="products/${product}"></property>
+	<property name="build" value="${dirProduct}/build" />
+	<property name="src" value="${dirProduct}/src" />
 	<property name="libs" value="${build}/jar/libs" />
 	<property name="imgs" value="${build}/jar/imgs" />
 	<property name="resources" value="${build}/jar/resources" />
@@ -33,34 +34,35 @@
 	</property>
 	
 	<target name="clean">
-		<echo />
-		<echo message="Step 1 - folder '${productName}' is being cleaned!" />
-		<delete dir="${folderProducts}/${productName}" includeemptydirs="true" verbose="true">
-			<!--
-		      <fileset dir="${productName}">
-		        <include name="*.class"/>
-		        <include name="*.jar"/>
-		      	<include name="*.java"/>
-		      	<include name="*.xml"/>
-		      </fileset>
-		      -->
-		</delete>
-		<echo message="Step 2 - folder '${productName}' is being created!" />
-		<mkdir dir="${productName}/src/${metaInf}" />
+		<echo/><echo message="Step 1 - folder '${product}' is being cleaned. Coping persistence file, jars, properties and images" />
+		<delete dir="${dirProduct}" includeemptydirs="true" />
+		<echo message="Step 2 - folder '${product}' is being created!" />
+		<mkdir dir="${classes}/${metaInf}"/>
 		<mkdir dir="${libs}" />
 		<mkdir dir="${imgs}" />
 		<mkdir dir="${resources}" />
-		<mkdir dir="${classes}/${metaInf}"/>
+		
+		<copy todir="${dirProduct}/src/${metaInf}">
+			<fileset dir="src/${metaInf}" includes="persistence.xml" />
+		</copy>
+		<copy todir="${libs}">
+			<fileset dir="libs" includes="**/*.jar" />
+		</copy>
+		<copy todir="${resources}">
+			<fileset dir="resources" includes="**/*.properties" />
+		</copy>
+		<copy todir="${imgs}">
+			<fileset dir="imgs" includes="**/*.png, **/*.gif, **/*.jpg" />
+		</copy>
 	</target>
 	
 	<target depends="clean" name="preprocess">
-		<echo />
-		<echo message="Step 3 - Source code is being created using javapp in the '${productName}' folder!" />
-		<javapp destdir="${productName}/src/br/com" prefix="//#">
+		<echo/><echo message="Step 2 - Source code is being created using javapp in the '${product}' folder!" />
+		<javapp destdir="${dirProduct}/src/br/com" prefix="//#">
 			<fileset dir="src/br/com" includes="**/*.java" />
 			<property name="AdicionarContato" value="T" />
 			<property name="AdicionarGrupo" value="T" />
-			<property name="Anexar" value="T"></property>
+			<property name="Anexar" value="T" />
 			<property name="AlterarContato" value="T" />
 			<property name="Ajuda" value="T" />
 			<property name="AlterarGrupo" value="T" />
@@ -68,68 +70,50 @@
 			<property name="CadastrarGrupo" value="T" />
 			<property name="CadastrarUsuario" value="T" />
 			<property name="Contato" value="T" />
-			<property name="Emoction" value="T"></property>
+			<property name="Emoction" value="T" />
 			<property name="EnviaComentario" value="T" />
 			<property name="EnviarSenhaEmail" value="T" />
 			<property name="Grupo" value="T" />
-			<property name="LimparHistorico" value="T"></property>
+			<property name="LimparHistorico" value="T" />
 			<property name="ListaComentarios" value="T" />
-			<property name="PesquisaContato" value="T"></property>
+			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />
 			<property name="RecuperarSenha" value="T" />
 			<property name="RemoverContato" value="T" />
 			<property name="RemoverGrupo" value="T" />
-			<property name="Sobre" value="T"/>
+			<property name="Sobre" value="T" />
 			<property name="Status" value="T" />
 			<property name="VisualizarSenhaTela" value="T" />
 			<property name="VisualizarStatus" value="T" />
 		</javapp>
-		
-		<echo message="Step 3.1 - Coping persistence file" />
-		<copy todir="${productName}/src/${metaInf}">
-			<fileset dir="src/${metaInf}" includes="persistence.xml" />
-		</copy>
-		
-		<echo message="Step 3.2 - Creating folder libs and coping them" />
-		<copy todir="${libs}">
-			<fileset dir="libs" includes="**/*.jar" />
-		</copy>
-
-		<echo message="Step 3.3 - Creating folder resources and coping them" />
-		<copy todir="${resources}">
-			<fileset dir="resources" includes="**/*.properties" />
-		</copy>
 	</target>
-
+	
 	<target depends="preprocess" name="compile">
-		<echo />
-		<echo message="Step 4 - Product is being compiled!" />
+		<echo/><echo message="Step 3 - Product is being compiled!" />
 		<copy todir="${classes}/${metaInf}">
 			<fileset dir="src/${metaInf}" includes="persistence.xml" />
 		</copy>
-		<javac destdir="${classes}" encoding="UTF-8" fork="yes" includeantruntime="true" srcdir="${build}/src">
+		<javac destdir="${classes}" encoding="UTF-8" fork="yes" includeantruntime="true" srcdir="${dirProduct}/src">
 			<classpath>
 				<fileset dir="libs" includes="**/*.jar" />
 			</classpath>
 		</javac>
 	</target>
-
+	
 	<target depends="compile" name="jar">
-		<echo />
-		<echo message="Step 5 - Jar is being created!" />
-		<jar basedir="${productName}/${classes}" destfile="${productName}/jar/SPL-${productName}.jar">
-			<fileset dir="${productName}/src" includes="**/*.class, **/*.jpg **/*.properties" />
+		<echo/><echo message="Step 4 - Jar is being created!" />
+		<jar basedir="${classes}" destfile="${build}/jar/SPL-${product}.jar">
+			<fileset dir="${src}" includes="**/*.class, **/*.jpg, **/*.properties" />
 			<manifest>
 				<attribute name="Main-Class" value="br.com.message.views.MainScreen" />
-				<attribute name="Class-Path" value="${classPath}"/>
+				<attribute name="Class-Path" value="${classPath}" />
 			</manifest>
 		</jar>
 	</target>
-
+	
 	<target depends="jar" name="run">
-		<echo />
-		<echo message="Step 5 - Advanced Product Line is running!" />
-		<java fork="true" jar="${productName}/build/jar/SPL-${productName}.jar" />
+		<echo/><echo message="Step 5 - Running the SPL-${product}.jar!" />
+		<java fork="true" jar="${build}/jar/SPL-${product}.jar" />
 	</target>
-
+	
 </project>
