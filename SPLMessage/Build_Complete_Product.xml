@@ -76,6 +76,7 @@
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
 			<property name="ListaComentarios" value="T" />
+			<property name="OrdenarContatos" value="T"/>
 			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />
 			<property name="RecuperarSenha" value="T" />

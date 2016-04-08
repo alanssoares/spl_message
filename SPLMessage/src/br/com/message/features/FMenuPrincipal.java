@@ -8,6 +8,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.List;
 import java.util.Timer;
@@ -22,11 +25,13 @@ import javax.swing.JList;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.ListSelectionModel;
 
+import br.com.message.enums.EnumOrdenacao;
 import br.com.message.facade.ContatoFacade;
 import br.com.message.facade.ContatoFacadeImpl;
 import br.com.message.facade.UsuarioFacade;
@@ -87,6 +92,10 @@ public class FMenuPrincipal extends JDialog {
 	
 	//#if ${RemoverGrupo} == "T"
 	private JMenuItem btnRemoverGrupo;
+	//#endif
+	
+	//#if ${OrdenarContatos} == "T"
+	private JMenuItem btnOrdenarContatos;
 	//#endif
 	
 	//#if ${Sobre} == "T"
@@ -286,6 +295,21 @@ public class FMenuPrincipal extends JDialog {
 		jMenuContato.add(btnRemoverContato);
 		//#endif
 		
+		//#if ${OrdenarContatos} == "T"
+		btnOrdenarContatos = new JMenuItem("Ordenar");
+		btnOrdenarContatos.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Tipo Ordenação", "Tipo", 
+						JOptionPane.PLAIN_MESSAGE, null, EnumOrdenacao.getList().toArray(), null);
+				if(res != null){
+					sortContacts(res.toString());
+				}
+			}
+		});
+		jMenuContato.add(btnOrdenarContatos);
+		//#endif
+		
 		jMenu.add(jMenuContato);
 	}
 	//#endif
@@ -428,4 +452,46 @@ public class FMenuPrincipal extends JDialog {
 		}
 		return -1;
 	}
+	
+	//#if ${OrdenarContatos} == "T"
+	/**
+	 * Método responsável por ordenar a lista de contatos de acordo
+	 * com o tipo de ordenação especificado
+	 * @param by
+	 */
+	private void sortContacts(String by){
+		Enumeration<Usuario> elements = dfListContact.elements();
+		List<Usuario> usuarios = new ArrayList<Usuario>();
+		
+		while (elements.hasMoreElements()) {
+			usuarios.add((Usuario) elements.nextElement());
+		}
+		
+		if(EnumOrdenacao.STATUS.getDescricao().equals(by)){
+			Collections.sort(usuarios, new Comparator<Usuario>() {
+				@Override
+				public int compare(Usuario o1, Usuario o2) {
+					return o1.getIdStatus().compareTo(o2.getIdStatus());
+				}
+			});
+		} else {
+			Collections.sort(contacts, new Comparator<Contato>() {
+				@Override
+				public int compare(Contato o1, Contato o2) {
+					return o1.getIdGrupo().compareTo(o2.getIdGrupo());
+				}
+			});
+			usuarios.clear();
+			for (Contato c : contacts) {
+				Usuario contato = userFacade.findByEmail(c.getContatoPK().getEmailContato());
+				usuarios.add(contato);
+			}
+		}
+		
+		dfListContact.removeAllElements();
+		for(Usuario usuario : usuarios){
+			dfListContact.addElement(usuario);
+		}
+	}
+	//#endif
 }

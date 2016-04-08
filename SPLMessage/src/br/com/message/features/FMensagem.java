@@ -190,7 +190,7 @@ public class FMensagem extends JFrame {
 		Collections.sort(allMessages, new Comparator<Mensagem>() {
 			public int compare(Mensagem o1, Mensagem o2) {
 			      return o1.getDataInclusao().compareTo(o2.getDataInclusao());
-			  }
+			 }
 		});
 		
 		for(Mensagem m : allMessages){
