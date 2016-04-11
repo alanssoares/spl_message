@@ -12,6 +12,7 @@ import br.com.message.enums.EnumStatusUsuario;
 import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
+import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
 
 /**
@@ -63,6 +64,8 @@ public class FStatus {
 				if(item.getDescricao().equals(res)){
 					user.setIdStatus(item.getId());
 					userFacade.update(user);
+					JOptionPane.showMessageDialog(this.parent, "Status alterado com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+					return;
 				}
 			}
 		}

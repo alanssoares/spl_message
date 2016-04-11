@@ -6,6 +6,8 @@ package br.com.message.features;
 
 import java.awt.Component;
 
+import br.com.message.util.Constantes;
+
 /**
  * @author alsoares
  *
@@ -32,9 +34,14 @@ public class FAjuda {
 	
 	//#if ${EnviaComentario} == "T"
 	public void comentario() {
-		new FComentario(this.parent);
+		new FComentario(this.parent, Constantes.FEATURE_SEND_COMMENT).enviaComentario();
 	}
 	//#endif
-	
+
+	//#if ${ListaComentario} == "T"
+	public void listaComentarios() {
+		new FComentario(this.parent, Constantes.FEATURE_LIST_COMMENTS).listaComentarios();
+	}
+	//#endif
 }
 //#endif

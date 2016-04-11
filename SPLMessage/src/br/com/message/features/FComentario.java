@@ -1,4 +1,4 @@
-//#if ${EnviaComentario} == "T"
+//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
  */
@@ -10,15 +10,20 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 
 import br.com.message.enums.EnumTipoComentario;
 import br.com.message.facade.AjudaFacade;
@@ -31,11 +36,19 @@ import br.com.message.util.Constantes;
  * @author alsoares
  *
  */
-public class FComentario extends JFrame {
-	/**
-	 * Version id
-	 */
-	private static final long serialVersionUID = 1L;
+public class FComentario {
+	
+	private JFrame frame;
+	private Component parent;
+	private AjudaFacade ajudaFacade;
+	
+	public FComentario(Component parent, String title) {
+		frame = new JFrame(title);
+		this.parent = parent;
+		ajudaFacade = new AjudaFacadeImpl();
+	}
+
+	//#if ${EnviaComentario} == "T"
 	private JTextField tfAssunto;
 	private JLabel lbAssunto;
 	private JLabel lbTipoComentario;
@@ -43,16 +56,8 @@ public class FComentario extends JFrame {
 	private JTextArea tfMensagem;
 	private JButton btnEnviar;
 	private JButton btnCancelar;
-	private Component parent;
 	private JComboBox<String> cTipoComentario;
-	private AjudaFacade ajudaFacade;
-	
-	public FComentario(Component parent) {
-		super(Constantes.FEATURE_SEND_COMMENT);
-		this.parent = parent;
-		
-		ajudaFacade = new AjudaFacadeImpl();
-		
+	public void enviaComentario() {
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
 		
@@ -103,12 +108,12 @@ public class FComentario extends JFrame {
 	    		if(isFieldsValid()){
 		    		Comentario comentario = getComentario();
 					ajudaFacade.inserirComentario(comentario);
-					JOptionPane.showMessageDialog(FComentario.this, 
+					JOptionPane.showMessageDialog(frame, 
 							"Comentário enviado com sucesso", 
 							"Mensagem Confirmação", JOptionPane.PLAIN_MESSAGE);
 					clearFields();
 	    		} else {
-					JOptionPane.showMessageDialog(FComentario.this, Constantes.MSG_PREENCHIMENTO_CAMPOS, 
+					JOptionPane.showMessageDialog(frame, Constantes.MSG_PREENCHIMENTO_CAMPOS, 
 							Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
 	    		}
 	    	}
@@ -118,7 +123,7 @@ public class FComentario extends JFrame {
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		getParentFrame().setVisible(true);
-				dispose();
+	    		frame.dispose();
 	        }
 	    });
 	    
@@ -127,14 +132,48 @@ public class FComentario extends JFrame {
 	    bp.add(btnEnviar);
 	    bp.add(btnCancelar);
 	    
-	    getContentPane().add(panel, BorderLayout.CENTER);
-	    getContentPane().add(bp, BorderLayout.PAGE_END);
+	    frame.getContentPane().add(panel, BorderLayout.CENTER);
+	    frame.getContentPane().add(bp, BorderLayout.PAGE_END);
 	    
-		setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
-		setLocationRelativeTo(this.parent);
-		setVisible(true);
+	    showFrame();
+	}
+	//#endif
+	
+	//#if ${ListaComentario} == "T"
+	private DefaultListModel<String> dfListComments;
+	private JList<String> jListComments;
+	private JScrollPane jScrollPaneComments;
+	public void listaComentarios() {
+		List<Comentario> list = ajudaFacade.listarComentarios();
+		dfListComments = new DefaultListModel<String>();
+		for(Comentario c : list){
+			dfListComments.addElement(c.toString());	
+		}
+		jListComments = new JList<String>(dfListComments);
+		jListComments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		jListComments.setSelectedIndex(0);
+		jListComments.setVisibleRowCount(list.size());
+		jScrollPaneComments = new JScrollPane(jListComments);
+		
+		frame.getContentPane().add(jScrollPaneComments);
+		
+		showFrame();
+	}
+	//#endif
+	
+	/**
+	 * Show the frame
+	 */
+	private void showFrame(){
+	    frame.setSize(Constantes.WIDTH_APPLICATION, Constantes.HEIGHT_APPLICATION);
+	    frame.setLocationRelativeTo(this.parent);
+	    frame.setVisible(true);
 	}
 	
+	/**
+	 * Return the new comment
+	 * @return
+	 */
 	private Comentario getComentario() {
 		Comentario comentario = new Comentario();
 		comentario.setAssunto(tfAssunto.getText());

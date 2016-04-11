@@ -62,7 +62,9 @@ public class FGrupo {
 		if(res != null){
 			for(int i = 0; i < grupos.size(); i++){
 				if(grupos.get(i).getDescricao().equals(res.toString())){
-					grupoFacade.remover(grupos.get(i));		
+					grupoFacade.remover(grupos.get(i));
+					JOptionPane.showMessageDialog(this.parent, "Grupo removido com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+					return;
 				}
 			}
 		}

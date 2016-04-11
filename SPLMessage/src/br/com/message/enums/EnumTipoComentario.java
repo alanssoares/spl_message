@@ -46,8 +46,20 @@ public enum EnumTipoComentario {
 	 */
 	static public Integer getIdByDescricao(String descricao){
 		for(EnumTipoComentario t : values()){
-			if(t.equals(descricao)) return t.getId();
+			if(t.getDescricao().equals(descricao)) return t.getId();
 		}
 		return 0;
+	}
+	
+	/**
+	 * Return the enum by id
+	 * @param id
+	 * @return 
+	 */
+	static public String getById(Integer id){
+		for(EnumTipoComentario t : values()){
+			if(t.id.equals(id)) return t.descricao;
+		}
+		return null;
 	}
 }

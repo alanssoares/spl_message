@@ -1,4 +1,4 @@
-//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T" or ${EnviaComentario} == "T" or ${ListaComentarios} == "T"
+//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T" or ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
  */
@@ -46,7 +46,7 @@ public class AjudaFacadeImpl implements AjudaFacade {
 	}
 	//#endif
 	
-	//#if ${EnviaComentario} == "T" or ${ListaComentarios} == "T"
+	//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 	private ComentarioDao comentarioDao = new ComentarioDaoImpl();
 	//#endif
 	
@@ -59,7 +59,7 @@ public class AjudaFacadeImpl implements AjudaFacade {
 	}
 	//#endif
 	
-	//#if ${ListaComentarios} == "T"
+	//#if ${ListaComentario} == "T"
 	@Override
 	public List<Comentario> listarComentarios() {
 		return this.comentarioDao.listar();

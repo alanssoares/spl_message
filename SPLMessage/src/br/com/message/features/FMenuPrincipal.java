@@ -82,6 +82,10 @@ public class FMenuPrincipal extends JDialog {
 	private JMenuItem btnEnviarComentario;
 	//#endif
 	
+	//#if ${ListaComentario} == "T"
+	private JMenuItem btnListaComentario;
+	//#endif
+	
 	//#if ${PoliticaPrivacidade} == "T"
 	private JMenuItem btnPoliticaPrivacidade;
 	//#endif
@@ -225,7 +229,19 @@ public class FMenuPrincipal extends JDialog {
 		});
 		jMenuAjuda.add(btnEnviarComentario);
 		//#endif
-
+		
+		//#if ${ListaComentario} == "T"
+		btnListaComentario = new JMenuItem("Lista Comentários");
+		btnListaComentario.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				new FAjuda(FMenuPrincipal.this).listaComentarios();
+			}
+		});
+		jMenuAjuda.add(btnListaComentario);
+		//#endif
+		
+		
 		//#if ${PoliticaPrivacidade} == "T"
 		btnPoliticaPrivacidade = new JMenuItem("Política de Privacidade");
 		btnPoliticaPrivacidade.addActionListener(new ActionListener() {

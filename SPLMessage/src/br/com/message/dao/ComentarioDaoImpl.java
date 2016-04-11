@@ -1,4 +1,4 @@
-//#if ${EnviaComentario} == "T" or ${ListaComentarios} == "T"
+//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
  */
@@ -25,7 +25,7 @@ public class ComentarioDaoImpl extends GenericDao<Comentario, Integer> implement
 	}
 	//#endif
 	
-	//#if ${ListaComentarios} == "T"
+	//#if ${ListaComentario} == "T"
 	@Override
 	public List<Comentario> listar() {
 		return getList();

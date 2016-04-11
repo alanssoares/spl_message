@@ -75,7 +75,7 @@
 			<property name="EnviarSenhaEmail" value="T" />
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
-			<property name="ListaComentarios" value="T" />
+			<property name="ListaComentario" value="T" />
 			<property name="OrdenarContatos" value="T"/>
 			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />

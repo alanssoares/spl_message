@@ -14,6 +14,8 @@ import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
+import br.com.message.enums.EnumTipoComentario;
+
 /**
  * @author alsoares
  *
@@ -127,5 +129,10 @@ public class Comentario {
 	 */
 	public void setDataInclusao(Date dataInclusao) {
 		this.dataInclusao = dataInclusao;
+	}
+	
+	@Override
+	public String toString() {
+		return "Assunto: " + this.assunto + " Tipo: " + EnumTipoComentario.getById(this.tipo) + " Mensagem: " + this.descricao;
 	}
 }
