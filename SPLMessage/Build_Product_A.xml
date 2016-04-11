@@ -64,8 +64,7 @@
 			<property name="Anexar" value="T" />
 			<property name="AlterarContato" value="T" />
 			<property name="AlterarGrupo" value="F" />
-			<property name="Ajuda" value="T" />
-			<property name="AlterarStatus" value="T" />
+			<property name="Ajuda" value="T" />			
 			<property name="Emoction" value="T" />
 			<property name="EnviaComentario" value="T" />
 			<property name="Grupo" value="T" />
@@ -77,7 +76,6 @@
 			<property name="Sobre" value="T" />
 			<property name="Status" value="T" />
 			<property name="VisualizarSenhaTela" value="T" />
-			<property name="VisualizarStatus" value="T" />
 		</javapp>
 	</target>
 	

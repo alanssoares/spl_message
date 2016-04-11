@@ -12,18 +12,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.ListSelectionModel;
 
 import br.com.message.enums.EnumTipoComentario;
 import br.com.message.facade.AjudaFacade;
@@ -140,20 +138,21 @@ public class FComentario {
 	//#endif
 	
 	//#if ${ListaComentario} == "T"
-	private DefaultListModel<String> dfListComments;
-	private JList<String> jListComments;
 	private JScrollPane jScrollPaneComments;
+	private JTable tableComments;
 	public void listaComentarios() {
+		Object columnNames[] = {"Assunto", "Tipo", "Mensagem"};
 		List<Comentario> list = ajudaFacade.listarComentarios();
-		dfListComments = new DefaultListModel<String>();
-		for(Comentario c : list){
-			dfListComments.addElement(c.toString());	
+		Object rowData[][] = new Object[list.size()][3];
+		for (int i = 0; i < list.size(); i++) {
+			rowData[i][0] = list.get(i).getAssunto();
+			rowData[i][1] = EnumTipoComentario.getById(list.get(i).getTipo());
+			rowData[i][2] = list.get(i).getDescricao();
 		}
-		jListComments = new JList<String>(dfListComments);
-		jListComments.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		jListComments.setSelectedIndex(0);
-		jListComments.setVisibleRowCount(list.size());
-		jScrollPaneComments = new JScrollPane(jListComments);
+		
+		tableComments = new JTable(rowData, columnNames);
+		tableComments.setEnabled(false);
+		jScrollPaneComments = new JScrollPane(tableComments);
 		
 		frame.getContentPane().add(jScrollPaneComments);
 		

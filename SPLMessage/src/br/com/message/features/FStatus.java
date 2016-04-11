@@ -1,4 +1,4 @@
-//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T" 
+//#if ${Status} == "T"
 /**
  * 
  */
@@ -28,7 +28,6 @@ public class FStatus {
 		this.parent = parent;
 	}
 	
-	//#if ${VisualizarStatus} == "T"
 	/**
 	 * Método responsável por mostrar o status
 	 */
@@ -37,9 +36,7 @@ public class FStatus {
 		String status = EnumStatusUsuario.getStatusById(usuario.getIdStatus()).getDescricao();
 		JOptionPane.showMessageDialog(this.parent, status, "Status", JOptionPane.PLAIN_MESSAGE);
 	}
-	//#endif
 	
-	//#if ${AlterarStatus} == "T"
 	/**
 	 * Método responsável por alterar o status
 	 * do usuário
@@ -70,6 +67,5 @@ public class FStatus {
 			}
 		}
 	}
-	//#endif
 }
 //#endif

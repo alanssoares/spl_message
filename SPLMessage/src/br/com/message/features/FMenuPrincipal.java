@@ -69,8 +69,10 @@ public class FMenuPrincipal extends JDialog {
 	private JMenuItem btnRemoverGrupo;
 	//#endif
 	
-	//#if ${AlterarStatus} == "T"
+	//#if ${Status} == "T"
+	private JMenu jMenuStatus;
 	private JMenuItem btnAlterarStatus;
+	private JMenuItem btnVisualizarStatus;
 	//#endif
 	
 	//#if ${AlterarContato} == "T"
@@ -97,10 +99,6 @@ public class FMenuPrincipal extends JDialog {
 	private JMenuItem btnSobre;
 	//#endif
 	
-	//#if ${VisualizarStatus} == "T"
-	private JMenuItem btnVisualizarStatus;
-	//#endif
-	
 	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 	private JMenu jMenuAjuda;
 	//#endif
@@ -109,10 +107,6 @@ public class FMenuPrincipal extends JDialog {
 	
 	//#if ${Grupo} == "T"
 	private JMenu jMenuGrupo;
-	//#endif
-	
-	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
-	private JMenu jMenuStatus;
 	//#endif
 	
 	//#if ${PesquisaContato} == "T"
@@ -164,7 +158,7 @@ public class FMenuPrincipal extends JDialog {
 
 		createMenuInicio();
 
-		//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
+		//#if ${Status} == "T"
 		createMenuStatus();
 		//#endif
 
@@ -337,11 +331,10 @@ public class FMenuPrincipal extends JDialog {
 	}
 	//#endif
 
-	//#if ${Status} == "T" or ${VisualizarStatus} == "T" or ${AlterarStatus} == "T"
+	//#if ${Status} == "T"
 	private void createMenuStatus() {
 		jMenuStatus = new JMenu("Status");
 
-		//#if ${VisualizarStatus} == "T"
 		btnVisualizarStatus = new JMenuItem("Visualizar");
 		btnVisualizarStatus.addActionListener(new ActionListener() {
 			@Override
@@ -350,9 +343,7 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuStatus.add(btnVisualizarStatus);
-		//#endif
-
-		//#if ${AlterarStatus} == "T"
+		
 		btnAlterarStatus = new JMenuItem("Alterar");
 		btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
@@ -361,7 +352,6 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuStatus.add(btnAlterarStatus);
-		//#endif
 
 		jMenu.add(jMenuStatus);
 	}

@@ -50,8 +50,8 @@
 					<feature name="LimparHistorico"/>
 				</and>
 				<and name="Status">
-					<feature name="VisualizarStatus"/>
-					<feature name="AlterarStatus"/>
+					<feature mandatory="true" name="VisualizarStatus"/>
+					<feature mandatory="true" name="AlterarStatus"/>
 				</and>
 			</and>
 		</struct>
