@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+//#if ${Grupo} == "T"
 /**
  * 
  */
@@ -13,23 +13,19 @@ import br.com.message.model.Grupo;
  *
  */
 public interface GrupoFacade {
-
-	//#if ${CadastrarGrupo} == "T"
+	
 	/**
 	 * Método responsável por inserir um novo grupo
 	 * @param grupo
 	 * @return
 	 */
 	public Grupo inserir(Grupo grupo);
-	//#endif
 	
-	//#if ${RemoverGrupo} == "T"
 	/**
 	 * Método responsável por remover um grupo
 	 * @param grupo
 	 */
 	public void remover(Grupo grupo);
-	//#endif
 	
 	/**
 	 * Método responsável por buscar um grupo

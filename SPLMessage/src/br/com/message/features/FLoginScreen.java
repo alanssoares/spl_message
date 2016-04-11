@@ -45,14 +45,8 @@ public class FLoginScreen extends JFrame {
 	private JLabel lbEmail;
 	private JLabel lbPassword;
 	private JButton btnLogin;
-	
-	//#if ${CadastrarUsuario} == "T"
 	private JButton btnNovo;
-	//#endif
-	
-	//#if ${RecuperarSenha} == "T"
 	private JButton btnRecuperarSenha;
-	//#endif
 	
 	public FLoginScreen() {
 		super(Constantes.APPLICATION_NAME);
@@ -120,7 +114,6 @@ public class FLoginScreen extends JFrame {
 	    });
 	    borderPanel.add(btnLogin);
 	    
-	    //#if ${CadastrarUsuario} == "T"
 		btnNovo = new JButton("Novo Cadastro");
 		btnNovo.addActionListener(new ActionListener() {
 			@Override
@@ -131,9 +124,7 @@ public class FLoginScreen extends JFrame {
 			}
 		});
 		borderPanel.add(btnNovo);
-		//#endif
 		
-		//#if ${RecuperarSenha} == "T"
 		btnRecuperarSenha = new JButton("Recuperar Senha");
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			@Override
@@ -144,7 +135,6 @@ public class FLoginScreen extends JFrame {
 			}
 		});
 		borderPanel.add(btnRecuperarSenha);
-		//#endif
 	    
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(borderPanel, BorderLayout.PAGE_END);

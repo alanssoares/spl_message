@@ -21,7 +21,7 @@
 						<feature name="AdicionarGrupo"/>
 					</and>
 					<and name="AlterarContato">
-						<feature name="AlterarGrupo"/>
+						<feature mandatory="true" name="AlterarGrupo"/>
 					</and>
 					<feature mandatory="true" name="RemoverContato"/>
 					<alt name="BuscarContato">

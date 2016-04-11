@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+//#if ${Grupo} == "T"
 /**
  * 
  */
@@ -14,22 +14,18 @@ import br.com.message.model.Grupo;
  */
 public interface GrupoDao {
 
-	//#if ${CadastrarGrupo} == "T"
 	/**
 	 * Método responsável por inserir um novo grupo
 	 * @param grupo
 	 * @return
 	 */
 	Grupo inserir(Grupo grupo);
-	//#endif
 	
-	//#if ${RemoverGrupo} == "T"
 	/**
 	 * Método responsável por remover grupo 
 	 * @param grupo
 	 */
 	void remover(Grupo grupo);
-	//#endif
 	
 	/**
 	 * Método responsável por buscar um grupo

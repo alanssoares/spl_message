@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+//#if ${Grupo} == "T"
 /**
  * 
  */
@@ -19,7 +19,6 @@ public class GrupoFacadeImpl implements GrupoFacade {
 
 	private GrupoDao grupoDao = new GrupoDaoImpl();
 
-	//#if ${CadastrarGrupo} == "T"
 	@Override
 	public Grupo inserir(Grupo grupo) {
 		grupo.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
@@ -28,21 +27,18 @@ public class GrupoFacadeImpl implements GrupoFacade {
 		}
 		return grupoDao.inserir(grupo);
 	}
-	//#endif
 	
 	@Override
 	public Grupo buscar(Grupo grupo) {
 		grupo.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		return this.grupoDao.buscar(grupo);
 	}
-
-	//#if ${RemoverGrupo} == "T"
+	
 	@Override
 	public void remover(Grupo grupo) {
 		grupo.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		this.grupoDao.remover(grupo);
 	}
-	//#endif
 	
 	@Override
 	public List<Grupo> listar() {

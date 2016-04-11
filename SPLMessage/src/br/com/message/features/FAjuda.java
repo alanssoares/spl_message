@@ -1,4 +1,4 @@
-//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T" or ${EnviaComentario} == "T" 
+//#if ${Ajuda} == "T" 
 /**
  * 
  */

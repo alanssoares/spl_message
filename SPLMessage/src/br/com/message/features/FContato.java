@@ -1,4 +1,3 @@
-//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T" 
 /**
  * 
  */
@@ -21,8 +20,14 @@ import javax.swing.JTextField;
 
 import br.com.message.facade.ContatoFacade;
 import br.com.message.facade.ContatoFacadeImpl;
+
+//#if ${Grupo} == "T"
+//#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
 import br.com.message.facade.GrupoFacade;
 import br.com.message.facade.GrupoFacadeImpl;
+//#endif
+//#endif
+
 import br.com.message.model.Contato;
 import br.com.message.model.Grupo;
 import br.com.message.model.Usuario;
@@ -42,8 +47,7 @@ public class FContato {
 		this.parent = parent;
 		this.contatoFacade = new ContatoFacadeImpl();
 	}
-
-	//#if ${RemoverContato} == "T"
+	
 	/**
 	 * Método responsável por remover um contato
 	 */
@@ -62,60 +66,27 @@ public class FContato {
 		}
 		return c;
 	}
-	//#endif
 	
-	//#if ${AlterarContato} == "T" or ${AdicionarContato} == "T"
 	private JFrame frameNewContact;
 	private JLabel lbEmail;
 	private JTextField tfEmail;
-	private JLabel lbGrupo;
 	private JButton btnAdicionar;
-	private JButton btnAlterar;
 	private JButton btnCancelar;
+	
+	//#if ${AlterarContato} == "T"
+	private JButton btnAlterar;
+	//#endif
+	
+	//#if ${Grupo} == "T"
+	//#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
+	private JLabel lbGrupo;
 	private JComboBox<Grupo> cGrupo;
 	private GrupoFacade grupoFacade;
+	//#endif
+	//#endif
 	
 	public void createFrameAdicionarAlterar(String tipoOperacao){
 		JPanel bp = new JPanel();
-		
-		//#if ${AdicionarContato} == "T"
-		if(Constantes.FEATURE_ADICIONAR_CONTATO.equals(tipoOperacao)){
-			btnAdicionar = new JButton("Adicionar");
-		    btnAdicionar.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		try {
-						contatoFacade.inserir(getNovoContato());
-						JOptionPane.showMessageDialog(frameNewContact, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
-					}
-		    		frameNewContact.dispose();
-		    	}
-		    });
-		    bp.add(btnAdicionar);
-			frameNewContact = new JFrame(Constantes.FEATURE_ADICIONAR_CONTATO);
-		}
-		//#endif
-		
-		//#if ${AlterarContato} == "T"
-		if(Constantes.FEATURE_ALTERAR_CONTATO.equals(tipoOperacao)){
-			btnAlterar = new JButton("Alterar");
-		    btnAlterar.addActionListener(new ActionListener() {
-		    	public void actionPerformed(ActionEvent e) {
-		    		try {
-						contatoFacade.update(getNovoContato());
-						JOptionPane.showMessageDialog(frameNewContact, "Contato alterado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
-					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
-					}
-		    		frameNewContact.dispose();
-		    	}
-		    });
-		    bp.add(btnAlterar);
-			frameNewContact = new JFrame(Constantes.FEATURE_ALTERAR_CONTATO);
-		}
-		//#endif
-		
 		JPanel panel = new JPanel(new GridBagLayout());
 		GridBagConstraints cs = new GridBagConstraints();
 		
@@ -133,23 +104,82 @@ public class FContato {
 		cs.gridwidth = 2;
 		panel.add(tfEmail, cs);
 		
-		lbGrupo = new JLabel("Grupo: ");
-		cs.gridx = 0;
-		cs.gridy = 1;
-		cs.gridwidth = 1;
-		panel.add(lbGrupo, cs);
-		
-		grupoFacade = new GrupoFacadeImpl();
-		cGrupo = new JComboBox<Grupo>();
-		for(Grupo grupo : grupoFacade.listar()){
-			cGrupo.addItem(grupo);
+		if(Constantes.FEATURE_ADICIONAR_CONTATO.equals(tipoOperacao)){
+			
+			//#if ${Grupo} == "T" and ${AdicionarGrupo} == "T"
+			lbGrupo = new JLabel("Grupo: ");
+			cs.gridx = 0;
+			cs.gridy = 1;
+			cs.gridwidth = 1;
+			panel.add(lbGrupo, cs);
+			
+			grupoFacade = new GrupoFacadeImpl();
+			cGrupo = new JComboBox<Grupo>();
+			for(Grupo grupo : grupoFacade.listar()){
+				cGrupo.addItem(grupo);
+			}
+			
+			cs.gridx = 2;
+			cs.gridy = 1;
+			cs.gridwidth = 2;
+			panel.add(cGrupo, cs);
+			//#endif
+			
+			btnAdicionar = new JButton("Adicionar");
+		    btnAdicionar.addActionListener(new ActionListener() {
+		    	public void actionPerformed(ActionEvent e) {
+		    		try {
+						contatoFacade.inserir(getNovoContato());
+						JOptionPane.showMessageDialog(frameNewContact, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					}
+		    		frameNewContact.dispose();
+		    	}
+		    });
+		    bp.add(btnAdicionar);
+			frameNewContact = new JFrame(Constantes.FEATURE_ADICIONAR_CONTATO);
 		}
 		
-		cs.gridx = 2;
-		cs.gridy = 1;
-		cs.gridwidth = 2;
-		panel.add(cGrupo, cs);
-	    
+		//#if ${AlterarContato} == "T"
+		if(Constantes.FEATURE_ALTERAR_CONTATO.equals(tipoOperacao)){
+			
+			//#if ${Grupo} == "T" and ${AlterarGrupo} == "T"		
+			lbGrupo = new JLabel("Grupo: ");
+			cs.gridx = 0;
+			cs.gridy = 1;
+			cs.gridwidth = 1;
+			panel.add(lbGrupo, cs);
+			
+			grupoFacade = new GrupoFacadeImpl();
+			cGrupo = new JComboBox<Grupo>();
+			for(Grupo grupo : grupoFacade.listar()){
+				cGrupo.addItem(grupo);
+			}
+			
+			cs.gridx = 2;
+			cs.gridy = 1;
+			cs.gridwidth = 2;
+			panel.add(cGrupo, cs);
+			//#endif
+			
+			btnAlterar = new JButton("Alterar");
+		    btnAlterar.addActionListener(new ActionListener() {
+		    	public void actionPerformed(ActionEvent e) {
+		    		try {
+						contatoFacade.update(getNovoContato());
+						JOptionPane.showMessageDialog(frameNewContact, "Contato alterado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
+					}
+		    		frameNewContact.dispose();
+		    	}
+		    });
+		    bp.add(btnAlterar);
+			frameNewContact = new JFrame(Constantes.FEATURE_ALTERAR_CONTATO);
+		}
+		//#endif
+		
 	    btnCancelar = new JButton("Cancelar");
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -175,10 +205,12 @@ public class FContato {
 		Contato contato = new Contato();
 		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		contato.setEmailContato(tfEmail.getText());
+		//#if ${Grupo} == "T"
+		//#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
 		Grupo grupo = (Grupo) cGrupo.getSelectedItem();
 		contato.setIdGrupo(grupo.getId());
+		//#endif
+		//#endif
 		return contato;
 	}
-	//#endif
 }
-//#endif

@@ -1,4 +1,3 @@
-//#if ${CadastrarUsuario} == "T"
 /**
  * 
  */
@@ -162,4 +161,3 @@ public class FCadastroUsuario extends JFrame {
 		return parent;
 	}
 }
-//#endif

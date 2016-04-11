@@ -1,4 +1,3 @@
-//#if ${Contato} == "T" or ${RemoverContato} == "T" or ${AdicionarContato} == "T"
 /**
  * 
  */
@@ -19,20 +18,16 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 	public ContatoDaoImpl() {
 		super(Contato.class);
 	}
-
-	//#if ${RemoverContato} == "T"
+	
 	@Override
 	public void remover(Contato contato) {
 		remove(contato.getContatoPK());
 	}
-	//#endif
 	
-	//#if ${AdicionarContato} == "T"
 	@Override
 	public void inserir(Contato contato) {
 		insert(contato);
 	}
-	//#endif
 	
 	//#if ${AlterarContato} == "T"
 	@Override
@@ -58,4 +53,3 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 		return contatos;
 	}
 }
-//#endif

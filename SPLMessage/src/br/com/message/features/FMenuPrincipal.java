@@ -61,13 +61,12 @@ public class FMenuPrincipal extends JDialog {
 	private JScrollPane jScrollPaneContact;
 	private UsuarioFacade userFacade;
 	private ContatoFacade contactFacade;
-	
-	//#if ${AdicionarContato} == "T"
 	private JMenuItem btnAdicionarContato;
-	//#endif
+	private JMenuItem btnRemoverContato;
 	
-	//#if ${AdicionarGrupo} == "T"
+	//#if ${Grupo} == "T"
 	private JMenuItem btnAdicionarGrupo;
+	private JMenuItem btnRemoverGrupo;
 	//#endif
 	
 	//#if ${AlterarStatus} == "T"
@@ -90,14 +89,6 @@ public class FMenuPrincipal extends JDialog {
 	private JMenuItem btnPoliticaPrivacidade;
 	//#endif
 	
-	//#if ${RemoverContato} == "T"
-	private JMenuItem btnRemoverContato;
-	//#endif
-	
-	//#if ${RemoverGrupo} == "T"
-	private JMenuItem btnRemoverGrupo;
-	//#endif
-	
 	//#if ${OrdenarContatos} == "T"
 	private JMenuItem btnOrdenarContatos;
 	//#endif
@@ -114,11 +105,9 @@ public class FMenuPrincipal extends JDialog {
 	private JMenu jMenuAjuda;
 	//#endif
 	
-	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T" or ${AlterarContato} == "T"
 	private JMenu jMenuContato;
-	//#endif
 	
-	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+	//#if ${Grupo} == "T"
 	private JMenu jMenuGrupo;
 	//#endif
 	
@@ -179,13 +168,11 @@ public class FMenuPrincipal extends JDialog {
 		createMenuStatus();
 		//#endif
 
-		//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+		//#if ${Grupo} == "T"
 		createMenuGrupo();
 		//#endif
 
-		//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
 		createMenuContato();
-		//#endif
 
 		//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
 		createMenuAjuda();
@@ -267,12 +254,10 @@ public class FMenuPrincipal extends JDialog {
 		jMenu.add(jMenuAjuda);
 	}
 	//#endif
-
-	//#if ${Contato} == "T" or ${AdicionarContato} == "T" or ${RemoverContato} == "T"
+	
 	private void createMenuContato() {
 		jMenuContato = new JMenu("Contato");
 
-		//#if ${AdicionarContato} == "T"
 		btnAdicionarContato = new JMenuItem("Adicionar");
 		btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
@@ -282,7 +267,6 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuContato.add(btnAdicionarContato);
-		//#endif
 
 		//#if ${AlterarContato} == "T"
 		btnAlterarContato = new JMenuItem("Alterar");
@@ -296,7 +280,6 @@ public class FMenuPrincipal extends JDialog {
 		jMenuContato.add(btnAlterarContato);
 		//#endif
 		
-		//#if ${RemoverContato} == "T"
 		btnRemoverContato = new JMenuItem("Remover");
 		btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
@@ -309,7 +292,6 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuContato.add(btnRemoverContato);
-		//#endif
 		
 		//#if ${OrdenarContatos} == "T"
 		btnOrdenarContatos = new JMenuItem("Ordenar");
@@ -328,13 +310,11 @@ public class FMenuPrincipal extends JDialog {
 		
 		jMenu.add(jMenuContato);
 	}
-	//#endif
 
-	//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+	//#if ${Grupo} == "T"
 	private void createMenuGrupo() {
 		jMenuGrupo = new JMenu("Grupo");
-
-		//#if ${CadastrarGrupo} == "T"
+		
 		btnAdicionarGrupo = new JMenuItem("Adicionar");
 		btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -343,9 +323,7 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuGrupo.add(btnAdicionarGrupo);
-		//#endif
-
-		//#if ${RemoverGrupo} == "T"
+		
 		btnRemoverGrupo = new JMenuItem("Remover");
 		btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
@@ -354,7 +332,6 @@ public class FMenuPrincipal extends JDialog {
 			}
 		});
 		jMenuGrupo.add(btnRemoverGrupo);
-		//#endif
 
 		jMenu.add(jMenuGrupo);
 	}

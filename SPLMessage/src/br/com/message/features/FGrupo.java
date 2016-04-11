@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T" 
+//#if ${Grupo} == "T" 
 /**
  * 
  */
@@ -29,7 +29,6 @@ public class FGrupo {
 		this.grupoFacade = new GrupoFacadeImpl();
 	}
 	
-	//#if ${CadastrarGrupo} == "T"
 	/**
 	 * Responsável por adicionar um novo grupo
 	 */
@@ -46,9 +45,7 @@ public class FGrupo {
 			}
 		}
 	}
-	//#endif
 	
-	//#if ${RemoverGrupo} == "T"
 	/**
 	 * Responsável por remover um grupo. Quando um
 	 * grupo do usuário é removido, todos os seus contatos
@@ -69,6 +66,5 @@ public class FGrupo {
 			}
 		}
 	}
-	//#endif
 }
 //#endif

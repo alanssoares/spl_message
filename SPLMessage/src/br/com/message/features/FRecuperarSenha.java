@@ -1,4 +1,3 @@
-//#if ${RecuperarSenha} == "T"
 /**
  * 
  */
@@ -36,10 +35,7 @@ public class FRecuperarSenha extends JFrame {
 
 	private JTextField tfEmail;
 	private JLabel lbEmail;
-	
-	//#if ${EnviarSenhaEmail} == "T"
 	private JButton btnEnviar;
-	//#endif
 	
 	//#if ${VisualizarSenhaTela} == "T"
 	private JButton btnVisualizarTela;
@@ -73,7 +69,6 @@ public class FRecuperarSenha extends JFrame {
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
 		
-		//#if ${EnviarSenhaEmail} == "T"
 	    btnEnviar = new JButton("Enviar Email");
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
@@ -102,7 +97,6 @@ public class FRecuperarSenha extends JFrame {
 	        }
 	    });
 	    borderPanel.add(btnEnviar);
-	    //#endif
 	    
 	    //#if ${VisualizarSenhaTela} == "T"
 	    btnVisualizarTela = new JButton("Visualizar na Tela");
@@ -147,4 +141,3 @@ public class FRecuperarSenha extends JFrame {
 		return parent;
 	}
 }
-//#endif

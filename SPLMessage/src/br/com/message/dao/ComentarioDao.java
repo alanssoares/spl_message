@@ -1,4 +1,4 @@
-//#if ${EnviaComentario} == "T" or ${ListaComentarios} == "T"
+//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
  */
@@ -22,7 +22,7 @@ public interface ComentarioDao {
 	void inserir(Comentario comentario);
 	//#endif
 	
-	//#if ${ListaComentarios} == "T"
+	//#if ${ListaComentario} == "T"
 	/**
 	 * Método responsável por listar todos os comentários
 	 * @return

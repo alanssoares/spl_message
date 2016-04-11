@@ -1,4 +1,4 @@
-//#if ${Grupo} == "T" or ${CadastrarGrupo} == "T" or ${RemoverGrupo} == "T"
+//#if ${Grupo} == "T"
 /**
  * 
  */
@@ -22,19 +22,15 @@ public class GrupoDaoImpl extends GenericDao<Grupo, Integer> implements GrupoDao
 		super(Grupo.class);
 	}
 
-	//#if ${CadastrarGrupo} == "T"
 	@Override
 	public Grupo inserir(Grupo grupo) {
 		return insert(grupo);
 	}
-	//#endif
 	
-	//#if ${RemoverGrupo} == "T"
 	@Override
 	public void remover(Grupo grupo) {
 		remove(grupo.getId());
 	}
-	//#endif
 	
 	@Override
 	public Grupo buscar(Grupo grupo) {

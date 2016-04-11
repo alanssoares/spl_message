@@ -1,4 +1,4 @@
-//#if ${Ajuda} == "T" or ${Sobre} == "T" or ${PoliticaPrivacidade} == "T" or ${EnviaComentario} == "T" or ${ListaComentarios} == "T"
+//#if ${Ajuda} == "T"
 /**
  * 
  */
@@ -32,7 +32,7 @@ public interface AjudaFacade {
 	public void inserirComentario(Comentario comentario);
 	//#endif
 	
-	//#if ${ListaComentarios} == "T"
+	//#if ${ListaComentario} == "T"
 	/**
 	 * Lista todos os comentarios
 	 * @return List<Comentario>
