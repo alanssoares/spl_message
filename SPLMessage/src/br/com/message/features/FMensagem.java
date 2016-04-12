@@ -12,6 +12,7 @@ import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -28,6 +29,7 @@ import br.com.message.model.Mensagem;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
+import br.com.message.util.FileUtil;
 
 /**
  * @author alsoares
@@ -125,7 +127,26 @@ public class FMensagem extends JFrame {
 	    btnAnexar.addActionListener(new  ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Auto-generated method stub
+				JFileChooser fileChooser = new JFileChooser();
+				int rVal = fileChooser.showOpenDialog(FMensagem.this);
+				if (rVal == JFileChooser.APPROVE_OPTION) {
+					Mensagem msg = new Mensagem();
+					FileUtil fileUtil = new FileUtil();
+					Usuario user = DataStore.getInstance().getUsuario();
+					try {
+						//Faz o upload do arquivo
+						fileUtil.uploadFile(fileChooser.getSelectedFile());
+						//Preenche os dados da mensagem do anexo
+						msg.setEmailContato(contato.getEmail());
+						msg.setDescricao(fileChooser.getSelectedFile().getName());
+						//Insere a mensagem
+						mensagemFacade.inserir(msg);
+						//Adiciona a mensagem ao histórico
+						addMessageToHistory(fileChooser.getSelectedFile().getName(), user.getNome());
+					} catch (Exception ex) {
+						JOptionPane.showMessageDialog(FMensagem.this, "Erro ao tentar enviar o arquivo!");
+					}
+				}
 			}
 		});
 	    //#endif
