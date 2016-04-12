@@ -14,7 +14,7 @@ import org.junit.Test;
 import br.com.message.util.Constantes;
 
 /**
- * @author webstore
+ * @author alsoares
  *
  */
 public class TesteConexaoBanco {

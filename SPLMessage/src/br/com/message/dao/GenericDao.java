@@ -14,7 +14,7 @@ import javax.persistence.criteria.CriteriaQuery;
 import br.com.message.util.SingletonEntityFactory;
 
 /**
- * @author webstore
+ * @author alsoares
  *
  */
 public abstract class GenericDao<T, I> {
