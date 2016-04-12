@@ -1,3 +1,4 @@
+//#if ${Ajuda} == "T" and ${PoliticaPrivacidade} == "T"
 /**
  * 
  */
@@ -54,3 +55,4 @@ public class PoliticaPrivacidade {
 		this.descricao = descricao;
 	}
 }
+//#endif

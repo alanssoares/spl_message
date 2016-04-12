@@ -24,36 +24,14 @@ public class Contato {
 	@EmbeddedId
 	private ContatoPK contatoPK;
 	
-	@Column(name="id_grupo", nullable=false)
-	@JoinColumn(name="id_grupo", referencedColumnName="id", table="grupo")
-	private Integer idGrupo;
-	
 	@Temporal(TemporalType.DATE)
 	@Column(name="data_inclusao", nullable=false)
 	private Date dataInclusao;
 	
-	public Contato() {
-		this.contatoPK = new ContatoPK();
-	}
-	
-	public Contato(String emailUsuario, String emailContato) {
-		this.contatoPK = new ContatoPK(emailUsuario, emailContato);
-	}
-
-	/**
-	 * Return the contatoPK
-	 * @return the contatoPK
-	 */
-	public ContatoPK getContatoPK() {
-		return contatoPK;
-	}
-	/**
-	 * Setter the contatoPK
-	 * @param contatoPK the contatoPK to set
-	 */
-	public void setContatoPK(ContatoPK contatoPK) {
-		this.contatoPK = contatoPK;
-	}
+	//#if ${Grupo} == "T"
+	@Column(name="id_grupo", nullable=false)
+	@JoinColumn(name="id_grupo", referencedColumnName="id", table="grupo")
+	private Integer idGrupo;
 	/**
 	 * Return the idGrupo
 	 * @return the idGrupo
@@ -67,6 +45,30 @@ public class Contato {
 	 */
 	public void setIdGrupo(Integer idGrupo) {
 		this.idGrupo = idGrupo;
+	}
+	//#endif
+	
+	public Contato() {
+		this.contatoPK = new ContatoPK();
+	}
+	
+	public Contato(String emailUsuario, String emailContato) {
+		this.contatoPK = new ContatoPK(emailUsuario, emailContato);
+	}
+	
+	/**
+	 * Return the contatoPK
+	 * @return the contatoPK
+	 */
+	public ContatoPK getContatoPK() {
+		return contatoPK;
+	}
+	/**
+	 * Setter the contatoPK
+	 * @param contatoPK the contatoPK to set
+	 */
+	public void setContatoPK(ContatoPK contatoPK) {
+		this.contatoPK = contatoPK;
 	}
 	/**
 	 * Return the dataInclusao

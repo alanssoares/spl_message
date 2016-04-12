@@ -1,3 +1,5 @@
+//#if ${Ajuda} == "T"
+//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
  */
@@ -136,3 +138,5 @@ public class Comentario {
 		return "Assunto: " + this.assunto + " Tipo: " + EnumTipoComentario.getById(this.tipo) + " Mensagem: " + this.descricao;
 	}
 }
+//#endif
+//#endif

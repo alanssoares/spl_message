@@ -23,13 +23,13 @@ import br.com.message.facade.ContatoFacadeImpl;
 
 //#if ${Grupo} == "T"
 //#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
+import br.com.message.model.Grupo;
 import br.com.message.facade.GrupoFacade;
 import br.com.message.facade.GrupoFacadeImpl;
 //#endif
 //#endif
 
 import br.com.message.model.Contato;
-import br.com.message.model.Grupo;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;

@@ -36,10 +36,13 @@ public class ContatoFacadeImpl implements ContatoFacade {
 			throw new IntegrationException("Este contato não é válido");
 		}
 		
-		//Valida se o grupo foi selecionado
+		//#if ${Grupo} == "T"
+		//#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
 		if(contato.getIdGrupo() == null){
 			contato.setIdGrupo(ID_GRUPO_DEFAULT);
 		}
+		//#endif
+		//#endif
 		
 		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		if(buscar(contato) != null){
@@ -78,12 +81,15 @@ public class ContatoFacadeImpl implements ContatoFacade {
 			throw new IntegrationException("Não foi possível localizar o contato");
 		}
 		
-		//Valida se o grupo foi selecionado
+		//#if ${Grupo} == "T"
+		//#if ${AlterarGrupo} == "T" or ${AdicionarGrupo} == "T"
 		if(contato.getIdGrupo() == null){
 			c.setIdGrupo(ID_GRUPO_DEFAULT);
 		} else {
 			c.setIdGrupo(contato.getIdGrupo());
 		}
+		//#endif
+		//#endif
 		
 		this.contatoDao.alterar(c);
 	}

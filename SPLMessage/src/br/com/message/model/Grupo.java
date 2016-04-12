@@ -1,3 +1,4 @@
+//#if ${Grupo} == "T"
 /**
  * 
  */
@@ -85,3 +86,4 @@ public class Grupo implements Serializable {
 		return this.descricao;
 	}
 }
+//#endif

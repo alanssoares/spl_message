@@ -1,3 +1,4 @@
+//#if ${Ajuda} == "T" and ${Sobre} == "T"
 /**
  * 
  */
@@ -54,3 +55,4 @@ public class Sobre {
 		this.descricao = descricao;
 	}
 }
+//#endif

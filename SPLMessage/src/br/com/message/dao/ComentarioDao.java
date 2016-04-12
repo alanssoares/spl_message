@@ -1,4 +1,4 @@
-//#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
+//#if ${Ajuda} == "T"
 /**
  * 
  */

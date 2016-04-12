@@ -1,4 +1,4 @@
-//#if ${Sobre} == "T"
+//#if ${Ajuda} == "T" and ${Sobre} == "T"
 /**
  * 
  */
