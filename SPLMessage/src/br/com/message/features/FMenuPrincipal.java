@@ -99,7 +99,7 @@ public class FMenuPrincipal extends JDialog {
 	private JMenuItem btnSobre;
 	//#endif
 	
-	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
+	//#if ${Ajuda} == "T"
 	private JMenu jMenuAjuda;
 	//#endif
 	
@@ -168,7 +168,7 @@ public class FMenuPrincipal extends JDialog {
 
 		createMenuContato();
 
-		//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
+		//#if ${Ajuda} == "T"
 		createMenuAjuda();
 		//#endif
 		
@@ -196,7 +196,7 @@ public class FMenuPrincipal extends JDialog {
 		jMenu.add(jMenuInicio);
 	}
 
-	//#if ${Ajuda} == "T" or ${EnviaComentario} == "T" or ${PoliticaPrivacidade} == "T" or ${Sobre} == "T"
+	//#if ${Ajuda} == "T"
 	private void createMenuAjuda() {
 		jMenuAjuda = new JMenu("Ajuda");
 
@@ -450,6 +450,16 @@ public class FMenuPrincipal extends JDialog {
 			usuarios.add((Usuario) elements.nextElement());
 		}
 		
+		if(EnumOrdenacao.EMAIL.getDescricao().equals(by)){
+			Collections.sort(usuarios, new Comparator<Usuario>() {
+				@Override
+				public int compare(Usuario o1, Usuario o2) {
+					return o1.getEmail().compareTo(o2.getEmail());
+				}
+			});
+		}
+		
+		//#if ${Status} == "T" and ${OrdenarStatus} == "T"
 		if(EnumOrdenacao.STATUS.getDescricao().equals(by)){
 			Collections.sort(usuarios, new Comparator<Usuario>() {
 				@Override
@@ -457,7 +467,11 @@ public class FMenuPrincipal extends JDialog {
 					return o1.getIdStatus().compareTo(o2.getIdStatus());
 				}
 			});
-		} else {
+		}
+		//#endif
+		
+		//#if ${Grupo} == "T" and ${OrdenarGrupo} == "T"
+		if(EnumOrdenacao.GRUPO.getDescricao().equals(by)) {
 			Collections.sort(contacts, new Comparator<Contato>() {
 				@Override
 				public int compare(Contato o1, Contato o2) {
@@ -470,6 +484,7 @@ public class FMenuPrincipal extends JDialog {
 				usuarios.add(contato);
 			}
 		}
+		//#endif
 		
 		dfListContact.removeAllElements();
 		for(Usuario usuario : usuarios){

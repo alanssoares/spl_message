@@ -2,7 +2,7 @@
 <project default="run">
 	<taskdef classpath="libs/javapp.jar" resource="javapp-defs.xml" />
 	
-	<property name="product" value="SPLMessageProductA"></property>
+	<property name="product" value="SPLMessageProductB"></property>
 	<property name="dirProduct" value="products/${product}"></property>
 	<property name="build" value="${dirProduct}/build" />
 	<property name="src" value="${dirProduct}/src" />
@@ -60,32 +60,24 @@
 		<echo/><echo message="Step 2 - Source code is being created using javapp in the '${product}' folder!" />
 		<javapp destdir="${dirProduct}/src/br/com" prefix="//#">
 			<fileset dir="src/br/com" includes="**/*.java" />
-			<property name="AdicionarContato" value="T" />
 			<property name="AdicionarGrupo" value="T" />
 			<property name="Anexar" value="T" />
 			<property name="AlterarContato" value="T" />
-			<property name="Ajuda" value="T" />
 			<property name="AlterarGrupo" value="T" />
-			<property name="AlterarStatus" value="T" />
-			<property name="CadastrarGrupo" value="T" />
-			<property name="CadastrarUsuario" value="T" />
-			<property name="Contato" value="T" />
+			<property name="Ajuda" value="T" />			
 			<property name="Emoction" value="T" />
 			<property name="EnviaComentario" value="T" />
-			<property name="EnviarSenhaEmail" value="T" />
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
 			<property name="ListaComentario" value="T" />
 			<property name="OrdenarContatos" value="T"/>
+			<property name="OrdenarGrupo" value="T"/>
+			<property name="OrdenarStatus" value="T"/>
 			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />
-			<property name="RecuperarSenha" value="T" />
-			<property name="RemoverContato" value="T" />
-			<property name="RemoverGrupo" value="T" />
 			<property name="Sobre" value="T" />
-			<property name="Status" value="T" />
+			<property name="Status" value="F" />
 			<property name="VisualizarSenhaTela" value="T" />
-			<property name="VisualizarStatus" value="T" />
 		</javapp>
 	</target>
 	

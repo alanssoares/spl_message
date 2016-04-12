@@ -1,3 +1,4 @@
+//#if ${Ajuda} == "T"
 //#if ${EnviaComentario} == "T" or ${ListaComentario} == "T"
 /**
  * 
@@ -207,4 +208,5 @@ public class FComentario {
 		return parent;
 	}
 }
+//#endif
 //#endif

@@ -11,9 +11,16 @@ import java.util.List;
  *
  */
 public enum EnumOrdenacao {
-
+	
+	//#if ${Grupo} == "T" and ${OrdenarContatos} == "T"
+	GRUPO(2, "Grupo"),
+	//#endif
+	
+	//#if ${Status} == "T" and ${OrdenarContatos} == "T"
 	STATUS(1, "Status"),
-	GRUPO(2, "Grupo");
+	//#endif
+	
+	EMAIL(0, "Email");
 	
 	private int id;
 	private String descricao;

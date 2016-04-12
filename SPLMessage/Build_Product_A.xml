@@ -63,14 +63,16 @@
 			<property name="AdicionarGrupo" value="T" />
 			<property name="Anexar" value="T" />
 			<property name="AlterarContato" value="T" />
-			<property name="AlterarGrupo" value="F" />
-			<property name="Ajuda" value="T" />			
+			<property name="AlterarGrupo" value="T" />
+			<property name="Ajuda" value="F" />			
 			<property name="Emoction" value="T" />
 			<property name="EnviaComentario" value="T" />
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
 			<property name="ListaComentario" value="T" />
 			<property name="OrdenarContatos" value="T"/>
+			<property name="OrdenarGrupo" value="T"/>
+			<property name="OrdenarStatus" value="T"/>
 			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />
 			<property name="Sobre" value="T" />

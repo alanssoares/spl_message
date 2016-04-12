@@ -25,14 +25,15 @@
 					</and>
 					<feature mandatory="true" name="RemoverContato"/>
 					<alt name="BuscarContato">
-						<feature mandatory="true" name="PorNome"/>
-						<feature mandatory="true" name="PorEmail"/>
+						<feature mandatory="true" name="BuscaPorNome"/>
+						<feature mandatory="true" name="BuscaPorEmail"/>
 					</alt>
 					<and mandatory="true" name="ListarContatos">
-						<alt name="Ordenar">
-							<feature mandatory="true" name="PorGrupo"/>
-							<feature mandatory="true" name="PorStatus"/>
-						</alt>
+						<and name="Ordenar">
+							<feature name="OrdenaPorGrupo"/>
+							<feature name="OrdenaPorStatus"/>
+							<feature mandatory="true" name="OrdenaPorEmail"/>
+						</and>
 					</and>
 				</and>
 				<and name="Grupo">
