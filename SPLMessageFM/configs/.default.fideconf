@@ -4,7 +4,7 @@
 11Login
 11CadastrarUsuario
 11RecuperarSenha
-21EnviarPorEmail
+11EnviarPorEmail
 22MostrarNaTela
 11Logar
 22Ajuda
@@ -19,12 +19,11 @@
 22AlterarGrupo
 11RemoverContato
 22BuscarContato
-22PorNome
-22PorEmail
 11ListarContatos
 22Ordenar
-22PorGrupo
-22PorStatus
+22OrdenaPorGrupo
+22OrdenaPorStatus
+22OrdenaPorEmail
 22Grupo
 22CadastrarGrupo
 22RemoverGrupo
@@ -32,8 +31,6 @@
 11EnviarMensagem
 22InserirEmoction
 22AnexarArquivo
-22Imagem
-22Documento
 22LimparHistorico
 22Status
 22VisualizarStatus

@@ -40,10 +40,7 @@
 				<and mandatory="true" name="Mensagem">
 					<and mandatory="true" name="EnviarMensagem">
 						<feature name="InserirEmoction"/>
-						<or name="AnexarArquivo">
-							<feature mandatory="true" name="Imagem"/>
-							<feature mandatory="true" name="Documento"/>
-						</or>
+						<feature name="AnexarArquivo"/>
 					</and>
 					<feature name="LimparHistorico"/>
 				</and>
