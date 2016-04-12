@@ -46,4 +46,12 @@ public interface ContatoDao {
 	 * @return List<Contato>
 	 */
 	List<Contato> listar(String email);
+	
+	/**
+	 * Método responsável por listar os contatos por parte do email
+	 * @param email usado para busca de contatos
+	 * @param parteEmailContato usado para busca
+	 * @return
+	 */
+	List<Contato> listar(String email, String parteEmailContato);
 }

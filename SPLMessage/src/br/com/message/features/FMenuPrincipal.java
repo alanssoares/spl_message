@@ -147,7 +147,12 @@ public class FMenuPrincipal extends JDialog {
 		btnBuscarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				
+				if(tfEmailContato.getText().isEmpty()){
+					contacts = contactFacade.listar(DataStore.getInstance().getUsuario().getEmail());
+				} else {
+					contacts = contactFacade.listar(DataStore.getInstance().getUsuario().getEmail(), tfEmailContato.getText());	
+				}
+				updateStatus();
 			}
 		});
 		buscaPanel.add(btnBuscarContato);
@@ -380,7 +385,9 @@ public class FMenuPrincipal extends JDialog {
 		jListConcatcs.addMouseListener(new MouseAdapter() {
 		    public void mouseClicked(MouseEvent e) {
 		        if (e.getClickCount() == 2) {
-		        	new FMensagem(jListConcatcs.getSelectedValue());
+		        	if(jListConcatcs.getSelectedValue() != null){
+		        		new FMensagem(jListConcatcs.getSelectedValue());
+		        	}
 		        }
 		   }
 		});
@@ -391,7 +398,6 @@ public class FMenuPrincipal extends JDialog {
 		timer.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				updateContacts();
 				updateStatus();
 			}
 		}, 0, 1000 * 10);
@@ -409,13 +415,16 @@ public class FMenuPrincipal extends JDialog {
 	 * dos contatos
 	 */
 	private void updateStatus(){
-		for (Contato c : contacts) {
-			Usuario contato = userFacade.findByEmail(c.getContatoPK().getEmailContato());
-			int index = getContact(contato);
-			if(index >= 0){
-				dfListContact.set(index, contato);
-			} else {
-				dfListContact.addElement(contato);
+		dfListContact.removeAllElements();
+		if(contacts != null && !contacts.isEmpty()){
+			for (Contato c : contacts) {
+				Usuario contato = userFacade.findByEmail(c.getContatoPK().getEmailContato());
+				int index = getContact(contato);
+				if(index >= 0){
+					dfListContact.set(index, contato);
+				} else {
+					dfListContact.addElement(contato);
+				}
 			}
 		}
 	}

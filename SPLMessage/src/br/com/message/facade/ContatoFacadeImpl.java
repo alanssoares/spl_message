@@ -98,4 +98,9 @@ public class ContatoFacadeImpl implements ContatoFacade {
 	public Contato buscar(Contato contato) {
 		return this.contatoDao.buscar(contato);
 	}
+
+	@Override
+	public List<Contato> listar(String email, String parteEmailContato) {
+		return this.contatoDao.listar(email, parteEmailContato);
+	}
 }

@@ -24,10 +24,7 @@
 						<feature mandatory="true" name="AlterarGrupo"/>
 					</and>
 					<feature mandatory="true" name="RemoverContato"/>
-					<alt name="BuscarContato">
-						<feature mandatory="true" name="BuscaPorNome"/>
-						<feature mandatory="true" name="BuscaPorEmail"/>
-					</alt>
+					<feature name="BuscarContato"/>
 					<and mandatory="true" name="ListarContatos">
 						<and name="Ordenar">
 							<feature name="OrdenaPorGrupo"/>

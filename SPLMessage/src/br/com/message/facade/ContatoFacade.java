@@ -48,4 +48,12 @@ public interface ContatoFacade {
 	 * @return Contato
 	 */
 	public Contato buscar(Contato contato);
+	
+	/**
+	 * Método responsável por listar os contatos por parte do email
+	 * @param email usado para busca de contatos
+	 * @param parteEmailContato usado para busca
+	 * @return
+	 */
+	public List<Contato> listar(String email, String parteEmailContato);
 }

@@ -52,4 +52,16 @@ public class ContatoDaoImpl extends GenericDao<Contato, ContatoPK> implements Co
 		}
 		return contatos;
 	}
+
+	@Override
+	public List<Contato> listar(String email, String parteEmailContato) {
+		List<Contato> result = getList();
+		List<Contato> contatos = new ArrayList<Contato>();
+		for(Contato c : result){
+			if(email.equals(c.getEmailUsuario()) && c.getEmailContato().contains(parteEmailContato)){
+				contatos.add(c);
+			}
+		}
+		return contatos;
+	}
 }
