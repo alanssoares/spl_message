@@ -48,6 +48,10 @@
 					<feature mandatory="true" name="VisualizarStatus"/>
 					<feature mandatory="true" name="AlterarStatus"/>
 				</and>
+				<alt name="Linguagem">
+					<feature mandatory="true" name="Portugues"/>
+					<feature mandatory="true" name="Ingles"/>
+				</alt>
 			</and>
 		</struct>
 		<constraints/>
