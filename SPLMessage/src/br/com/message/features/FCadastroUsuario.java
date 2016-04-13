@@ -24,6 +24,7 @@ import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -52,7 +53,7 @@ public class FCadastroUsuario extends JFrame {
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 
-		lbNome = new JLabel("Nome: ");
+		lbNome = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_NAME));
 		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -64,7 +65,7 @@ public class FCadastroUsuario extends JFrame {
 		cs.gridwidth = 2;
 		panel.add(tfNome, cs);
 		
-		lbEmail = new JLabel("Email: ");
+		lbEmail = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
 		cs.gridx = 0;
 		cs.gridy = 1;
 		cs.gridwidth = 1;
@@ -76,7 +77,7 @@ public class FCadastroUsuario extends JFrame {
 		cs.gridwidth = 2;
 		panel.add(tfEmail, cs);
 		
-		lbPassword = new JLabel("Password: ");
+		lbPassword = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_PASSWORD));
 		cs.gridx = 0;
 		cs.gridy = 2;
 		cs.gridwidth = 2;
@@ -90,26 +91,26 @@ public class FCadastroUsuario extends JFrame {
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
 		
-	    btnCadastrar = new JButton("Cadastrar");
+	    btnCadastrar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_ADD));
 	    btnCadastrar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
 		    		try {
 						usuarioFacade.inserir(getUsuario());
-						JOptionPane.showMessageDialog(FCadastroUsuario.this, "Cadastro realizado com sucesso");
+						JOptionPane.showMessageDialog(FCadastroUsuario.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_ACCOUNT_REG_SUCCESS));
 					} catch (Exception exception) {
-						JOptionPane.showMessageDialog(FCadastroUsuario.this, "Ocorreu um erro ao realizar o cadastro");
+						JOptionPane.showMessageDialog(FCadastroUsuario.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_ACCOUNT_REG_ERROR));
 					} finally {
 						getParent().setVisible(true);
 						dispose();
 					}
 	    		} else {
-	    			JOptionPane.showMessageDialog(FCadastroUsuario.this, "Preencha os campos corretamente");
+	    			JOptionPane.showMessageDialog(FCadastroUsuario.this, LanguageUtil.getInstance().getMessage(LanguageUtil.FILL_FIELDS_CORRECTLY));
 	    		}
 	        }
 	    });
 	    
-	    btnCancelar = new JButton("Cancelar");
+	    btnCancelar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_CANCEL));
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		getParent().setVisible(true);

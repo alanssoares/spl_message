@@ -32,6 +32,7 @@ import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
 import br.com.message.util.FileUtil;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -96,7 +97,7 @@ public class FMensagem extends JFrame {
 		tfMensagem.setBounds(20, 375, 340, 30);
 		panel.add(tfMensagem);
 		
-		btnEnviar = new JButton("Enviar");
+		btnEnviar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SEND));
 		btnEnviar.setBounds(360, 375, 80, 30);
 		panel.add(btnEnviar);
 	    btnEnviar.addActionListener(new ActionListener() {
@@ -124,7 +125,7 @@ public class FMensagem extends JFrame {
 	    //#endif
 	    
 	    //#if ${Anexar} == "T"
-	    btnAnexar = new JButton("Anexar");
+	    btnAnexar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_ATTACH));
 	    btnAnexar.setBounds(20, 420, 80, 30);
 	    panel.add(btnAnexar);
 	    btnAnexar.addActionListener(new  ActionListener() {
@@ -147,7 +148,8 @@ public class FMensagem extends JFrame {
 						//Adiciona a mensagem ao histórico
 						addMessageToHistory(fileChooser.getSelectedFile().getName(), user.getNome());
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(FMensagem.this, "Erro ao tentar enviar o arquivo!");
+						JOptionPane.showMessageDialog(FMensagem.this,
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_SEND_FILE_ERROR));
 					}
 				}
 			}
@@ -155,7 +157,7 @@ public class FMensagem extends JFrame {
 	    //#endif
 	    
 	    //#if ${LimparHistorico} == "T"
-	    btnLimparHistorico = new JButton("Limpar");
+	    btnLimparHistorico = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_CLEAR));
 	    btnLimparHistorico.setBounds(105, 420, 80, 30);
 	    panel.add(btnLimparHistorico);
 	    btnLimparHistorico.addActionListener(new  ActionListener() {
@@ -166,9 +168,9 @@ public class FMensagem extends JFrame {
 				try {
 					mensagemFacade.limparHistorico(c);
 					chatHistory.setText("");
-					JOptionPane.showMessageDialog(FMensagem.this, "Histórico excluído com sucesso!");
+					JOptionPane.showMessageDialog(FMensagem.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CLEAR_HISTORY_SUCCESS));
 				} catch (Exception ex) {
-					JOptionPane.showMessageDialog(FMensagem.this, "Erro ao tentar limpar o histórico!");
+					JOptionPane.showMessageDialog(FMensagem.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CLEAR_HISTORY_ERROR));
 				}
 			}
 		});
@@ -257,7 +259,9 @@ public class FMensagem extends JFrame {
 		for(EnumEmoction item : EnumEmoction.values()){
 			options[i++] = item.getEmoction();
 		}
-		Object res = JOptionPane.showInputDialog(this, "Escolha o Emoction", "Emoctions", 
+		Object res = JOptionPane.showInputDialog(this, 
+			LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_CHOOSE_EMOCTION),
+			LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMOCTION),
 				JOptionPane.PLAIN_MESSAGE, null, options, null);
 		if(res != null){
 			tfMensagem.setText(tfMensagem.getText() + res.toString());

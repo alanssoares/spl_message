@@ -12,8 +12,8 @@ import br.com.message.enums.EnumStatusUsuario;
 import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
-import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -54,14 +54,18 @@ public class FStatus {
 			}
 		}
 		
-		Object res = JOptionPane.showInputDialog(parent, "Escolha o Status", "Alteração Status", 
+		Object res = JOptionPane.showInputDialog(parent, 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_CHOOSE_STATUS), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_ALTER_STATUS), 
 				JOptionPane.PLAIN_MESSAGE, null, options, selected);
 		if(res != null){
 			for(EnumStatusUsuario item : EnumStatusUsuario.values()){
 				if(item.getDescricao().equals(res)){
 					user.setIdStatus(item.getId());
 					userFacade.update(user);
-					JOptionPane.showMessageDialog(this.parent, "Status alterado com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(this.parent, 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_STATUS_ALTER_SUCCESS), 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
 			}

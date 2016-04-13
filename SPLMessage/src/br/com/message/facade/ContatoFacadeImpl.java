@@ -13,6 +13,7 @@ import br.com.message.dao.ContatoDaoImpl;
 import br.com.message.model.Contato;
 import br.com.message.model.Usuario;
 import br.com.message.util.DataStore;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -31,9 +32,9 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		
 		//Valida se é um contato válido
 		if(c == null){
-			throw new IntegrationException("Não foi possível localizar o contato");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_NOT_FOUND));
 		} else if(c.getEmail().equals(DataStore.getInstance().getUsuario().getEmail())){
-			throw new IntegrationException("Este contato não é válido");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_INVALID));
 		}
 		
 		//#if ${Grupo} == "T"
@@ -46,7 +47,7 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		
 		contato.setEmailUsuario(DataStore.getInstance().getUsuario().getEmail());
 		if(buscar(contato) != null){
-			throw new IntegrationException("Contato já cadastrado");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_REGISTRED));
 		}
 		
 		contato.setDataInclusao(new Date());
@@ -59,13 +60,13 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		
 		//Valida se é um contato válido
 		if(c == null){
-			throw new IntegrationException("Não foi possível localizar o contato");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_NOT_FOUND));
 		}
 		
 		if(buscar(contato) != null){
 			this.contatoDao.remover(contato);
 		} else {
-			throw new IntegrationException("Não foi possível localizar o contato");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_NOT_FOUND));
 		}
 		
 		return c;
@@ -78,7 +79,7 @@ public class ContatoFacadeImpl implements ContatoFacade {
 		
 		//Valida se é um contato válido
 		if(c == null){
-			throw new IntegrationException("Não foi possível localizar o contato");
+			throw new IntegrationException(LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_CONTACT_NOT_FOUND));
 		}
 		
 		//#if ${Grupo} == "T"

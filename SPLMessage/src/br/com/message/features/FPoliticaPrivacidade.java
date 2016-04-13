@@ -18,6 +18,7 @@ import br.com.message.facade.AjudaFacade;
 import br.com.message.facade.AjudaFacadeImpl;
 import br.com.message.model.PoliticaPrivacidade;
 import br.com.message.util.Constantes;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -43,7 +44,7 @@ public class FPoliticaPrivacidade extends JFrame {
 		tPolitica = new JTextArea(this.politica.getDescricao(), 20, 20);
 		tPolitica.setEditable(false);
 		tPolitica.setLineWrap(true);
-		btnOk = new JButton("OK");
+		btnOk = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_OK));
 		btnOk.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 				dispose();

@@ -18,6 +18,7 @@ import br.com.message.facade.AjudaFacade;
 import br.com.message.facade.AjudaFacadeImpl;
 import br.com.message.model.Sobre;
 import br.com.message.util.Constantes;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -44,7 +45,7 @@ public class FSobre extends JFrame {
 		tSobre = new JTextArea(this.sobre.getDescricao(), 20, 20);
 		tSobre.setEditable(false);
 		tSobre.setLineWrap(true);
-		btnOk = new JButton("OK");
+		btnOk = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_OK));
 		btnOk.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 				dispose();

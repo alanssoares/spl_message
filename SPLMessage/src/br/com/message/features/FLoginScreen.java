@@ -13,6 +13,7 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -21,11 +22,13 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 
+import br.com.message.enums.EnumLanguage;
 import br.com.message.facade.UsuarioFacade;
 import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -40,6 +43,7 @@ public class FLoginScreen extends JFrame {
 	
 	private UsuarioFacade usuarioFacade = new UsuarioFacadeImpl();
 	
+	private JComboBox<EnumLanguage> cLanguage;
 	private JTextField tfEmail;
 	private JPasswordField pfPassword;
 	private JLabel lbEmail;
@@ -51,13 +55,27 @@ public class FLoginScreen extends JFrame {
 	public FLoginScreen() {
 		super(Constantes.APPLICATION_NAME);
 		
+		JPanel panelHeader = new JPanel();
 		JPanel panel = new JPanel(new GridBagLayout());
 		JPanel borderPanel = new JPanel();
 		GridBagConstraints cs = new GridBagConstraints();
 		
+		cLanguage = new JComboBox<EnumLanguage>();
+		for(EnumLanguage item : EnumLanguage.values()){
+			cLanguage.addItem(item);
+		}
+		cLanguage.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				LanguageUtil.setLanguage((EnumLanguage)cLanguage.getSelectedItem());
+				updateLanguage();
+			}
+		});
+		panelHeader.add(cLanguage, cs);
+		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		
-		lbEmail = new JLabel("Email: ");
+		lbEmail = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
 		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -69,7 +87,7 @@ public class FLoginScreen extends JFrame {
 		cs.gridwidth = 2;
 		panel.add(tfEmail, cs);
 		
-		lbPassword = new JLabel("Password: ");
+		lbPassword = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_PASSWORD));
 		cs.gridx = 0;
 		cs.gridy = 1;
 		cs.gridwidth = 1;
@@ -83,7 +101,7 @@ public class FLoginScreen extends JFrame {
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
 		
-	    btnLogin = new JButton("Entrar");
+	    btnLogin = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SIGN_IN));
 	    btnLogin.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
@@ -114,7 +132,7 @@ public class FLoginScreen extends JFrame {
 	    });
 	    borderPanel.add(btnLogin);
 	    
-		btnNovo = new JButton("Novo Cadastro");
+		btnNovo = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_NEW_REGISTER));
 		btnNovo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -125,7 +143,7 @@ public class FLoginScreen extends JFrame {
 		});
 		borderPanel.add(btnNovo);
 		
-		btnRecuperarSenha = new JButton("Recuperar Senha");
+		btnRecuperarSenha = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_RECOVERY_PASSWORD));
 		btnRecuperarSenha.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -136,6 +154,7 @@ public class FLoginScreen extends JFrame {
 		});
 		borderPanel.add(btnRecuperarSenha);
 	    
+		getContentPane().add(panelHeader, BorderLayout.PAGE_START);
 	    getContentPane().add(panel, BorderLayout.CENTER);
 	    getContentPane().add(borderPanel, BorderLayout.PAGE_END);
 	    
@@ -143,6 +162,14 @@ public class FLoginScreen extends JFrame {
 		setVisible(true);
 	}
 	
+	public void updateLanguage() {
+		lbEmail.setText(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
+		lbPassword.setText(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_PASSWORD));
+		btnLogin.setText(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SIGN_IN));
+		btnNovo.setText(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_NEW_REGISTER));
+		btnRecuperarSenha.setText(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_RECOVERY_PASSWORD));
+	}
+
 	public String getEmail(){
 		return tfEmail.getText().trim();
 	}

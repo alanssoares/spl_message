@@ -12,7 +12,7 @@ import javax.swing.JOptionPane;
 import br.com.message.facade.GrupoFacade;
 import br.com.message.facade.GrupoFacadeImpl;
 import br.com.message.model.Grupo;
-import br.com.message.util.Constantes;
+import br.com.message.util.LanguageUtil;
 
 /**
  * Feature grupo
@@ -34,14 +34,20 @@ public class FGrupo {
 	 */
 	public void adicionarGrupo() {
 		Grupo novoGrupo = new Grupo();
-		Object res = JOptionPane.showInputDialog(this.parent, "Nome do Grupo", "Adicionar Grupo", JOptionPane.PLAIN_MESSAGE);
+		Object res = JOptionPane.showInputDialog(this.parent, 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_NAME_GROUP), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_ADD_GROUP), JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
 			novoGrupo.setDescricao(res.toString());
 			Grupo grupo = grupoFacade.inserir(novoGrupo);
 			if(grupo != null){
-				JOptionPane.showMessageDialog(this.parent, "Grupo cadastrado com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this.parent, 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_SUCCESS_ADD_GROUP), 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 			} else {
-				JOptionPane.showMessageDialog(this.parent, "Este grupo já está cadastrado", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this.parent, 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_GROUP_ALRADY_REGISTRED), 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 	}
@@ -54,13 +60,17 @@ public class FGrupo {
 	public void removerGrupo() {
 		GrupoFacadeImpl grupoFacade = new GrupoFacadeImpl();
 		List<Grupo> grupos = grupoFacade.listar();
-		Object res = JOptionPane.showInputDialog(this.parent, "Escolha o Grupo", "Remover Grupo", 
+		Object res = JOptionPane.showInputDialog(this.parent, 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_CHOOSE_GROUP), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_REMOVE_GROUP), 
 				JOptionPane.PLAIN_MESSAGE, null, grupos.toArray(), null);
 		if(res != null){
 			for(int i = 0; i < grupos.size(); i++){
 				if(grupos.get(i).getDescricao().equals(res.toString())){
 					grupoFacade.remover(grupos.get(i));
-					JOptionPane.showMessageDialog(this.parent, "Grupo removido com sucesso", Constantes.MENSAGEM_DEFAULT, JOptionPane.PLAIN_MESSAGE);
+					JOptionPane.showMessageDialog(this.parent, 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_SUCCESS_REMOVE_GROUP), 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					return;
 				}
 			}

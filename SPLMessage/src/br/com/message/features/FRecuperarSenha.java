@@ -24,6 +24,7 @@ import br.com.message.facade.UsuarioFacadeImpl;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.Email;
+import br.com.message.util.LanguageUtil;
 import br.com.message.util.SendEmail;
 
 /**
@@ -55,7 +56,7 @@ public class FRecuperarSenha extends JFrame {
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		
-		lbEmail = new JLabel("Email: ");
+		lbEmail = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
 		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -69,7 +70,7 @@ public class FRecuperarSenha extends JFrame {
 		
 		panel.setBorder(new LineBorder(Color.GRAY));
 		
-	    btnEnviar = new JButton("Enviar Email");
+	    btnEnviar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SEND));
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		
@@ -78,17 +79,17 @@ public class FRecuperarSenha extends JFrame {
 	    		usuario = usuarioFacade.findByEmail(usuario.getEmail());
 	    		
 	    		if(usuario == null){
-	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Email não cadastrado!");
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_EMAIL_NOT_REG));
 	    		} else {
 	    			SendEmail sendEmail = new SendEmail();
 	    			Email email = new Email();
 	    			email.setTo(usuario.getEmail());
-	    			email.setSubject("Recuperação de Senha");
+	    			email.setSubject(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_RECOVERY_PASSWORD));
 	    			email.setText("Sua senha é : " + usuario.getSenha());
 	    			if(sendEmail.send(email)){
-	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, "Senha enviada com sucesso");
+	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_EMAIL_SEND_SUCCESS));
 	    			} else {
-	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, "Ocorreu um erro ao enviar a senha");
+	    				JOptionPane.showMessageDialog(FRecuperarSenha.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_EMAIL_SEND_ERROR));
 	    			}
 	    		}
 	    		
@@ -99,7 +100,7 @@ public class FRecuperarSenha extends JFrame {
 	    borderPanel.add(btnEnviar);
 	    
 	    //#if ${VisualizarSenhaTela} == "T"
-	    btnVisualizarTela = new JButton("Visualizar na Tela");
+	    btnVisualizarTela = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_VISUALIZE_SCREEN));
 	    btnVisualizarTela.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -107,16 +108,16 @@ public class FRecuperarSenha extends JFrame {
 	    		usuario.setEmail(getEmail());
 	    		usuario = usuarioFacade.findByEmail(usuario.getEmail());
 	    		if(usuario == null){
-	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Email não cadastrado!");
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_EMAIL_NOT_REG));
 	    		} else {
-	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, "Sua senha é : " + usuario.getSenha());
+	    			JOptionPane.showMessageDialog(FRecuperarSenha.this, LanguageUtil.getInstance().getMessage(LanguageUtil.LB_YOUR_PASSOWORD_IS) + usuario.getSenha());
 	    		}
 			}
 		});
 	    borderPanel.add(btnVisualizarTela);
 	    //#endif
 	    
-	    btnCancelar = new JButton("Cancelar");
+	    btnCancelar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_CANCEL));
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		getParent().setVisible(true);

@@ -33,6 +33,7 @@ import br.com.message.model.Contato;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -53,13 +54,17 @@ public class FContato {
 	 */
 	public Usuario removerContato() {
 		Usuario c = null;
-		Object res = JOptionPane.showInputDialog(this.parent, "Email do Contato", "Remover Contato", JOptionPane.PLAIN_MESSAGE);
+		Object res = JOptionPane.showInputDialog(this.parent, 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_EMAIL_CONTACT), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_REMOVE_CONTACT), JOptionPane.PLAIN_MESSAGE);
 		if(res != null){
 			Contato contato = new Contato();
 			contato.setEmailContato(res.toString());
 			try {
 				c = this.contatoFacade.remover(contato);
-				JOptionPane.showMessageDialog(this.parent, "Contato removido com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(this.parent, 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_REMOVE_CONTACT_SUCCESS),
+						LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 			} catch (Exception e) {
 				JOptionPane.showMessageDialog(this.parent, e.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
 			}
@@ -92,7 +97,7 @@ public class FContato {
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		
-		lbEmail = new JLabel("Email: ");
+		lbEmail = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
 		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -107,7 +112,7 @@ public class FContato {
 		if(Constantes.FEATURE_ADICIONAR_CONTATO.equals(tipoOperacao)){
 			
 			//#if ${Grupo} == "T" and ${AdicionarGrupo} == "T"
-			lbGrupo = new JLabel("Grupo: ");
+			lbGrupo = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_GROUP));
 			cs.gridx = 0;
 			cs.gridy = 1;
 			cs.gridwidth = 1;
@@ -125,14 +130,17 @@ public class FContato {
 			panel.add(cGrupo, cs);
 			//#endif
 			
-			btnAdicionar = new JButton("Adicionar");
+			btnAdicionar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_ADD));
 		    btnAdicionar.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		    		try {
 						contatoFacade.inserir(getNovoContato());
-						JOptionPane.showMessageDialog(frameNewContact, "Contato adicionado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(frameNewContact, 
+								LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_SUCCESS_ADD_CONTACT), 
+								LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), 
+								LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					}
 		    		frameNewContact.dispose();
 		    	}
@@ -145,7 +153,7 @@ public class FContato {
 		if(Constantes.FEATURE_ALTERAR_CONTATO.equals(tipoOperacao)){
 			
 			//#if ${Grupo} == "T" and ${AlterarGrupo} == "T"		
-			lbGrupo = new JLabel("Grupo: ");
+			lbGrupo = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_GROUP));
 			cs.gridx = 0;
 			cs.gridy = 1;
 			cs.gridwidth = 1;
@@ -163,14 +171,17 @@ public class FContato {
 			panel.add(cGrupo, cs);
 			//#endif
 			
-			btnAlterar = new JButton("Alterar");
+			btnAlterar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_ALTER));
 		    btnAlterar.addActionListener(new ActionListener() {
 		    	public void actionPerformed(ActionEvent e) {
 		    		try {
 						contatoFacade.update(getNovoContato());
-						JOptionPane.showMessageDialog(frameNewContact, "Contato alterado com sucesso", "Mensagem", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(frameNewContact, 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_SUCCESS_ALTER_CONTACT), 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					} catch (Exception ex) {
-						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), "Mensagem", JOptionPane.PLAIN_MESSAGE);
+						JOptionPane.showMessageDialog(frameNewContact, ex.getMessage(), 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					}
 		    		frameNewContact.dispose();
 		    	}
@@ -180,7 +191,7 @@ public class FContato {
 		}
 		//#endif
 		
-	    btnCancelar = new JButton("Cancelar");
+	    btnCancelar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_CANCEL));
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		frameNewContact.dispose();

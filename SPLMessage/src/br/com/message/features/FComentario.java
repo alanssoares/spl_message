@@ -29,6 +29,7 @@ import br.com.message.facade.AjudaFacade;
 import br.com.message.facade.AjudaFacadeImpl;
 import br.com.message.model.Comentario;
 import br.com.message.util.Constantes;
+import br.com.message.util.LanguageUtil;
 
 /**
  * Classe criada para inclusão de comentários
@@ -62,7 +63,7 @@ public class FComentario {
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		
-		lbAssunto = new JLabel("Assunto: ");
+		lbAssunto = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_SUBJECT));
 		cs.gridx = 0;
 		cs.gridy = 0;
 		cs.gridwidth = 1;
@@ -74,7 +75,7 @@ public class FComentario {
 		cs.gridwidth = 2;
 		panel.add(tfAssunto, cs);
 		
-		lbTipoComentario = new JLabel("Tipo: ");
+		lbTipoComentario = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_TYPE));
 		cs.gridx = 0;
 		cs.gridy = 1;
 		cs.gridwidth = 1;
@@ -89,7 +90,7 @@ public class FComentario {
 		cs.gridwidth = 2;
 		panel.add(cTipoComentario, cs);
 		
-		lbMensagem = new JLabel("Mensagem: ");
+		lbMensagem = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_MESSAGE));
 		cs.gridx = 0;
 		cs.gridy = 2;
 		cs.gridwidth = 2;
@@ -101,15 +102,15 @@ public class FComentario {
 		cs.gridwidth = 2;
 		panel.add(tfMensagem, cs);
 		
-	    btnEnviar = new JButton("Enviar");
+	    btnEnviar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SEND));
 	    btnEnviar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		if(isFieldsValid()){
 		    		Comentario comentario = getComentario();
 					ajudaFacade.inserirComentario(comentario);
 					JOptionPane.showMessageDialog(frame, 
-							"Comentário enviado com sucesso", 
-							"Mensagem Confirmação", JOptionPane.PLAIN_MESSAGE);
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_COMMENT_SEND_SUCCESS), 
+							LanguageUtil.getInstance().getMessage(LanguageUtil.MSG_MSG), JOptionPane.PLAIN_MESSAGE);
 					clearFields();
 	    		} else {
 					JOptionPane.showMessageDialog(frame, Constantes.MSG_PREENCHIMENTO_CAMPOS, 
@@ -118,7 +119,7 @@ public class FComentario {
 	    	}
 	    });
 	    
-	    btnCancelar = new JButton("Cancelar");
+	    btnCancelar = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_CANCEL));
 	    btnCancelar.addActionListener(new ActionListener() {
 	    	public void actionPerformed(ActionEvent e) {
 	    		getParentFrame().setVisible(true);
@@ -142,7 +143,9 @@ public class FComentario {
 	private JScrollPane jScrollPaneComments;
 	private JTable tableComments;
 	public void listaComentarios() {
-		Object columnNames[] = {"Assunto", "Tipo", "Mensagem"};
+		Object columnNames[] = {LanguageUtil.getInstance().getMessage(LanguageUtil.LB_SUBJECT), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_TYPE), 
+				LanguageUtil.getInstance().getMessage(LanguageUtil.LB_MESSAGE)};
 		List<Comentario> list = ajudaFacade.listarComentarios();
 		Object rowData[][] = new Object[list.size()][3];
 		for (int i = 0; i < list.size(); i++) {

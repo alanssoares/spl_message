@@ -40,6 +40,7 @@ import br.com.message.model.Contato;
 import br.com.message.model.Usuario;
 import br.com.message.util.Constantes;
 import br.com.message.util.DataStore;
+import br.com.message.util.LanguageUtil;
 
 /**
  * @author alsoares
@@ -134,7 +135,7 @@ public class FMenuPrincipal extends JDialog {
 		buscaPanel = new JPanel();
 		buscaPanel.setBounds(0, 0, 200, 100);
 		
-		lbEmailContato = new JLabel("Email");
+		lbEmailContato = new JLabel(LanguageUtil.getInstance().getMessage(LanguageUtil.LB_EMAIL));
 		lbEmailContato.setBounds(0, 20, 80, 20);
 		buscaPanel.add(lbEmailContato);
 		
@@ -142,7 +143,7 @@ public class FMenuPrincipal extends JDialog {
 		tfEmailContato.setBounds(85, 20, 100, 20);
 		buscaPanel.add(tfEmailContato);
 		
-		btnBuscarContato = new JButton("Buscar");
+		btnBuscarContato = new JButton(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SEARCH));
 		btnBuscarContato.setBounds(190, 20, 80, 20);
 		btnBuscarContato.addActionListener(new ActionListener() {
 			@Override
@@ -185,9 +186,9 @@ public class FMenuPrincipal extends JDialog {
 	}
 
 	private void createMenuInicio() {
-		jMenuInicio = new JMenu("Inicio");
+		jMenuInicio = new JMenu(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_BEGIN_));
 
-		btnSair = new JMenuItem("Sair");
+		btnSair = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_OUT));
 		btnSair.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -203,10 +204,10 @@ public class FMenuPrincipal extends JDialog {
 
 	//#if ${Ajuda} == "T"
 	private void createMenuAjuda() {
-		jMenuAjuda = new JMenu("Ajuda");
+		jMenuAjuda = new JMenu(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_HELP));
 
 		//#if ${EnviaComentario} == "T"
-		btnEnviarComentario = new JMenuItem("Enviar Comentário");
+		btnEnviarComentario = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_SEND_COMMENT));
 		btnEnviarComentario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -217,7 +218,7 @@ public class FMenuPrincipal extends JDialog {
 		//#endif
 		
 		//#if ${ListaComentario} == "T"
-		btnListaComentario = new JMenuItem("Lista Comentários");
+		btnListaComentario = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_LIST_COMMENTS));
 		btnListaComentario.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -229,7 +230,7 @@ public class FMenuPrincipal extends JDialog {
 		
 		
 		//#if ${PoliticaPrivacidade} == "T"
-		btnPoliticaPrivacidade = new JMenuItem("Política de Privacidade");
+		btnPoliticaPrivacidade = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_POLICY));
 		btnPoliticaPrivacidade.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -240,7 +241,7 @@ public class FMenuPrincipal extends JDialog {
 		//#endif
 
 		//#if ${Sobre} == "T"
-		btnSobre = new JMenuItem("Sobre");
+		btnSobre = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ABOUT));
 		btnSobre.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -255,9 +256,9 @@ public class FMenuPrincipal extends JDialog {
 	//#endif
 	
 	private void createMenuContato() {
-		jMenuContato = new JMenu("Contato");
+		jMenuContato = new JMenu(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_CONTACT));
 
-		btnAdicionarContato = new JMenuItem("Adicionar");
+		btnAdicionarContato = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ADD));
 		btnAdicionarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -268,7 +269,7 @@ public class FMenuPrincipal extends JDialog {
 		jMenuContato.add(btnAdicionarContato);
 
 		//#if ${AlterarContato} == "T"
-		btnAlterarContato = new JMenuItem("Alterar");
+		btnAlterarContato = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ALTER));
 		btnAlterarContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -279,7 +280,7 @@ public class FMenuPrincipal extends JDialog {
 		jMenuContato.add(btnAlterarContato);
 		//#endif
 		
-		btnRemoverContato = new JMenuItem("Remover");
+		btnRemoverContato = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_REMOVE));
 		btnRemoverContato.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -293,11 +294,13 @@ public class FMenuPrincipal extends JDialog {
 		jMenuContato.add(btnRemoverContato);
 		
 		//#if ${OrdenarContatos} == "T"
-		btnOrdenarContatos = new JMenuItem("Ordenar");
+		btnOrdenarContatos = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.BTN_SORT));
 		btnOrdenarContatos.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, "Tipo Ordenação", "Tipo", 
+				Object res = JOptionPane.showInputDialog(FMenuPrincipal.this, 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ORDENATION_TYPE), 
+						LanguageUtil.getInstance().getMessage(LanguageUtil.LB_TYPE), 
 						JOptionPane.PLAIN_MESSAGE, null, EnumOrdenacao.getList().toArray(), null);
 				if(res != null){
 					sortContacts(res.toString());
@@ -312,9 +315,9 @@ public class FMenuPrincipal extends JDialog {
 
 	//#if ${Grupo} == "T"
 	private void createMenuGrupo() {
-		jMenuGrupo = new JMenu("Grupo");
+		jMenuGrupo = new JMenu(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_GROUP));
 		
-		btnAdicionarGrupo = new JMenuItem("Adicionar");
+		btnAdicionarGrupo = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ADD));
 		btnAdicionarGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -323,7 +326,7 @@ public class FMenuPrincipal extends JDialog {
 		});
 		jMenuGrupo.add(btnAdicionarGrupo);
 		
-		btnRemoverGrupo = new JMenuItem("Remover");
+		btnRemoverGrupo = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_REMOVE));
 		btnRemoverGrupo.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -338,9 +341,9 @@ public class FMenuPrincipal extends JDialog {
 
 	//#if ${Status} == "T"
 	private void createMenuStatus() {
-		jMenuStatus = new JMenu("Status");
+		jMenuStatus = new JMenu(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_STATUS));
 
-		btnVisualizarStatus = new JMenuItem("Visualizar");
+		btnVisualizarStatus = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_VISUALIZE));
 		btnVisualizarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -349,7 +352,7 @@ public class FMenuPrincipal extends JDialog {
 		});
 		jMenuStatus.add(btnVisualizarStatus);
 		
-		btnAlterarStatus = new JMenuItem("Alterar");
+		btnAlterarStatus = new JMenuItem(LanguageUtil.getInstance().getMessage(LanguageUtil.TIT_ALTER));
 		btnAlterarStatus.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
