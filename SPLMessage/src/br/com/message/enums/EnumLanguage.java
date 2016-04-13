@@ -34,4 +34,9 @@ public enum EnumLanguage {
 	public String getDescricao() {
 		return descricao;
 	}
+	
+	@Override
+	public String toString() {
+		return descricao;
+	}
 }
