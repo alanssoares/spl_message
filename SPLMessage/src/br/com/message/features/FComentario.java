@@ -74,7 +74,7 @@ public class FComentario {
 		cs.gridwidth = 2;
 		panel.add(tfAssunto, cs);
 		
-		lbTipoComentario = new JLabel("Tipo Comentário: ");
+		lbTipoComentario = new JLabel("Tipo: ");
 		cs.gridx = 0;
 		cs.gridy = 1;
 		cs.gridwidth = 1;
