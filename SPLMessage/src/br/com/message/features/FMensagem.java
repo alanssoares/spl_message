@@ -9,6 +9,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -102,6 +104,7 @@ public class FMensagem extends JFrame {
 	    		try {
 					mensagemFacade.inserir(getMessage());
 					addMessageToHistory(tfMensagem.getText(), DataStore.getInstance().getUsuario().getNome());
+					clearMessage();
 				} catch (Exception ex) {
 					ex.printStackTrace();
 				}
@@ -173,11 +176,25 @@ public class FMensagem extends JFrame {
 	    
 	    //Carrega as mensagens anteriores
 	    loadChatHistory();
-	    
+	    createThread();
 		setSize(500, 500);
 		setVisible(true);
 	}
 	
+	/**
+	 * Create thread to load chat history
+	 */
+	private void createThread() {
+		Timer timer = new Timer();
+		//Atualiza a cada 5 segundos
+		timer.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				loadChatHistory();
+			}
+		}, 0, 1000 * 5);
+	}
+
 	/**
 	 * Return the message that will be sent
 	 * @return String
@@ -196,6 +213,12 @@ public class FMensagem extends JFrame {
 		String newMessage = name + ": ";
 		newMessage += message + "\n";
 		chatHistory.setText(chatHistory.getText() + newMessage);
+	}
+	
+	/**
+	 * Clear the field message
+	 */
+	private void clearMessage(){
 		tfMensagem.setText("");
 	}
 	
@@ -203,6 +226,7 @@ public class FMensagem extends JFrame {
 	 * Load previous messages
 	 */
 	public void loadChatHistory(){
+		chatHistory.setText("");
 		final Usuario user = DataStore.getInstance().getUsuario();
 		Contato c = new Contato(user.getEmail(), contato.getEmail());
 		List<Mensagem> allMessages = new ArrayList<Mensagem>(); 
