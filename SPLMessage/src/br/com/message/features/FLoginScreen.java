@@ -60,6 +60,7 @@ public class FLoginScreen extends JFrame {
 		JPanel borderPanel = new JPanel();
 		GridBagConstraints cs = new GridBagConstraints();
 		
+		//#if ${Linguagem} == "T"
 		cLanguage = new JComboBox<EnumLanguage>();
 		for(EnumLanguage item : EnumLanguage.values()){
 			cLanguage.addItem(item);
@@ -72,6 +73,7 @@ public class FLoginScreen extends JFrame {
 			}
 		});
 		panelHeader.add(cLanguage, cs);
+		//#endif
 		
 		cs.fill = GridBagConstraints.HORIZONTAL;
 		

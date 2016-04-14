@@ -69,6 +69,7 @@
 			<property name="EnviaComentario" value="T" />
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
+			<property name="Linguagem" value="T" />
 			<property name="ListaComentario" value="T" />
 			<property name="OrdenarContatos" value="T"/>
 			<property name="OrdenarGrupo" value="T"/>

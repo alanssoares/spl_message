@@ -2,7 +2,7 @@
 <project default="run">
 	<taskdef classpath="libs/javapp.jar" resource="javapp-defs.xml" />
 	
-	<property name="product" value="SPLMessageProductC"></property>
+	<property name="product" value="SPLMessageProductF"></property>
 	<property name="dirProduct" value="products/${product}"></property>
 	<property name="build" value="${dirProduct}/build" />
 	<property name="src" value="${dirProduct}/src" />
@@ -69,15 +69,15 @@
 			<property name="EnviaComentario" value="T" />
 			<property name="Grupo" value="T" />
 			<property name="LimparHistorico" value="T" />
-			<property name="Linguagem" value="T" />
+			<property name="Linguagem" value="F" />
 			<property name="ListaComentario" value="T" />
-			<property name="OrdenarContatos" value="T"/>
+			<property name="OrdenarContatos" value="F"/>
 			<property name="OrdenarGrupo" value="T"/>
 			<property name="OrdenarStatus" value="T"/>
 			<property name="PesquisaContato" value="T"/>
 			<property name="PoliticaPrivacidade" value="T" />
 			<property name="Sobre" value="T" />
-			<property name="Status" value="F" />
+			<property name="Status" value="T" />
 			<property name="VisualizarSenhaTela" value="T" />
 		</javapp>
 	</target>

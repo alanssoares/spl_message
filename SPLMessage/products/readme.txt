@@ -17,3 +17,6 @@ Não contém a feature "Grupo"
 
 ***** SPLMessageProductE ******
 Não contém as features "Grupo", "Status" e "Ajuda" e "VisualizarSenhaTela"
+
+***** SPLMessageProductF ******
+Não contém as features "Ajuda", "Linguagem" e "OrdenarContatos"

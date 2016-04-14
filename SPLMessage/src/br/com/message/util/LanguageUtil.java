@@ -49,7 +49,7 @@ public class LanguageUtil {
 	public static final String TIT_CHOOSE_GROUP = "tit.choose.group";
 	public static final String TIT_CHOOSE_EMOCTION = "tit.choose.emoction";
 	public static final String TIT_CHOOSE_STATUS = "tit.choose.status";
-	public static final String TIT_GROUP = "tit.group=Grupo";
+	public static final String TIT_GROUP = "tit.group";
 	public static final String TIT_ADD_CONTACT = "tit.add.contact";
 	public static final String TIT_ALTER_CONTACT = "tit.alter.contact";
 	public static final String TIT_STATUS = "tit.status";
@@ -114,7 +114,7 @@ public class LanguageUtil {
 	public static final String MSG_EMAIL_SEND_ERROR = "msg.email.send.error";
 	public static final String MSG_STATUS_ALTER_SUCCESS = "msg.status.alter.success";
 	public static final String MSG_REMOVE_CONTACT_SUCCESS = "msg.remove.contact.success";
-	public static final String MSG_GROUP_ALRADY_REGISTRED = "msg.group.alrady_registred";
+	public static final String MSG_GROUP_ALRADY_REGISTRED = "msg.group.alrady.registred";
 	public static final String FILL_FIELDS_CORRECTLY = "fill.fields.correctly";
 	
 	public static synchronized LanguageUtil getInstance(){
