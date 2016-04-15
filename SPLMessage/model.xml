@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+	<featureModel chosenLayoutAlgorithm="1">
+		<struct>
+			<and abstract="true" mandatory="true" name="SPLMessageFM">
+				<and mandatory="true" name="Login">
+					<feature mandatory="true" name="CadastrarUsuario"/>
+					<and mandatory="true" name="RecuperarSenha">
+						<feature mandatory="true" name="EnviarPorEmail"/>
+						<feature name="MostrarNaTela"/>
+					</and>
+					<feature mandatory="true" name="Logar"/>
+				</and>
+				<and name="Ajuda">
+					<feature name="EnviaComentario"/>
+					<feature name="ListaComentario"/>
+					<feature name="PoliticaPrivacidade"/>
+					<feature name="Sobre"/>
+				</and>
+				<and mandatory="true" name="Contato">
+					<and mandatory="true" name="AdicionarContato">
+						<feature name="AdicionarGrupo"/>
+					</and>
+					<and name="AlterarContato">
+						<feature mandatory="true" name="AlterarGrupo"/>
+					</and>
+					<feature mandatory="true" name="RemoverContato"/>
+					<feature name="BuscarContato"/>
+					<and mandatory="true" name="ListarContatos">
+						<and name="Ordenar">
+							<feature name="OrdenaPorGrupo"/>
+							<feature name="OrdenaPorStatus"/>
+							<feature mandatory="true" name="OrdenaPorEmail"/>
+						</and>
+					</and>
+				</and>
+				<and name="Grupo">
+					<feature mandatory="true" name="CadastrarGrupo"/>
+					<feature mandatory="true" name="RemoverGrupo"/>
+				</and>
+				<and mandatory="true" name="Mensagem">
+					<and mandatory="true" name="EnviarMensagem">
+						<feature name="InserirEmoction"/>
+						<feature name="AnexarArquivo"/>
+					</and>
+					<feature name="LimparHistorico"/>
+				</and>
+				<and name="Status">
+					<feature mandatory="true" name="VisualizarStatus"/>
+					<feature mandatory="true" name="AlterarStatus"/>
+				</and>
+				<alt name="Linguagem">
+					<feature mandatory="true" name="Portugues"/>
+					<feature mandatory="true" name="Ingles"/>
+				</alt>
+			</and>
+		</struct>
+		<constraints/>
+		<calculations Auto="true" Constraints="true" Features="true" Redundant="true" Tautology="true"/>
+		<comments/>
+		<featureOrder userDefined="false"/>
+	</featureModel>
