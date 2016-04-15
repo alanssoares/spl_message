@@ -24,7 +24,7 @@ import javax.mail.internet.MimeMessage;
 public class SendEmail {
 	
 	private static final String CONFIG_MAIL = "resources/mail.properties";
-	private static final String USERNAME = "mail.user";
+	private static final String USERNAME = "mail.smtp.user";
 	private static final String PASSWORD = "mail.password";
 	
 	// Get system properties
@@ -49,6 +49,7 @@ public class SendEmail {
 
 	public boolean send(Email email) {
 		try {
+		    
 			// Create a default MimeMessage object.
 			MimeMessage message = new MimeMessage(session);
 			// Set From: header field of the header.
